@@ -1,0 +1,210 @@
+.container {
+    position: relative;
+    width: 850px; /* Increased width to accommodate the image */
+    height: 650px; /* Fixed height */
+    margin: 100px auto;
+    display: flex;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .form-container {
+    position: relative;
+    width: 50%; /* Form takes 50% of the width */
+    height: 100%;
+    transition: transform 0.6s ease-in-out;
+  }
+  
+  .form {
+    position: absolute;
+    width: 100%;
+    padding: 40px; /* Padding for better spacing */
+    box-sizing: border-box;
+  
+    background-color: white;
+    transition: transform 0.6s ease-in-out;
+  }
+  
+  .login-form {
+    left: 0;
+    
+  }
+
+  .login-form .forgot{
+    text-decoration: none;
+    color: #38AA95;
+    
+    display: flex;
+    align-items: flex-end;
+    justify-content: end;
+    
+
+  }
+  
+  .signup-form {
+    left: auto;
+    right: 0;
+    
+  }
+  
+  .form-container.signup .form {
+    transform: translateX(-115%);
+  }
+  
+  h2 {
+    text-align: center;
+    
+  }
+
+  .form p{
+    text-decoration: none;
+    color: black;
+  }
+  
+  .input-group {
+    margin-bottom: 15px;
+  }
+  
+  .input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .input-group input,
+  .input-group select {
+    width: 100%;
+    padding: 8px 0;
+    font-size: 16px;
+    border: none;
+    border-bottom: 1px solid #000;
+    outline: none;
+    background: none;
+    appearance: none; /* Remove default dropdown arrow */
+  }
+  
+  .input-group input:focus,
+  .input-group select:focus {
+    border-bottom: 2px solid #000;
+  }
+  
+
+  button:hover {
+    background-color: #333;
+  }
+  
+  .toggle {
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
+  }
+  
+  .login-form .button1{
+    width: 30%;
+    padding: 10px;
+    background-color:#38AA95;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 10px;
+   
+    
+  }
+
+  .signup-form .button2{
+    width: 30%;
+    padding: 10px;
+    background-color:#38AA95;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 10px;
+    
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  .toggle {
+    text-align: center;
+    margin-top: 15px;
+    color: #007bff;
+    cursor: pointer;
+  }
+  
+  .toggle:hover {
+    text-decoration: underline;
+  }
+  
+  /* Image container */
+.image-container .img1 {
+    width: 100%; /* Takes the other 50% of the container */
+    height: 100%;
+    background-size: cover;
+    transform: translateX(-10px);
+  }
+
+  .image-container .img2 {
+    width: 100%; /* Takes the other 50% of the container */
+    height: 100%;
+    background-size: cover;
+    transform: translateX(410px);
+  }
+
+ 
+  
+  @media (max-width: 768px) {
+    .container {
+      width: 100%;
+      height: auto;
+      flex-direction: column;
+    }
+  
+    .form-container, .image-container {
+      width: 100%;
+    }
+  
+    .form {
+      width: 100%;
+    }
+  }
+  
+  .signup-form .name{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+
+    .signup-form .depart{
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+  input[type="text"],
+input[type="email"],
+input[type="password"] {
+  border: none;
+  border-bottom: 1px solid #000; /* Add a bottom border to create a line */
+  outline: none; /* Remove the default outline */
+  width: 100%; /* Make the input take the full width of the container */
+  padding: 8px 0; /* Add some padding for better spacing */
+  font-size: 16px; /* Adjust the font size as needed */
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+  border-bottom: 2px solid #000; /* Change the border thickness on focus */
+}
+
+.button-container {
+    display: flex;
+    justify-content: center; /* Center the button horizontally */
+    margin-top: 10px; /* Add some space above the button */
+  }
