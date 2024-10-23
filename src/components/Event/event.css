@@ -1,0 +1,33 @@
+.event-container {
+  width: 800px;
+  height: 20vh;
+  background-color: white;
+  margin-top: 150px;
+  margin-left: 400px;
+  position: absolute;
+  top: 0;
+  display: flex;
+  align-items: center;
+  background-color: #f0f0f0;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.event-image {
+  border-radius: 8px;
+  width: 180px;
+  height: 90px;
+  border: 2px solid #000000;
+  margin-right: 15px;
+  margin-left: 15px;
+}
+
+.info {
+  flex-direction: column;
+  margin-left: 15px;
+  padding-bottom: 5px;
+}
+
+.info p {
+  color: grey;
+}
