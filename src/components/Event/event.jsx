@@ -2,24 +2,50 @@ import React from "react";
 import "./event.css";
 
 const Events = (props) => {
-  const { type, info } = props.children;
-  const { title, date, venue } = info;
+  console.log("Props received:", props);
 
-  let dummyData = { title: "Symphony of the stars", date: new Date("2022-01-12"), venue: "Somewhere" };
-  // if (type == "history") {
-  return (
-    <div className="event-container">
-      <div className="image">
-        <img className="event-image" src=""></img>
+  const { title, date, venue } = props.info;
+
+  if (props.type == "history") {
+    return (
+      <div className="event-container">
+        <div className="image">
+          <img className="event-image" src=""></img>
+        </div>
+        <div className="info">
+          <h3>{title}</h3>
+          <p>Date: {date.toISOString().split("T")[0]}</p>
+          <p>Venue: {venue} </p>
+        </div>
       </div>
-      <div className="info">
-        <h3>{dummyData.title}</h3>
-        <p>Date: {dummyData.date.toISOString().split("T")[0]}</p>
-        <p>Venue: {dummyData.venue} </p>
+    );
+  } else if (props.type == "event") {
+    return (
+      <div className="event-container">
+        <div className="image">
+          <img className="event-image" src=""></img>
+        </div>
+        <div className="info">
+          <h3>{title}</h3>
+          <p>Date: {date.toISOString().split("T")[0]}</p>
+          <p>Venue: {venue} </p>
+        </div>
       </div>
-    </div>
-  );
-  // }
+    );
+  } else if (props.type == "ticket") {
+    return (
+      <div className="event-container">
+        <div className="image">
+          <img className="event-image" src=""></img>
+        </div>
+        <div className="info">
+          <h3>{title}</h3>
+          <p>Date: {date.toISOString().split("T")[0]}</p>
+          <p>Venue: {venue} </p>
+        </div>
+      </div>
+    );
+  }
 };
 
 export default Events;
