@@ -1,9 +1,14 @@
+body{
+  background-color: rgb(228, 222, 222);
+}
+
 .container {
   position: relative;
   width: 850px; /* Increased width to accommodate the image */
   height: 650px; /* Fixed height */
   margin: 100px auto;
   display: flex;
+  background-color:#f5f8f8 ;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   overflow: hidden;
@@ -22,7 +27,7 @@
   padding: 40px; /* Padding for better spacing */
   box-sizing: border-box;
 
-  background-color: white;
+  background-color:#f6fdfc;
   transition: transform 0.6s ease-in-out;
 }
 
