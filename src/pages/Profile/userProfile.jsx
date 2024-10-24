@@ -2,6 +2,7 @@ import "./userProfile.css";
 import React, { useState } from "react";
 import Events from "../../components/Event/event";
 import Navbar from "../../components/Navbar/Navbar";
+import Profile from "../../components/Profile/profile";
 
 const Sidebar = () => {
   const [currentComponent, setCurrentComponent] = useState(<>Profile</>);
@@ -30,12 +31,9 @@ const Sidebar = () => {
   return (
     <div className="profile-container">
       <div className="sidebar">
-        <div className="side-profile">
-          <img className="profile-pic" alt="Profile" />
-          <h4>Nirjara Thapa</h4>
-        </div>
+        <div className="side-profile"></div>
         <div className="sidebar-menu">
-          <button onClick={() => handleButtonClick("Profile", <>Profile</>)}>
+          <button onClick={() => handleButtonClick("Profile", <Profile />)}>
             <i className="fas fa-user"></i> Profile
           </button>
           <button
@@ -69,6 +67,7 @@ const Sidebar = () => {
             <i className="fas fa-history"></i> History
           </button>
         </div>
+        <hr className="sidebar-divider" />
         <div className="sidebar-footer">
           <button onClick={() => handleButtonClick(null)}>
             <i className="fas fa-sign-out-alt"></i> Logout
