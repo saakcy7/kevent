@@ -9,13 +9,13 @@ const Sidebar = () => {
   const [currentHeading, setcurrentHeading] = useState("Profile");
 
   const eventData = [
-    { title: "helloouurrrrr", date: new Date("2024-11-10"), venue: "Kathmandu" },
+    { title: "helloouurrrrr", date: new Date("2024-12-15T14:30:00"), venue: "Kathmandu" },
     { title: "okayyyyyy", date: new Date("2024-12-15"), venue: "Pokhara" },
   ];
 
   const ticketData = [
-    { title: "happy Conference", date: new Date("2024-11-10"), venue: "Kathmandu" },
-    { title: "sad Festival", date: new Date("2024-12-15"), venue: "Pokhara" },
+    { title: "happy Conference", date: new Date("2024-10-27T14:30:00"), venue: "Kathmandu" },
+    { title: "sad Festival", date: new Date("2024-11-25T21:55:00.000"), venue: "Pokhara" },
   ];
 
   const historyData = [
@@ -27,16 +27,15 @@ const Sidebar = () => {
     setCurrentComponent(component);
     setcurrentHeading(heading);
   };
-
   return (
     <div className="profile-container">
       <div className="sidebar">
-        <div className="side-profile"></div>
         <div className="sidebar-menu">
-          <button onClick={() => handleButtonClick("Profile", <Profile />)}>
+          <button className="sidebar-items" onClick={() => handleButtonClick(" User Profile", <Profile />)}>
             <i className="fas fa-user"></i> Profile
           </button>
           <button
+            className="sidebar-items"
             onClick={() =>
               handleButtonClick(
                 "My Events",
@@ -47,6 +46,7 @@ const Sidebar = () => {
             <i className="fas fa-calendar-alt"></i> Events
           </button>
           <button
+            className="sidebar-items"
             onClick={() =>
               handleButtonClick(
                 "My Tickets",
@@ -57,6 +57,7 @@ const Sidebar = () => {
             <i className="fas fa-ticket-alt"></i> Tickets
           </button>
           <button
+            className="sidebar-items"
             onClick={() =>
               handleButtonClick(
                 "History",
@@ -66,12 +67,13 @@ const Sidebar = () => {
           >
             <i className="fas fa-history"></i> History
           </button>
-        </div>
-        <hr className="sidebar-divider" />
-        <div className="sidebar-footer">
-          <button onClick={() => handleButtonClick(null)}>
-            <i className="fas fa-sign-out-alt"></i> Logout
-          </button>
+
+          <hr className="sidebar-divider" />
+          <div className="sidebar-footer">
+            <button className="sidebar-items logout" onClick={() => handleButtonClick(null)}>
+              <i className="fas fa-sign-out-alt"></i> Logout
+            </button>
+          </div>
         </div>
       </div>
       <div className="component-container">
