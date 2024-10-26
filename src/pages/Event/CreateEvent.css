@@ -1,0 +1,182 @@
+/* CreateEventForm.css */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .event-form-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #e0f2f1;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+  }
+  
+  .form-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+    color: black;
+  }
+  
+  .form-header h2 {
+    font-size: 1.5em;
+    font-weight: 600;
+  }
+  
+  .add-image-btn {
+    font-size: 2em;
+    color: black;
+    border: none;
+    background: none;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: transform 0.3s;
+  }
+  
+  .add-image-btn:hover {
+    transform: scale(1.2);
+  }
+  
+  .event-form .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: black;
+  }
+  
+  .form-group input[type="text"],
+  .form-group input[type="number"],
+  .form-group input[type="date"],
+  .form-group input[type="time"],
+  .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #b2dfdb;
+    font-size: 1em;
+    color: black;
+  }
+  
+  .form-group textarea {
+    height: 80px;
+    resize: none;
+  }
+  
+  .event-details {
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #b2dfdb;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .event-details .form-field {
+    margin-bottom: 15px;
+  }
+  
+  .event-details .form-field label {
+    color: black;
+  }
+  
+  .event-details .time-input,
+  .event-details .registration {
+    display: flex;
+    align-items: center;
+  }
+  
+  .time-input label {
+    width: 50px;
+    color: #004d40;
+  }
+  
+  .registration .registration-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .registration-buttons label {
+    padding: 8px 16px;
+    background-color: #b2dfdb;
+    color: #004d40;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border: 1px solid #004d40;
+    text-align: center;
+  }
+  
+  .registration-buttons label:hover {
+    background-color: #80cbc4;
+  }
+  
+  input[type="radio"] {
+    display: none;
+    align-items: flex-start;
+  }
+
+  .form-field-yes{
+   
+  
+    display: flex;
+    gap: 30px;
+    margin-left: 20px;
+  }
+  
+  input[type="radio"]:checked + label {
+    background-color: #5EC6A8;
+    border: #80cbc4;
+    border-radius: 5px;
+    width: 30px;
+    color: black;
+
+  }
+  
+  .file-upload {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .upload-btn {
+    padding: 8px 16px;
+    background-color: #5EC6A8;
+    color: black;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .upload-btn:hover {
+    background-color: #4da890;
+  }
+  
+  .create-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: #5EC6A8;
+    color: white;
+    font-size: 1.1em;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .create-btn:hover {
+    background-color: #4da890;
+  }
+  

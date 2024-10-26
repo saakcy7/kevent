@@ -2,8 +2,13 @@ import React, { useState } from "react";
 import "./authForm.css";
 import image1 from "../../assets/image1.png";
 import image3 from "../../assets/image3.png";
-import axios from "axios";
+//import axios from "axios";
 import { useNavigate } from "react-router-dom";
+//import {toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Swal from "sweetalert2";
+
+//import {Link} from "react-router-dom";
 
 
 const AuthForm = () => {
@@ -18,7 +23,7 @@ const AuthForm = () => {
     department: "",
     semester: "",
   });
-  const [error, setError] = useState("");	
+  //const [error, setError] = useState("");	
   const navigate = useNavigate();
   const toggleForm = () => {
     setIsLogin(!isLogin);
@@ -30,44 +35,87 @@ const AuthForm = () => {
 
   const handleLoginSubmit = async(e) => {
     e.preventDefault();
-    try{
-      const url = "http://localhost:3000/users/login";
-      const {data: res} = await axios.post(url, {email: data.email, password: data.password})
-      localStorage.setItem("token", res.data);
-      window.location="/"
-    }
-    catch (err) {
-      if (err.response) {
-        console.error("Response data:", err.response.data); // Log response data for debugging
-        setError(`Login failed: ${err.response.data.message || 'Unknown error'}`);
-      } else if (err.request) {
-        setError("Login failed: No response from the server.");
-      } else {
-        setError(`Login failed: ${err.message}`);
-      }
-    }
+    try {
+      const response = await fetch("http://localhost:3000/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: data.email, password: data.password }),
+      });
 
-};
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        throw new Error(errorMessage || "Something went wrong");
+      }
+
+      const responseData = await response.json();
+      localStorage.setItem("token", responseData.token); // Set token in localStorage
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "Logged in successfully!",
+      });
+      navigate("/dashboard");
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: error.message || "An error occurred during login.",
+      });
+      console.error("Error logging in:", error);
+    }
+  };
 
 const handleSignupSubmit = async(e) => {
 e.preventDefault();
-try{
-  const url = "http://localhost:3000/users/register";
-  const {data: res} = await axios.post(url, data);
-  console.log('Form Submitted', res.data);
-  navigate("/");
+
+try {
+  if (data.password.length <= 8) {
+    throw new Error("Password must be more than 8 characters.");
+  }
+
+  const specialCharacterRegex = /[!@#$%^&*()_+\-={};':"|,.<>?]+/;
+  if (!specialCharacterRegex.test(data.password)) {
+    throw new Error("Password must contain at least one special character.");
+  }
+
+  const response = await fetch("http://localhost:3000/users/register", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    const errorMessage = await response.text();
+    throw new Error(errorMessage);
+  }
+  Swal.fire({
+    icon: "success",
+    title: "Success",
+    text: "User registered successfully! Please check your email for the verification code.",
+  });
+  navigate("/verification",{state: { email: data.email } });
+}catch(error)
+{
+  
+  Swal.fire({
+    icon: "error",
+    title: "Error",
+    text: error.message,
+  });
+
+  
 }
-catch(error){
-  if(error.response && error.response.status >= 400 && error.response.status <= 500){
-    setError(error.response.data.message);
-}
-}
-}
+};
 
   return (
     <div className="container">
-      {/* Image Section */}
-
+      {/* Image Section  <ToastContainer /> */}
+     
+    
       <div className="image-container">{isLogin ? <img className="img1" src={image1} alt="image1" /> : <img className="img2" src={image3} alt="image3"/>}</div>
       {/* Form Section */}
       <div className={`form-container ${isLogin ? "login" : "signup"}`}>
@@ -90,7 +138,7 @@ catch(error){
                   name="password" onChange={handleChange} value={data.password}required />
                 </div>
                 <div className="forgot">
-                  <a href="/" className="forgot">
+                  <a href="/forgotpassword" className="forgot">
                     Forgot Password?
                   </a>
                 </div>
@@ -124,7 +172,7 @@ catch(error){
                 </div>
                 <div className="input-group">
                   <label>Email</label>
-                  <input type="text" 
+                  <input type="email" 
                   name="email" 
                   placeholder="email" onChange={handleChange} value={data.email}  required />
                 </div>
@@ -168,10 +216,11 @@ catch(error){
                   placeholder="password"
                   name="password" onChange={handleChange} value={data.password}  required />
                 </div>
-                {error && <div className={StyleSheet.error_msg}>{error}</div>}
+                
                 <div className="button-container">
                   <button type="submit" className="button2">
                     Sign Up
+                  
                   </button>
                 </div>
                 <p onClick={toggleForm} className="toggle">

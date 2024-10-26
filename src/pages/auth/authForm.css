@@ -120,6 +120,10 @@ button:hover {
   margin-top: 10px;
   border-radius: 10px;
 }
+.signup-form .button2 .otp{
+  text-decoration: none;
+  color: white;
+}
 
 button:hover {
   background-color: #0056b3;

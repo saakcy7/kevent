@@ -1,0 +1,99 @@
+/* Ensure the container is centered within the viewport */
+.container1 {
+  display: flex;
+  margin-top: 80px;
+  margin-left: 22%;
+  justify-content: center;
+  align-items: center;
+  width: 60vw; /* Adjust width as needed */
+  height: 80vh; /* Adjust height as needed */
+  
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1); /* More elegant shadow */
+  background-color: #EDF3F5; /* Soft light grey background */
+}
+
+/* Left section styling */
+.left-section {
+  flex: 1;
+  background-color: #5EC6A8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.left-section img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Right section styling */
+.right-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Form container styling */
+.form-container1 {
+  width: 100%;
+  max-width: 400px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Form heading styling */
+.form-container1 h1 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+  text-align: center;
+}
+
+.form-container1 h2 {
+  margin-bottom: 20px;
+  font-size: 20px;
+  color: #333;
+  text-align: center;
+}
+
+/* Input field styling */
+.form-container1 input {
+  width: 100%;
+  padding: 10px 0;
+  margin-bottom: 20px;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  font-size: 16px;
+  outline: none;
+  transition: border-bottom 0.3s ease;
+}
+
+.form-container1 input:focus {
+  border-bottom: 2px solid #38aa95;
+}
+
+/* Button styling */
+.btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #38aa95;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #2e8b7a;
+}
