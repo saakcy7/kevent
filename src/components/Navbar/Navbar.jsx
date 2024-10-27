@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState();
-
+  const navigate = useNavigate();
   useEffect(() => {
     // Check login status from localStorage
     const token = localStorage.getItem('token');
@@ -23,6 +24,7 @@ const Navbar = () => {
       title: "Success",
       text: "Logged out successfully!",
     });
+    navigate("/")
   };
 
   return (

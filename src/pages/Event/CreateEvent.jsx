@@ -7,7 +7,7 @@ import './CreateEvent.css';
 
 const CreateEvent=()=> {
     const navigate= useNavigate();
-    const [data, setData] = useState({
+    const [eventdata, setEventData] = useState({
         Title:"",
         Description:"",
         contactNumber:"",
@@ -17,7 +17,7 @@ const CreateEvent=()=> {
         })
         const handleChange = (e) => {
             const { name, value } = e.target;
-            setData({ ...data, [name]: value });
+            setEventData({ ...eventdata, [name]: value });
           };
         
          
@@ -26,7 +26,7 @@ const CreateEvent=()=> {
     
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!data.Title || !data.Description || !data.contactNumber || !data.Venue || !data.date || !data.Price) {
+    if (!eventdata.Title || !eventdata.Description || !eventdata.contactNumber || !eventdata.Venue || !eventdata.date || !eventdata.Price) {
         Swal.fire("Error", "Please add all the fields.", "error");
         return;
       }
@@ -45,7 +45,7 @@ const CreateEvent=()=> {
                    "Content-Type": "application/json",
                    "Authorization": `Bearer ${token}`
                 },
-                body: JSON.stringify(data),
+                body: JSON.stringify(eventdata),
               });
               if (!response.ok) {
                 const errorMessage = await response.text();
@@ -79,28 +79,28 @@ const CreateEvent=()=> {
       <form className="event-form" onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Event Title</label>
-          <input type="text" name='Title' onChange={handleChange} placeholder="Enter event title" value={data.Title} />
+          <input type="text" name='Title' onChange={handleChange} placeholder="Enter event title" value={eventdata.Title} />
         </div>
 
         <div className="form-group">
           <label>Event Description</label>
-          <textarea placeholder="Enter event description" name='Description' onChange={handleChange} value={data.Description}></textarea>
+          <textarea placeholder="Enter event description" name='Description' onChange={handleChange} value={eventdata.Description}></textarea>
         </div>
 
         <div className="form-group event-details">
           <div className="form-field">
             <label>Contact Number</label>
-            <input type="text" placeholder="9862410306" name='contactNumber' onChange={handleChange} value={data.contactNumber}/>
+            <input type="text" placeholder="9862410306" name='contactNumber' onChange={handleChange} value={eventdata.contactNumber}/>
           </div>
 
           <div className="form-field">
             <label>Venue</label>
-            <input type="text" placeholder="Enter venue" name='Venue' onChange={handleChange} value={data.Venue} />
+            <input type="text" placeholder="Enter venue" name='Venue' onChange={handleChange} value={eventdata.Venue} />
           </div>
 
           <div className="form-field">
             <label>Date</label>
-            <input type="date" name='date' onChange={handleChange} value={data.date}  />
+            <input type="date" name='date' onChange={handleChange} value={eventdata.date}  />
           </div>
 
           <div className="form-field time-input">
@@ -125,7 +125,7 @@ const CreateEvent=()=> {
 
           <div className="form-field">
             <label>Price</label>
-            <input type="text" placeholder="Enter price" name='Price' onChange={handleChange} value={data.Price} />
+            <input type="text" placeholder="Enter price" name='Price' onChange={handleChange} value={eventdata.Price} />
           </div>
         </div>
 

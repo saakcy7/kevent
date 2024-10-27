@@ -5,6 +5,7 @@ const Events = (props) => {
   console.log("Props received:", props);
 
   const { title, date, venue } = props.info;
+  
 
   if (props.type === "history") {
     return (

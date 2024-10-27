@@ -22,6 +22,7 @@ function App() {
         <Route path="/change-password" element={<ChangePassword/>}/>
         <Route path="/dashboard" element={<Dashboard/>}/>
         <Route path="/createevent" element={<CreateEvent/>}/>
+      
       </Routes>
     </div>
   );
