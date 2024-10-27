@@ -36,7 +36,7 @@ const EventList = ({onEventClick}) => {
     <div className="event-list">
       {error && <p className="error-message">{error}</p>}
       {Array.isArray(events) && events.map((event) => (
-        <EventCard key={event._id} event={event} onEventClick={onEventClick}/>
+        <EventCard key={event._id} event={event} onEventClick={() => onEventClick(event._id)}/>
       ))}
     </div>
   );

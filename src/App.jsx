@@ -8,6 +8,7 @@ import ForgotPassword from "./pages/auth/forgotPassword";
 import ChangePassword from "./pages/auth/changepassword";
 import Dashboard from "./pages/dashboard/dashboard";
 import CreateEvent from "./pages/Event/CreateEvent";
+import EventDetails from "./pages/EventDetails/EventDetails";
 import React from "react";
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route path="/change-password" element={<ChangePassword/>}/>
         <Route path="/dashboard" element={<Dashboard/>}/>
         <Route path="/createevent" element={<CreateEvent/>}/>
+        <Route path="/events/:id" element={<EventDetails/>}/>
       
       </Routes>
     </div>
