@@ -1,6 +1,5 @@
 import { useState, React } from "react";
 import { Link } from "react-router-dom";
-import Notification from "../Notification/notification";
 
 import "./Navbar.css";
 const Navbar = () => {
@@ -17,15 +16,6 @@ const Navbar = () => {
         </Link>
 
         <div className="navigation__menu">
-          <button onClick={toggleNotifications} className="notification">
-            Notifications
-          </button>
-          {showNotifications && (
-            <div className="notification-dropdown-container">
-              <Notification />
-            </div>
-          )}
-
           <Link to={"/about"} className="menu">
             About
           </Link>

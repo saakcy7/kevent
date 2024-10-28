@@ -4,6 +4,7 @@ import Events from "../../components/Event/event";
 import Navbar from "../../components/Navbar/Navbar";
 import Profile from "../../components/Profile/profile";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 const Sidebar = () => {
   const [currentComponent, setCurrentComponent] = useState(<Profile />);
@@ -12,7 +13,7 @@ const Sidebar = () => {
   const [eventData, setEventData] = useState([]);
   const [ticketData, setTicketData] = useState([]);
 
-  let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MWQxY2Y0NWQ2NGFhOGY4ZjM0ZDI1MyIsImlhdCI6MTczMDA0NjcwMSwiZXhwIjoxNzMwMDU3NTAxfQ.oMrgMjpQqJTxQ0xxRXXuNffseE-0-iUZ6905kPxXTs4";
+  let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MWQxY2Y0NWQ2NGFhOGY4ZjM0ZDI1MyIsImlhdCI6MTczMDEzNDM5OSwiZXhwIjoxNzMwMTQ1MTk5fQ.z1UlqImyulP9oUfFtlUcvEwQewtPk6Kzn3stbfxJ3wE";
 
   const historyData = [
     { title: "angry Conference", date: new Date("2024-11-10"), venue: "Kathmandu" },
@@ -22,29 +23,22 @@ const Sidebar = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/users/profile`, {
-          method: "GET",
+        const response = await axios.get(`http://localhost:3000/users/profile`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
         });
 
-        if (!response.ok) {
-          const errorMessage = await response.text();
-          throw new Error(errorMessage || "Something went wrong");
-        }
-
-        const data = await response.json();
-
-        setUser(data.user);
+        setUser(response.data.user);
       } catch (error) {
+        console.error("Profile fetch error:", error);
         await Swal.fire({
           icon: "error",
           title: "Error!",
           text: "Failed to view profile. Please try again.",
         });
-        setUser([]);
+        setUser(null);
       }
     };
 
@@ -54,23 +48,16 @@ const Sidebar = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/users/viewevents`, {
-          method: "GET",
+        const response = await axios.get(`http://localhost:3000/users/viewevents`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
         });
 
-        if (!response.ok) {
-          const errorMessage = await response.text();
-          throw new Error(errorMessage || "Failed to fetch events");
-        }
-
-        const data = await response.json();
-
-        setEventData(data.events);
+        setEventData(response.data.events);
       } catch (error) {
+        console.error("Events fetch error:", error);
         await Swal.fire({
           icon: "error",
           title: "Error!",
@@ -85,23 +72,16 @@ const Sidebar = () => {
   useEffect(() => {
     const fetchTickets = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/users/viewtickets`, {
-          method: "GET",
+        const response = await axios.get(`http://localhost:3000/users/viewtickets`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
         });
 
-        if (!response.ok) {
-          const errorMessage = await response.text();
-          throw new Error(errorMessage || "Failed to fetch tickets");
-        }
-
-        const data = await response.json();
-
-        setTicketData(data.tickets);
+        setTicketData(response.data.tickets);
       } catch (error) {
+        console.error("Tickets fetch error:", error);
         await Swal.fire({
           icon: "error",
           title: "Error!",

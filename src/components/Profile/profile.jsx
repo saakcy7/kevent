@@ -4,6 +4,7 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import "./profile.css";
 import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 const Profile = ({ token, user }) => {
   const [editedUser, setEditedUser] = useState({
@@ -57,22 +58,20 @@ const Profile = ({ token, user }) => {
     }
 
     try {
-      const response = await fetch("http://localhost:3000/users/change-password", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+      const response = await axios.put(
+        "http://localhost:3000/users/change-password",
+        {
+          email: user.email,
+          currentPassword: currentPassword,
+          password: newPassword,
         },
-        body: JSON.stringify({ email: user.email, currentPassword: currentPassword, password: newPassword }),
-      });
-      if (!response.ok) {
-        if (response.status === 401) {
-          alert("Current password is incorrect.");
-        } else {
-          throw new Error("Error changing password");
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         }
-        return;
-      }
+      );
 
       await Swal.fire({
         icon: "success",
@@ -80,17 +79,27 @@ const Profile = ({ token, user }) => {
         text: "Password changed successfully.",
       });
 
+      // Reset password fields
       setCurrentPassword("");
       setNewPassword("");
       setConfirmPassword("");
     } catch (error) {
-      await Swal.fire({
-        icon: "error",
-        title: "Error!",
-        text: "Failed to change password. Please try again.",
-      });
+      if (error.response && error.response.status === 401) {
+        await Swal.fire({
+          icon: "error",
+          title: "Error!",
+          text: "Current password is incorrect.",
+        });
+      } else {
+        await Swal.fire({
+          icon: "error",
+          title: "Error!",
+          text: "Failed to change password. Please try again.",
+        });
+      }
     }
   };
+
   const togglePasswordVisibility = () => {
     setIsPasswordVisible(!isPasswordVisible);
   };
@@ -102,20 +111,14 @@ const Profile = ({ token, user }) => {
   const handleProfileUpdate = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:3000/users/update-profile", {
-        method: "PUT",
+      const response = await axios.put("http://localhost:3000/users/update-profile", editedUser, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(editedUser),
       });
 
-      if (!response.ok) {
-        throw new Error("Error updating profile");
-      }
-
-      const updatedUser = await response.json();
+      const updatedUser = response.data;
       setEditedUser(updatedUser);
       await Swal.fire({
         icon: "success",
@@ -130,6 +133,7 @@ const Profile = ({ token, user }) => {
       });
     }
   };
+
   if (!user) {
     return <p>Loading user information...</p>;
   }
