@@ -44,6 +44,9 @@ const Navbar = () => {
             <Link to="/profile" className="menu2">
               Profile
             </Link>
+            <Link to="/searchevent" className="menu2">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            </Link>
             <button onClick={handleLogout} className="menu3">
               Logout
             </button>
