@@ -1,37 +1,134 @@
 import "./userProfile.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Events from "../../components/Event/event";
 import Navbar from "../../components/Navbar/Navbar";
 import Profile from "../../components/Profile/profile";
+import Swal from "sweetalert2";
 
 const Sidebar = () => {
-  const [currentComponent, setCurrentComponent] = useState(<>Profile</>);
+  const [currentComponent, setCurrentComponent] = useState(<Profile />);
   const [currentHeading, setcurrentHeading] = useState("Profile");
+  const [user, setUser] = useState(null);
+  const [eventData, setEventData] = useState([]);
+  const [ticketData, setTicketData] = useState([]);
 
-  const eventData = [
-    { title: "helloouurrrrr", date: new Date("2024-12-15T14:30:00"), venue: "Kathmandu" },
-    { title: "okayyyyyy", date: new Date("2024-12-15"), venue: "Pokhara" },
-  ];
-
-  const ticketData = [
-    { title: "happy Conference", date: new Date("2024-10-27T14:30:00"), venue: "Kathmandu" },
-    { title: "sad Festival", date: new Date("2024-11-25T21:55:00.000"), venue: "Pokhara" },
-  ];
+  let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MWQxY2Y0NWQ2NGFhOGY4ZjM0ZDI1MyIsImlhdCI6MTczMDA0NjcwMSwiZXhwIjoxNzMwMDU3NTAxfQ.oMrgMjpQqJTxQ0xxRXXuNffseE-0-iUZ6905kPxXTs4";
 
   const historyData = [
     { title: "angry Conference", date: new Date("2024-11-10"), venue: "Kathmandu" },
     { title: "upset Festival", date: new Date("2024-12-15"), venue: "Pokhara" },
   ];
 
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/users/profile`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          const errorMessage = await response.text();
+          throw new Error(errorMessage || "Something went wrong");
+        }
+
+        const data = await response.json();
+
+        setUser(data.user);
+      } catch (error) {
+        await Swal.fire({
+          icon: "error",
+          title: "Error!",
+          text: "Failed to view profile. Please try again.",
+        });
+        setUser([]);
+      }
+    };
+
+    fetchUsers();
+  }, [token]);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/users/viewevents`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          const errorMessage = await response.text();
+          throw new Error(errorMessage || "Failed to fetch events");
+        }
+
+        const data = await response.json();
+
+        setEventData(data.events);
+      } catch (error) {
+        await Swal.fire({
+          icon: "error",
+          title: "Error!",
+          text: "Failed to fetch events. Please try again.",
+        });
+      }
+    };
+
+    fetchEvents();
+  }, [token]);
+
+  useEffect(() => {
+    const fetchTickets = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/users/viewtickets`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          const errorMessage = await response.text();
+          throw new Error(errorMessage || "Failed to fetch tickets");
+        }
+
+        const data = await response.json();
+
+        setTicketData(data.tickets);
+      } catch (error) {
+        await Swal.fire({
+          icon: "error",
+          title: "Error!",
+          text: "Failed to fetch tickets. Please try again.",
+        });
+      }
+    };
+
+    fetchTickets();
+  }, [token]);
+
+  useEffect(() => {
+    if (user) {
+      setCurrentComponent(<Profile user={user} token={token} />);
+    }
+  }, [user, token]);
+
   const handleButtonClick = (heading, component) => {
     setCurrentComponent(component);
     setcurrentHeading(heading);
   };
+
   return (
     <div className="profile-container">
       <div className="sidebar">
         <div className="sidebar-menu">
-          <button className="sidebar-items" onClick={() => handleButtonClick(" User Profile", <Profile />)}>
+          <button className="sidebar-items" onClick={() => handleButtonClick("Profile", <Profile user={user} token={token} />)}>
             <i className="fas fa-user"></i> Profile
           </button>
           <button
@@ -39,7 +136,7 @@ const Sidebar = () => {
             onClick={() =>
               handleButtonClick(
                 "My Events",
-                eventData.map((event, index) => <Events key={index} type="event" info={event} />)
+                eventData.map((eventData, index) => <Events key={index} type="event" info={eventData} />)
               )
             }
           >
@@ -50,7 +147,7 @@ const Sidebar = () => {
             onClick={() =>
               handleButtonClick(
                 "My Tickets",
-                ticketData.map((event, index) => <Events key={index} type="ticket" info={event} />)
+                ticketData.map((ticketData, index) => <Events key={index} type="ticket" info={ticketData.eventId} />)
               )
             }
           >
