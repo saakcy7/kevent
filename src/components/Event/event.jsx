@@ -21,7 +21,7 @@ const Events = (props) => {
     return (
       <div className="event-container">
         <div className="image">
-          <img className="event-image" src=""></img>
+          <img className="event-image" src="" alt=""></img>
         </div>
         <div className="info">
           <h3>{Title}</h3>
@@ -37,7 +37,7 @@ const Events = (props) => {
     return (
       <div className="event-container">
         <div className="image">
-          <img className="event-image" src=""></img>
+          <img className="event-image" src="" alt=""></img>
         </div>
         <div className="info">
           <h3>{Title}</h3>
@@ -61,7 +61,7 @@ const Events = (props) => {
     return (
       <div className="event-container">
         <div className="image">
-          <img className="event-image" src=""></img>
+          <img className="event-image" src="" alt=""></img>
         </div>
         <div className="info">
           <h3>{Title}</h3>
