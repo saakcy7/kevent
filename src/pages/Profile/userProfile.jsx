@@ -13,7 +13,7 @@ const Sidebar = () => {
   const [eventData, setEventData] = useState([]);
   const [ticketData, setTicketData] = useState([]);
 
-  let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MWQxY2Y0NWQ2NGFhOGY4ZjM0ZDI1MyIsImlhdCI6MTczMDEzNDM5OSwiZXhwIjoxNzMwMTQ1MTk5fQ.z1UlqImyulP9oUfFtlUcvEwQewtPk6Kzn3stbfxJ3wE";
+  const token = localStorage.getItem("token");
 
   const historyData = [
     { title: "angry Conference", date: new Date("2024-11-10"), venue: "Kathmandu" },
