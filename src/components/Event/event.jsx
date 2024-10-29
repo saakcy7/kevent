@@ -4,6 +4,7 @@ import "./event.css";
 const Events = (props) => {
   const { Title, date: eventDate, Venue } = props.info || {};
 
+<<<<<<< HEAD
   const formattedDate = new Date(eventDate);
 
   const currentTime = new Date();
@@ -16,6 +17,10 @@ const Events = (props) => {
 
   const EventToday = remainingDays === 0;
   const hasEventPassed = formattedDate <= currentTime;
+=======
+  const { title, date, venue } = props.info;
+  
+>>>>>>> sakshi
 
   if (props.type === "history") {
     return (

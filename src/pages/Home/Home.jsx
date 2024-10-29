@@ -1,10 +1,18 @@
 import React from "react";
 import Navbar from "../../components/Navbar/Navbar";
-function Home({ onSignIn }) {
+import EventList from "../../components/EventCard/EventList";
+import { useNavigate } from "react-router-dom";
+function Home() 
+{
+  const navigate = useNavigate();
+
+  const handleEventClick = () => {
+    navigate('/signup');
+  };
   return (
     <div>
       <Navbar />
-      <h1>Welcome to the Front Page</h1>
+     <EventList onEventClick={handleEventClick}/>
     </div>
   );
 }

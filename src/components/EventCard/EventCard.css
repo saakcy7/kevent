@@ -1,0 +1,46 @@
+/* EventCard.css */
+.event-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+.event-card {
+    width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    
+   
+  }
+  
+  .event-card:hover {
+    transform: scale(1.02);
+  }
+  
+  .event-title {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 8px;
+  }
+  
+  .event-description {
+    font-size: 1em;
+    color: #666;
+    margin-bottom: 12px;
+  }
+  
+  .event-contact, .event-venue, .event-date, .event-price {
+    font-size: 0.9em;
+    color: #555;
+    margin: 4px 0;
+  }
+  
+  .event-price {
+    font-weight: bold;
+    color: #e67e22; /* Example color for price */
+  }
