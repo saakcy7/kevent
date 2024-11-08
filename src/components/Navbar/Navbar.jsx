@@ -1,19 +1,16 @@
 import { useState, React } from "react";
 import { Link } from "react-router-dom";
-
 import "./Navbar.css";
-const Navbar = () => {
-  const [showNotifications, setShowNotifications] = useState(false);
+import Notification from "../Notification/Notification";
 
-  const toggleNotifications = () => {
-    setShowNotifications(!showNotifications);
-  };
+const Navbar = () => {
   return (
     <>
       <header className="navigation">
         <Link to={"/"} className="navigation_name">
           KEVENT
         </Link>
+        <Notification />
 
         <div className="navigation__menu">
           <Link to={"/about"} className="menu">

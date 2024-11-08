@@ -4,7 +4,6 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import "./profile.css";
 import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
-import axios from "axios";
 
 const Profile = ({ token, user }) => {
   const [editedUser, setEditedUser] = useState({
@@ -35,6 +34,7 @@ const Profile = ({ token, user }) => {
       [name]: value,
     }));
   };
+
   const handlePasswordChange = async (e) => {
     e.preventDefault();
 
@@ -58,20 +58,22 @@ const Profile = ({ token, user }) => {
     }
 
     try {
-      const response = await axios.put(
-        "http://localhost:3000/users/change-password",
-        {
+      const response = await fetch("http://localhost:3000/users/change-password", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
           email: user.email,
           currentPassword: currentPassword,
           password: newPassword,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to change password");
+      }
 
       await Swal.fire({
         icon: "success",
@@ -84,7 +86,7 @@ const Profile = ({ token, user }) => {
       setNewPassword("");
       setConfirmPassword("");
     } catch (error) {
-      if (error.response && error.response.status === 401) {
+      if (error.message.includes("401")) {
         await Swal.fire({
           icon: "error",
           title: "Error!",
@@ -111,14 +113,20 @@ const Profile = ({ token, user }) => {
   const handleProfileUpdate = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put("http://localhost:3000/users/update-profile", editedUser, {
+      const response = await fetch("http://localhost:3000/users/update-profile", {
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
+        body: JSON.stringify(editedUser),
       });
 
-      const updatedUser = response.data;
+      if (!response.ok) {
+        throw new Error("Failed to update profile");
+      }
+
+      const updatedUser = await response.json();
       setEditedUser(updatedUser);
       await Swal.fire({
         icon: "success",
