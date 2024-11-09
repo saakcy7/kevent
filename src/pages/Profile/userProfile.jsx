@@ -53,7 +53,7 @@ const Sidebar = () => {
     const fetchEvents = async () => {
       try {
         console.log("Fetching events...");
-        const response = await fetch(`http://localhost:3000/events/viewevents`, {
+        const response = await fetch(`http://localhost:3000/users/viewevents`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
@@ -188,7 +188,7 @@ const Sidebar = () => {
                 handleButtonClick(
                   "My Events",
                   eventData
-                    .filter(event => event.creatorId === user._id) // Filter events by user ID
+                    .filter(event => event.userId === user.id) // Filter events by user ID
                     .map((event) => (
                       <Events
                         key={event._id}

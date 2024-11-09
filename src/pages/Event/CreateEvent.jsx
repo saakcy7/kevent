@@ -43,8 +43,12 @@ const CreateEvent=()=> {
         Swal.fire("Error", "Event date must be in the future.", "error");
         return;
       }
-      if (eventdata.contactNumber.length <= 10) {
-        Swal.fire("Error", "Contact number must be more than 10 digits.", "error");
+      if (eventdata.contactNumber.length <10) {
+        Swal.fire("Error", "Contact number must be 10 digits.", "error");
+        return;
+      }
+      if (eventdata.contactNumber.length >10) {
+        Swal.fire("Error", "Contact number cannot be more than 10 digits.", "error");
         return;
       }
         const token = localStorage.getItem("token"); 
