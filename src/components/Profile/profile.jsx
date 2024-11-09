@@ -1,10 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import "./profile.css";
-import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
-import axios from "axios";
 
 const Profile = ({ token, user }) => {
   const [editedUser, setEditedUser] = useState({
@@ -35,6 +33,7 @@ const Profile = ({ token, user }) => {
       [name]: value,
     }));
   };
+
   const handlePasswordChange = async (e) => {
     e.preventDefault();
 
@@ -58,20 +57,23 @@ const Profile = ({ token, user }) => {
     }
 
     try {
-      const response = await axios.put(
-        "http://localhost:3000/users/change-password",
-        {
+      const response = await fetch("http://localhost:3000/users/change-password", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
           email: user.email,
           currentPassword: currentPassword,
           password: newPassword,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+        }),
+      });
+
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        throw new Error(errorMessage || "Something went wrong");
+      }
 
       await Swal.fire({
         icon: "success",
@@ -84,7 +86,7 @@ const Profile = ({ token, user }) => {
       setNewPassword("");
       setConfirmPassword("");
     } catch (error) {
-      if (error.response && error.response.status === 401) {
+      if (error.message === "Current password is incorrect.") {
         await Swal.fire({
           icon: "error",
           title: "Error!",
@@ -111,14 +113,21 @@ const Profile = ({ token, user }) => {
   const handleProfileUpdate = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put("http://localhost:3000/users/update-profile", editedUser, {
+      const response = await fetch("http://localhost:3000/users/update-profile", {
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
+        body: JSON.stringify(editedUser),
       });
 
-      const updatedUser = response.data;
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        throw new Error(errorMessage || "Something went wrong");
+      }
+
+      const updatedUser = await response.json();
       setEditedUser(updatedUser);
       await Swal.fire({
         icon: "success",
@@ -176,17 +185,13 @@ const Profile = ({ token, user }) => {
             <div className="year-batch">
               <label>Batch</label>
               <div className="dept-input">
-                <select name="batch" value={editedUser.batch} onChange={handleChange} required>
-                  <option value={user.batch}>{user.batch}</option>
-                  <option value="Other">Other</option>
-                </select>
+               <input type="text" placeholder="Batch" name="batch" value={editedUser.batch} onChange={handleChange} required />
+                
               </div>
 
               <label>Year</label>
-              <select name="year" value={editedUser.year} onChange={handleChange} required>
-                <option value={user.year}>{user.year}</option>
-                <option value="II">II</option>
-              </select>
+                <input type="text" placeholder="Year" name="year" value={editedUser.year} onChange={handleChange} required />
+              
             </div>
           </div>
         </div>
@@ -229,4 +234,5 @@ const Profile = ({ token, user }) => {
     </div>
   );
 };
+
 export default Profile;

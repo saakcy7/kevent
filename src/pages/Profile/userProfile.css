@@ -1,101 +1,191 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
+/* General styling for Sidebar */
 .sidebar {
-  min-width: 250px;
   width: 250px;
-  height: auto;
+  height: 100%; /* Adjust height to account for navbar */
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  align-items: center;
-
-  margin-left: 20px;
-  margin-top: 20px;
-  font-size: 3rem;
+  align-items: flex-start;
+  padding: 20px;
+  font-size: 1.2rem;
+  background-color: #f5fafa;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 0 10px 10px 0;
+  font-family: "Roboto", sans-serif;
+  position: absolute;
+  top: 70px; /* Offset the sidebar by the navbar’s height */
+  left: 0;
+  z-index: 550; /* Lower z-index than navbar */
 }
 
 .sidebar-menu {
   display: flex;
   width: 100%;
   flex-direction: column;
-  color: #000000;
-  margin: 10px 0;
+  color: #333;  /* Darker text for contrast */
+  margin: 20px 0;
   background-color: #e9f4f2;
-  border: 0.1px solid #00000034;
-  border-radius: 5%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .sidebar-items {
   display: flex;
-  color: black;
-  text-decoration: none;
-  padding: 10px 20px;
-  justify-content: left;
-  margin: 10px;
-  box-sizing: border-box;
   align-items: center;
+  color: #333;
+  text-decoration: none;
+  padding: 12px 20px;
+  font-weight: 500;
+  justify-content: flex-start;
+  margin: 5px;
+  box-sizing: border-box;
   border: none;
-  background-color: #e9f4f2;
+  background-color: transparent;
   cursor: pointer;
-  font-family: "Roboto";
-  border-radius: 10px;
-  width: calc(100% - 20px);
+  transition: background-color 0.3s, transform 0.1s;
+  width: calc(100% - 10px);
+  border-radius: 8px;
   font-size: 1rem;
 }
 
 .sidebar-items:hover {
   background-color: #d6e5e2;
-  color: #010101;
+  color: #000;
+  transform: translateY(-2px); /* Slight lift effect */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow on hover */
 }
 
 .fas {
   width: 30px;
   margin-right: 10px;
+  color: #38aa95;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+/* Sidebar footer */
 .sidebar-footer {
-  /* margin-top: auto; */
   display: flex;
   width: 100%;
-  border: none;
+  justify-content: center;
+  border-top: 1px solid #ccc;
+  padding: 15px 0;
+  font-weight: 500;
+  color: #666;
 }
 
 .logout {
-  color: rgb(156, 13, 13);
+  color: #9c0d0d;
   cursor: pointer;
+  transition: color 0.3s, background-color 0.3s;
 }
 
-.logout :hover {
-  background-color: #d6e5e2;
-  color: rgb(125, 4, 4);
+.logout:hover {
+  background-color: #f8d7da;
+  color: #700000;
+  border-radius: 8px;
+  padding: 5px 10px;
 }
 
+/* Profile container */
 .profile-container {
   display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20px;
+  background-color: #e9f4f2;
+  border-radius: 10px;
+  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.05);
 }
 
+/* Component container */
 .component-container {
+  margin-left: 270px; /* Offset main content by sidebar width */
   height: 100%;
-  width: 100%;
+  width: calc(100% - 270px); /* Adjust width to account for sidebar */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 30px;
-  padding: 5px;
+  padding: 20px;
   box-sizing: border-box;
+  background-color: #f5fafa;
 }
 
 .component-container h2 {
   text-align: left;
+  font-weight: 700;
+  color: #333;
 }
 
 .sidebar-divider {
   width: 90%;
   border: none;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid #ddd;
   margin: auto;
 }
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 200px;
+    font-size: 1rem;
+  }
+
+  .component-container {
+    margin-left: 210px; /* Adjust based on sidebar width */
+    width: calc(100% - 210px);
+  }
+}
+/* Other CSS rules */
+
+/* Adjustments for smaller screens (below 480px) */
+@media (max-width: 480px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    border-radius: 0;
+    box-shadow: none;
+    margin-top: 0; /* Ensure the sidebar is at the top */
+  }
+
+  .sidebar-items {
+    font-size: 0.8rem; /* Further reduce font size */
+    padding: 8px 12px; /* Decrease padding for space efficiency */
+  }
+
+  .component-container {
+    margin-top: 20px; /* Add margin to separate content from the sidebar */
+  }
+}
+
+/* Adjustments for smaller screens (below 360px) */
+@media (max-width: 360px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    border-radius: 0;
+    box-shadow: none;
+    margin-top: 0; /* Ensure the sidebar is at the top */
+  }
+
+  .sidebar-items {
+    font-size: 0.8rem; /* Further reduce font size */
+    padding: 8px 12px; /* Decrease padding for space efficiency */
+  }
+
+  .component-container {
+    margin-top: 20px; /* Add margin to separate content from the sidebar */
+  }
+}
+
+/* Other CSS rules */

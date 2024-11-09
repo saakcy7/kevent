@@ -1,74 +1,133 @@
 .event-container {
   width: 800px;
   height: 20vh;
-  background-color: white;
+  background-color: #fff;
   display: flex;
   align-items: center;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border: 0.1px solid #00000034;
+  justify-content: space-between;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.event-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .event-image {
   border-radius: 8px;
   width: 180px;
-  height: 90px;
-  border: 2px solid #000000;
-  margin-right: 15px;
-  margin-left: 15px;
+  height: 120px;
+  border: 2px solid #e0e0e0;
+  margin-right: 20px;
+  object-fit: cover;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.event-image:hover {
+  transform: scale(1.05);
+  border-color: #4f8f82;
 }
 
 .info {
   flex-direction: column;
-  margin-left: 15px;
-  padding-bottom: 5px;
+  margin-left: 20px;
+  margin-left: 30px;
+  padding-bottom: 10px;
+}
+
+.info h3 {
+  font-size: 18px;
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 5px;
 }
 
 .info p {
-  color: grey;
-  font-size: 13px;
+  color: #6e6e6e;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .event-button {
-  flex-direction: column;
   display: flex;
+  flex-direction: column;
   margin-left: auto;
-  gap: 10px;
+  gap: 15px;
+  align-items: flex-start;
 }
 
 .event-button button {
-  padding: 10px 15px;
-  font-size: 14px;
-  border-radius: 5px;
+  padding: 12px 20px;
+  font-size: 15px;
+  border-radius: 8px;
   cursor: pointer;
-  border: #000000;
+  border: 1px solid transparent;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  width: 100%;
 }
 
 .event-button .edit-button button {
-  width: 100px;
   background-color: #61bfad;
-  margin-top: 40px;
+  color: white;
+  width: 120px;
+  border: 1px solid #4f8f82;
 }
 
 .event-button .download-button button {
-  width: 150px;
   background-color: white;
-  padding-right: 60px;
-}
-
-.event-button .download-button button:hover {
-  color: green;
+  color: #333;
+  width: 160px;
+  border: 1px solid #ddd;
+  padding-right: 50px;
 }
 
 .event-button .edit-button button:hover {
   background-color: #4f8f82;
+  transform: translateY(-3px);
+}
+
+.event-button .download-button button:hover {
+  background-color: #f0f0f0;
+  color: #61bfad;
+  transform: translateY(-3px);
 }
 
 .remaining {
   margin-left: auto;
   display: flex;
   align-items: center;
-  font-size: 13px;
-  color: grey;
+  font-size: 14px;
+  color: #777;
+}
+
+.remaining span {
+  font-weight: 600;
+  color: #333;
+}
+
+@media screen and (max-width: 768px) {
+  .event-container {
+    flex-direction: column;
+    height: auto;
+    align-items: flex-start;
+  }
+
+  .event-image {
+    width: 150px;
+    height: 100px;
+    margin-right: 0;
+    margin-bottom: 15px;
+  }
+
+  .info {
+    margin-left: 0;
+  }
+
+  .event-button {
+    align-items: flex-end;
+  }
 }

@@ -6,7 +6,7 @@ const SearchEvent = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [events, setEvents] = useState([]);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState("");
 
   const handleEventClick = (id) => {
     navigate(`/events/${id}`);

@@ -10,7 +10,6 @@ const ChangePassword = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { email } = location.state || {};
-
   useEffect(() => {
     if (!email) {
       navigate("/change-password");
@@ -24,6 +23,8 @@ const ChangePassword = () => {
   const handleResetPassword = async (event) => {
     event.preventDefault();
    
+    console.log('Email:', email);
+    console.log('New Password:', password);
     try {
       const response = await fetch("http://localhost:3000/users/reset-password", {
         method: "POST",
@@ -63,7 +64,7 @@ const ChangePassword = () => {
         <div class="right-section">
         <div class="form-container1">
           <form onSubmit={handleResetPassword}>
-        
+           
             <h2>Enter New Password</h2>
             <input type="password" name="password" placeholder="New Password" value={password} onChange={handleInputChange} required />
            

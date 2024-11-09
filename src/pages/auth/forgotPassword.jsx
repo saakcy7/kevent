@@ -42,7 +42,7 @@ const ForgotPassword = () => {
         text: "OTP sent to your email!",
       });
       console.log("OTP sent successfully:", responseData);
-      navigate("/change-password");
+      navigate("/verifyresetotp",{state:{email}});
     } catch (error) {
       Swal.fire({
         icon: "error",

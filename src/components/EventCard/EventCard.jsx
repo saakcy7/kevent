@@ -10,7 +10,7 @@ const EventCard = ({ event,onEventClick }) => {
       <p className="event-contact">Contact: {event.contactNumber}</p>
       <p className="event-venue">Venue: {event.Venue}</p>
       <p className="event-date">Date: {new Date(event.date).toLocaleDateString()}</p>
-      <p className="event-price">Price: Rs.{event.Price}</p>
+      <p className="event-price">{event.Price}</p>
      
      
       

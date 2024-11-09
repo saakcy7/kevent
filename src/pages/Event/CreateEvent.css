@@ -54,7 +54,7 @@
   .form-group input[type="date"],
   .form-group input[type="time"],
   .form-group textarea {
-    width: 100%;
+    width: 97%;
     padding: 10px;
     border-radius: 6px;
     border: 1px solid #b2dfdb;
@@ -175,3 +175,6 @@
     background-color: #4da890;
   }
   
+  .free-price {
+    color: #44aa8b;
+  }

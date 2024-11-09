@@ -6,6 +6,8 @@ import image3 from "../../assets/image3.png";
 import { useNavigate } from "react-router-dom";
 //import {toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
 
 //import {Link} from "react-router-dom";
@@ -13,6 +15,11 @@ import Swal from "sweetalert2";
 
 const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
+
   const [data, setData] = useState({
     firstName: "",
     lastName: "",
@@ -133,9 +140,12 @@ try {
                 </div>
                 <div className="input-group">
                   <label>Password</label>
-                  <input type="password" 
+                  <input             type={passwordVisible ? 'text' : 'password'} 
                   placeholder="password"
                   name="password" onChange={handleChange} value={data.password}required />
+                     
+            <FontAwesomeIcon icon={passwordVisible ? faEyeSlash : faEye} onClick={togglePasswordVisibility}  className="icon"/>
+        
                 </div>
                 <div className="forgot">
                   <a href="/forgotpassword" className="forgot">

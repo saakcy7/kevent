@@ -10,6 +10,9 @@ import Dashboard from "./pages/dashboard/dashboard";
 import CreateEvent from "./pages/Event/CreateEvent";
 import EventDetails from "./pages/EventDetails/EventDetails";
 import SearchEvent from "./pages/Event/searchEvent";
+import BookTicket from "./pages/Tickets/BookTicket";
+import VerifyResetOTP from "./pages/auth/VerifyOtp";
+import EditEvent from "./pages/Event/EditEvent";
 import React from "react";
 
 function App() {
@@ -26,8 +29,9 @@ function App() {
         <Route path="/createevent" element={<CreateEvent/>}/>
         <Route path="/events/:id" element={<EventDetails/>}/>
         <Route path="/searchevent" element={<SearchEvent/>}/>
-
-      
+        <Route path="/booktickets/:id" element={<BookTicket/>}/>
+        <Route path="/verifyresetotp" element={<VerifyResetOTP/>}/>
+        <Route path="/editevent/:id" element={<EditEvent/>}/>
       </Routes>
     </div>
   );

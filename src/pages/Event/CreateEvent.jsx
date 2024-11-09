@@ -13,7 +13,8 @@ const CreateEvent=()=> {
         contactNumber:"",
         Venue:"", 
         date:"", 
-        Price:"", 
+        Price:"",
+        capacity:"", 
         })
         const handleChange = (e) => {
             const { name, value } = e.target;
@@ -26,11 +27,26 @@ const CreateEvent=()=> {
     
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!eventdata.Title || !eventdata.Description || !eventdata.contactNumber || !eventdata.Venue || !eventdata.date || !eventdata.Price) {
+    if (!eventdata.Title || !eventdata.Description || !eventdata.contactNumber || !eventdata.Venue || !eventdata.date || !eventdata.Price|| !eventdata.capacity) {
         Swal.fire("Error", "Please add all the fields.", "error");
         return;
       }
-
+      if (eventdata.capacity <= 0) {
+        Swal.fire("Error", "Capacity must be greater than zero.", "error");
+        return;
+      }
+      if (eventdata.Price < 0) {
+        Swal.fire("Error", "Price must be greater than or equal to zero.", "error");
+        return;
+      }
+      if (eventdata.date < new Date().toISOString()) {
+        Swal.fire("Error", "Event date must be in the future.", "error");
+        return;
+      }
+      if (eventdata.contactNumber.length <= 10) {
+        Swal.fire("Error", "Contact number must be more than 10 digits.", "error");
+        return;
+      }
         const token = localStorage.getItem("token"); 
         if (!token) {
             Swal.fire("Error", "Authentication token not found. Please log in again.", "error");
@@ -97,20 +113,20 @@ const CreateEvent=()=> {
             <label>Venue</label>
             <input type="text" placeholder="Enter venue" name='Venue' onChange={handleChange} value={eventdata.Venue} />
           </div>
+          <div className="form-group">
+          <label>Event Capacity</label>
+          <input
+            type="text"
+            name="capacity"
+            onChange={handleChange}
+            placeholder="Enter event capacity"
+            value={eventdata.capacity}
+          />
+        </div>
 
           <div className="form-field">
             <label>Date</label>
-            <input type="date" name='date' onChange={handleChange} value={eventdata.date}  />
-          </div>
-
-          <div className="form-field time-input">
-            <label>From</label>
-            <input type="time" />
-          </div>
-
-          <div className="form-field time-input">
-            <label>To</label>
-            <input type="time" />
+            <input type="datetime-local" name='date' onChange={handleChange} value={eventdata.date}  />
           </div>
 
           <div className="form-field registration">
@@ -124,9 +140,16 @@ const CreateEvent=()=> {
           </div>
 
           <div className="form-field">
-            <label>Price</label>
-            <input type="text" placeholder="Enter price" name='Price' onChange={handleChange} value={eventdata.Price} />
-          </div>
+        <label>Price</label>
+        <input
+          type="text"
+          placeholder="Enter price"
+          name='Price'
+          onChange={handleChange}
+          value={eventdata.Price}
+          className={eventdata.Price.toLowerCase() === 'free' ? 'free-price' : ''}
+        />
+      </div>
         </div>
 
         {/*<div className="file-upload">

@@ -1,46 +1,97 @@
 /* EventCard.css */
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #edf2ef;
+}
+
 .event-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
 
 .event-card {
-    width: 300px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 16px;
-    margin: 16px;
-    background-color: #f9f9f9;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
-    
-   
+  width: 320px;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 16px;
+  background: linear-gradient(145deg, #ffffff, #e6e6e6);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.event-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15), 0 6px 8px rgba(0, 0, 0, 0.1);
+}
+
+.event-title {
+  font-size: 1.6em;
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 12px;
+  text-transform: capitalize;
+}
+
+.event-description {
+  font-size: 1em;
+  color: #666;
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+
+.event-contact,
+.event-venue,
+.event-date,
+.event-price {
+  font-size: 0.95em;
+  color: #555;
+  margin: 8px 0;
+  display: flex;
+  align-items: center;
+}
+
+.event-price {
+  font-weight: bold;
+  color: #e67e22;
+}
+
+.event-price::before {
+  content: "₹";
+  margin-right: 4px;
+  font-weight: normal;
+  color: #e67e22;
+}
+
+.event-icon {
+  margin-right: 8px;
+  color: #44aa8b;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  background-color: #44aa8b;
+  color: #fff;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #398b72;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+  .event-card {
+      width: 90%;
+      margin: 10px;
   }
-  
-  .event-card:hover {
-    transform: scale(1.02);
-  }
-  
-  .event-title {
-    font-size: 1.5em;
-    color: #333;
-    margin-bottom: 8px;
-  }
-  
-  .event-description {
-    font-size: 1em;
-    color: #666;
-    margin-bottom: 12px;
-  }
-  
-  .event-contact, .event-venue, .event-date, .event-price {
-    font-size: 0.9em;
-    color: #555;
-    margin: 4px 0;
-  }
-  
-  .event-price {
-    font-weight: bold;
-    color: #e67e22; /* Example color for price */
-  }
+}

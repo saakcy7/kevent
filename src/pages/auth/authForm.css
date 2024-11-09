@@ -5,12 +5,12 @@ body{
 .container {
   position: relative;
   width: 850px; /* Increased width to accommodate the image */
-  height: 650px; /* Fixed height */
+  height: 648px; /* Fixed height */
   margin: 100px auto;
   display: flex;
-  background-color:#f5f8f8 ;
+  background-color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+  border-radius: 40px;
   overflow: hidden;
 }
 
@@ -23,11 +23,10 @@ body{
 
 .form {
   position: absolute;
-  width: 100%;
+  width: 105%;
   padding: 40px; /* Padding for better spacing */
   box-sizing: border-box;
-
-  background-color:#f6fdfc;
+  background-color:white;
   transition: transform 0.6s ease-in-out;
 }
 
@@ -66,6 +65,13 @@ h2 {
   margin-bottom: 15px;
 }
 
+.input-group .icon{
+  position: absolute;
+  top: 54%;
+  right: 40px;
+  transform: translateY(-50%);
+}
+
 .input-group label {
   display: block;
   margin-bottom: 5px;
@@ -99,27 +105,53 @@ button:hover {
   text-decoration: underline;
 }
 
+
 .login-form .button1 {
-  width: 30%;
-  padding: 10px;
-  background-color: #38aa95;
-  color: white;
+  padding: 10px 20px;
+  background-color: #46d1b7; /* Light green background */
+  color: #000; /* Black text */
   border: none;
+  width: 30%;
+  margin-right: 20px;
+  border-radius: 15px;
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2); /* Soft shadow effect */
+  font-weight: bold;
   cursor: pointer;
-  margin-top: 10px;
-  border-radius: 10px;
+  transition: transform 0.1s ease-in-out;
+}
+.login-form .button1:hover{
+background-color: #48f4d5; /* Ensure background color stays consistent on hover */
+transform: translateY(-2px); /* Slight lift effect on hover */
+box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25); /* Slightly deeper shadow */
 }
 
-.signup-form .button2 {
-  width: 30%;
-  padding: 10px;
-  background-color: #38aa95;
-  color: white;
-  border: none;
-  cursor: pointer;
-  margin-top: 10px;
-  border-radius: 10px;
+.login-form .button1:active {
+  transform: translateY(1px); /* Button pushes down slightly when clicked */
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for active state */
 }
+.signup-form .button2 {
+  padding: 10px 20px;
+  background-color: #46d1b7; /* Light green background */
+  color: #000; /* Black text */
+  border: none;
+  width: 40%;
+  border-radius: 15px;
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2); /* Soft shadow effect */
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.1s ease-in-out;
+}
+.signup-form .button2:hover{
+  background-color: #48f4d5; /* Ensure background color stays consistent on hover */
+transform: translateY(-2px); /* Slight lift effect on hover */
+box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25); /* Slightly deeper shadow */
+}
+
+.signup-form .button2:active {
+  transform: translateY(1px); /* Button pushes down slightly when clicked */
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for active state */
+}
+
 .signup-form .button2 .otp{
   text-decoration: none;
   color: white;
@@ -146,6 +178,7 @@ button:hover {
   height: 100%;
   background-size: cover;
   transform: translateX(-10px);
+  border-radius: 20px;
 }
 
 .image-container .img2 {
@@ -153,6 +186,7 @@ button:hover {
   height: 100%;
   background-size: cover;
   transform: translateX(410px);
+  border-radius: 20px;
 }
 
 @media (max-width: 768px) {
