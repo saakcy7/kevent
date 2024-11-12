@@ -24,6 +24,7 @@ const AuthForm = () => {
     firstName: "",
     lastName: "",
     email: "",
+    contactNumber: "",
     password: "",
     batch: "",
     year: "",
@@ -35,6 +36,10 @@ const AuthForm = () => {
   const toggleForm = () => {
     setIsLogin(!isLogin);
   };
+  const validateEmail = (email) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(String(email).toLowerCase());
+  };
   const handleChange = ({currentTarget: input}) => {
 
     setData({ ...data, [input.name]: input.value });
@@ -42,6 +47,21 @@ const AuthForm = () => {
 
   const handleLoginSubmit = async(e) => {
     e.preventDefault();
+       // Validation
+       if (!data.email || !data.password) {
+        Swal.fire("Error", "Please fill in all fields.", "error");
+        return;
+      }
+  
+      if (!validateEmail(data.email)) {
+        Swal.fire("Error", "Please enter a valid email address.", "error");
+        return;
+      }
+  
+      if (data.password.length <= 8) {
+        Swal.fire("Error", "Password must be at least 8 characters long.", "error");
+        return;
+      }
     try {
       const response = await fetch("http://localhost:3000/users/login", {
         method: "POST",
@@ -85,6 +105,16 @@ try {
   const specialCharacterRegex = /[!@#$%^&*()_+\-={};':"|,.<>?]+/;
   if (!specialCharacterRegex.test(data.password)) {
     throw new Error("Password must contain at least one special character.");
+  }
+
+  const numberRegex = /[0-9]+/;
+  if (!numberRegex.test(data.password)) {
+    throw new Error("Password must contain at least one number.");
+  }
+
+  const upperCaseRegex = /[A-Z]+/;
+  if (!upperCaseRegex.test(data.password)) {
+    throw new Error("Password must contain at least one uppercase letter.");
   }
 
   const response = await fetch("http://localhost:3000/users/register", {
@@ -180,12 +210,20 @@ try {
                     placeholder="last-name" onChange={handleChange} value={data.lastName}  required />
                   </div>
                 </div>
+
                 <div className="input-group">
                   <label>Email</label>
                   <input type="email" 
                   name="email" 
                   placeholder="email" onChange={handleChange} value={data.email}  required />
                 </div>
+                <div className="input-group">
+                  <label>Contact Number</label>
+                  <input type="text"
+                  placeholder="contact-number"
+                  name="contactNumber" onChange={handleChange} value={data.contactNumber}  required />
+                </div>
+                
 
                 <div className="input-group">
                   <label>Department</label>

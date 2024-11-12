@@ -7,13 +7,7 @@ const EventCard = ({ event,onEventClick }) => {
     <div className="event-card" onClick={onEventClick}>
       <h2 className="event-title">{event.Title}</h2>
       <p className="event-description">{event.Description}</p>
-      <p className="event-contact">Contact: {event.contactNumber}</p>
-      <p className="event-venue">Venue: {event.Venue}</p>
       <p className="event-date">Date: {new Date(event.date).toLocaleDateString()}</p>
-      <p className="event-price">{event.Price}</p>
-     
-     
-      
           </div>
           </div>
          

@@ -22,6 +22,7 @@ h1, h2, h3 {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
   border-radius: 14px;
   text-align: center;
+  animation: fadeIn 0.5s ease-in-out;
 }
 
 .search-container h1 {
@@ -40,6 +41,7 @@ h1, h2, h3 {
   justify-content: center;
   margin-bottom: 24px;
   align-items: center;
+  animation: slideUp 0.4s ease-in-out;
 }
 
 /* --------------------- Search Input --------------------- */
@@ -79,7 +81,7 @@ button {
 
 button:hover {
   background-color: #3a9e7d;
-  transform: translateY(-2px);
+  transform: translateY(-3px);
 }
 
 button:active {
@@ -109,11 +111,14 @@ button:active {
   cursor: pointer;
   transition: all 0.3s ease;
   overflow: hidden;
+  transform: scale(1);
+  opacity: 0.9;
 }
 
 .search-result:hover {
   background-color: #f9fafb;
-  transform: translateY(-6px);
+  transform: scale(1.05);
+  opacity: 1;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
 }
 
@@ -123,12 +128,13 @@ button:active {
   color: #333;
   font-weight: 700;
   margin-bottom: 8px;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, transform 0.2s ease;
 }
 
 .event-title:hover {
   color: #5EC6A8;
   text-decoration: underline;
+  transform: translateX(5px);
 }
 
 /* --------------------- Event Description --------------------- */
@@ -220,5 +226,29 @@ button:active {
 
   .button {
     font-size: 0.9em;
+  }
+}
+
+/* --------------------- Animations --------------------- */
+
+/* Fade In for Search Container */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Slide Up for Search Form */
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

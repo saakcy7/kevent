@@ -1,27 +1,29 @@
+/* Main Event Container */
 .event-container {
   width: 800px;
   height: 20vh;
-  background-color: #fff;
+  background-color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .event-container:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
+/* Event Image */
 .event-image {
-  border-radius: 8px;
+  border-radius: 12px;
   width: 180px;
   height: 120px;
-  border: 2px solid #e0e0e0;
+  border: 1px solid #eaeaea;
   margin-right: 20px;
   object-fit: cover;
   transition: transform 0.3s ease, border-color 0.3s ease;
@@ -32,37 +34,38 @@
   border-color: #4f8f82;
 }
 
+/* Event Info Section */
 .info {
+  display: flex;
   flex-direction: column;
-  margin-left: 20px;
   margin-left: 30px;
-  padding-bottom: 10px;
 }
 
 .info h3 {
-  font-size: 18px;
-  color: #333;
+  font-size: 20px;
+  color: #333333;
   font-weight: 600;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
 }
 
 .info p {
-  color: #6e6e6e;
+  color: #757575;
   font-size: 14px;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
+/* Event Button Section */
 .event-button {
   display: flex;
   flex-direction: column;
   margin-left: auto;
-  gap: 15px;
+  gap: 12px;
   align-items: flex-start;
 }
 
 .event-button button {
-  padding: 12px 20px;
-  font-size: 15px;
+  padding: 10px 18px;
+  font-size: 14px;
   border-radius: 8px;
   cursor: pointer;
   border: 1px solid transparent;
@@ -79,10 +82,9 @@
 
 .event-button .download-button button {
   background-color: white;
-  color: #333;
+  color: #333333;
   width: 160px;
   border: 1px solid #ddd;
-  padding-right: 50px;
 }
 
 .event-button .edit-button button:hover {
@@ -91,43 +93,52 @@
 }
 
 .event-button .download-button button:hover {
-  background-color: #f0f0f0;
-  color: #61bfad;
+  background-color: #f9f9f9;
+  color: #4f8f82;
   transform: translateY(-3px);
 }
 
+/* Remaining Count Section */
 .remaining {
   margin-left: auto;
   display: flex;
   align-items: center;
   font-size: 14px;
-  color: #777;
+  color: #666666;
 }
 
 .remaining span {
   font-weight: 600;
-  color: #333;
+  color: #333333;
 }
 
+/* Mobile Styles */
 @media screen and (max-width: 768px) {
   .event-container {
     flex-direction: column;
     height: auto;
     align-items: flex-start;
+    padding: 15px;
   }
 
   .event-image {
-    width: 150px;
-    height: 100px;
+    width: 100%;
+    height: auto;
     margin-right: 0;
     margin-bottom: 15px;
   }
 
   .info {
     margin-left: 0;
+    margin-bottom: 15px;
   }
 
   .event-button {
-    align-items: flex-end;
+    align-items: flex-start;
+    width: 100%;
+  }
+  
+  .event-button button {
+    width: 100%;
   }
 }

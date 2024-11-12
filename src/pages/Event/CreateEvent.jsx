@@ -10,11 +10,13 @@ const CreateEvent=()=> {
     const [eventdata, setEventData] = useState({
         Title:"",
         Description:"",
+        Department:"",
         contactNumber:"",
         Venue:"", 
         date:"", 
         Price:"",
         capacity:"", 
+    
         })
         const handleChange = (e) => {
             const { name, value } = e.target;
@@ -27,7 +29,7 @@ const CreateEvent=()=> {
     
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!eventdata.Title || !eventdata.Description || !eventdata.contactNumber || !eventdata.Venue || !eventdata.date || !eventdata.Price|| !eventdata.capacity) {
+    if (!eventdata.Title || !eventdata.Description ||!eventdata.Department||!eventdata.contactNumber || !eventdata.Venue || !eventdata.date || !eventdata.Price|| !eventdata.capacity) {
         Swal.fire("Error", "Please add all the fields.", "error");
         return;
       }
@@ -106,7 +108,18 @@ const CreateEvent=()=> {
           <label>Event Description</label>
           <textarea placeholder="Enter event description" name='Description' onChange={handleChange} value={eventdata.Description}></textarea>
         </div>
-
+        <div className="form-group">
+          <label htmlFor="department">Department</label>
+          <input
+            type="text"
+            id="department"
+            name="Department"
+            value={eventdata.Department || ""}
+            onChange={handleChange}
+            required
+            placeholder="Enter department"
+          />
+        </div>
         <div className="form-group event-details">
           <div className="form-field">
             <label>Contact Number</label>

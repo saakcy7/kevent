@@ -1,35 +1,36 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
-/* General styling for Sidebar */
+/* General Styling for Sidebar */
 .sidebar {
   width: 250px;
-  height: 100%; /* Adjust height to account for navbar */
+  height: 100%;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 20px;
-  font-size: 1.2rem;
-  background-color: #f5fafa;
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 0 10px 10px 0;
+  font-size: 1.1rem;
+  background-color: #f8fbfc;
+  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.05);
+  border-radius: 0 12px 12px 0;
   font-family: "Roboto", sans-serif;
   position: absolute;
-  top: 70px; /* Offset the sidebar by the navbar’s height */
+  top: 70px;
   left: 0;
-  z-index: 550; /* Lower z-index than navbar */
+  z-index: 550;
+  transition: all 0.3s ease;
 }
 
 .sidebar-menu {
   display: flex;
   width: 100%;
   flex-direction: column;
-  color: #333;  /* Darker text for contrast */
+  color: #333;
   margin: 20px 0;
-  background-color: #e9f4f2;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+  background-color: #eff7f5;
+  border-radius: 12px;
   overflow: hidden;
+  padding: 5px;
 }
 
 .sidebar-items {
@@ -40,113 +41,113 @@
   padding: 12px 20px;
   font-weight: 500;
   justify-content: flex-start;
-  margin: 5px;
+  margin: 5px 0;
   box-sizing: border-box;
   border: none;
   background-color: transparent;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.1s;
+  transition: background-color 0.3s, box-shadow 0.2s ease;
   width: calc(100% - 10px);
   border-radius: 8px;
   font-size: 1rem;
 }
 
 .sidebar-items:hover {
-  background-color: #d6e5e2;
-  color: #000;
-  transform: translateY(-2px); /* Slight lift effect */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow on hover */
+  background-color: #dbeceb;
+  color: #222;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .fas {
   width: 30px;
-  margin-right: 10px;
+  margin-right: 12px;
   color: #38aa95;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 1.2rem;
 }
 
-/* Sidebar footer */
+/* Sidebar Footer */
 .sidebar-footer {
   display: flex;
   width: 100%;
   justify-content: center;
-  border-top: 1px solid #ccc;
   padding: 15px 0;
   font-weight: 500;
-  color: #666;
+  color: #777;
+  border-top: 1px solid #ddd;
 }
 
 .logout {
-  color: #9c0d0d;
+  color: #b02a2a;
   cursor: pointer;
   transition: color 0.3s, background-color 0.3s;
 }
 
 .logout:hover {
-  background-color: #f8d7da;
-  color: #700000;
+  background-color: #fbe2e3;
+  color: #8b1e1e;
   border-radius: 8px;
   padding: 5px 10px;
 }
 
-/* Profile container */
+/* Profile Container */
 .profile-container {
   display: flex;
   align-items: center;
   gap: 20px;
   width: 100%;
-  box-sizing: border-box;
-  padding: 20px;
-  background-color: #e9f4f2;
-  border-radius: 10px;
-  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.05);
+  padding: 15px;
+  background-color: #eff7f5;
+  border-radius: 12px;
+  box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
 }
 
-/* Component container */
+/* Main Content Container */
 .component-container {
-  margin-left: 270px; /* Offset main content by sidebar width */
+  margin-left: 270px;
   height: 100%;
-  width: calc(100% - 270px); /* Adjust width to account for sidebar */
+  width: calc(100% - 270px);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 30px;
+  gap: 20px;
   padding: 20px;
   box-sizing: border-box;
-  background-color: #f5fafa;
+  background-color: #f8fbfc;
 }
 
 .component-container h2 {
-  text-align: left;
   font-weight: 700;
   color: #333;
+  margin-bottom: 15px;
 }
 
+/* Divider for Sidebar Sections */
 .sidebar-divider {
   width: 90%;
   border: none;
   border-top: 1px solid #ddd;
   margin: auto;
+  margin-top: 10px;
 }
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
   .sidebar {
-    width: 200px;
+    width: 220px;
     font-size: 1rem;
   }
 
   .component-container {
-    margin-left: 210px; /* Adjust based on sidebar width */
-    width: calc(100% - 210px);
+    margin-left: 230px;
+    width: calc(100% - 230px);
   }
 }
-/* Other CSS rules */
 
-/* Adjustments for smaller screens (below 480px) */
 @media (max-width: 480px) {
   .sidebar {
     width: 100%;
@@ -154,20 +155,21 @@
     position: relative;
     border-radius: 0;
     box-shadow: none;
-    margin-top: 0; /* Ensure the sidebar is at the top */
+    padding-top: 10px;
   }
 
   .sidebar-items {
-    font-size: 0.8rem; /* Further reduce font size */
-    padding: 8px 12px; /* Decrease padding for space efficiency */
+    font-size: 0.9rem;
+    padding: 10px 16px;
   }
 
   .component-container {
-    margin-top: 20px; /* Add margin to separate content from the sidebar */
+    margin-top: 15px;
+    margin-left: 0;
+    width: 100%;
   }
 }
 
-/* Adjustments for smaller screens (below 360px) */
 @media (max-width: 360px) {
   .sidebar {
     width: 100%;
@@ -175,17 +177,14 @@
     position: relative;
     border-radius: 0;
     box-shadow: none;
-    margin-top: 0; /* Ensure the sidebar is at the top */
   }
 
   .sidebar-items {
-    font-size: 0.8rem; /* Further reduce font size */
-    padding: 8px 12px; /* Decrease padding for space efficiency */
+    font-size: 0.8rem;
+    padding: 8px 14px;
   }
 
   .component-container {
-    margin-top: 20px; /* Add margin to separate content from the sidebar */
+    margin-top: 15px;
   }
 }
-
-/* Other CSS rules */

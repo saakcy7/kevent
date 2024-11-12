@@ -38,9 +38,12 @@ const Navbar = () => {
 
   return (
     <header className="navigation">
-      <Link to="/" className="navigation_name">
+      {isLoggedIn?(<Link to="/dashboard" className="navigation_name">
         KEVENT
-      </Link>
+      </Link>):(<Link to="/" className="navigation_name">
+        KEVENT
+      </Link>)}
+      
       <div className="navigation__menu">
        
         {isLoggedIn ? (

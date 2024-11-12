@@ -43,6 +43,7 @@ const EventDetails = () => {
     <div className="event-details">
      <h2 className="event-title">{event?.Title || 'No Title Available'}</h2>
 <p className="event-description">{event?.Description || 'No Description Available'}</p>
+<p className="event-department">Department:{event?.Department || 'Not Specified'}</p>
 <p className="event-contact">Contact: {event?.contactNumber || 'Not Provided'}</p>
 <p className="event-venue">Venue: {event?.Venue || 'Not Specified'}</p>
 <p className="event-price">{event?.Price || 'Free'}</p>

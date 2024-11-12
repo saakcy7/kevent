@@ -10,6 +10,7 @@ const EditEvent = () => {
   const [eventData, setEventData] = useState({
     Title:"",
     Description:"",
+    Department:"",
     contactNumber:"",
     Venue:"", 
     date:"", 
@@ -91,10 +92,10 @@ const EditEvent = () => {
         Swal.fire("Error", "Price must be greater than or equal to zero.", "error");
         return;
       }
-      if (eventData.date < new Date().toISOString()) {
+     /* if (eventData.date < new Date().toISOString()) {
         Swal.fire("Error", "Event date must be in the future.", "error");
         return;
-      }
+      }*/
       
       await Swal.fire({
         icon: 'success',
@@ -160,6 +161,18 @@ const EditEvent = () => {
             required
           ></textarea>
         </div>
+        <div className="form-group">
+          <label htmlFor="description">Description</label>
+          <input
+            type="text"
+            id="department"
+            name="Department"
+            value={eventData.Department}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
         <div className="form-group">
           <label htmlFor="contactNumber">Contact Number</label>
           <input

@@ -1,4 +1,4 @@
-body{
+body {
   background-color: rgb(228, 222, 222);
 }
 
@@ -12,22 +12,25 @@ body{
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 40px;
   overflow: hidden;
+  animation: fadeIn 1s ease-in-out;
 }
 
 .form-container {
   position: relative;
-  width: 50%; /* Form takes 50% of the width */
+  width: 50%;
   height: 100%;
   transition: transform 0.6s ease-in-out;
+  animation: slideIn 0.6s ease-out;
 }
 
 .form {
   position: absolute;
   width: 105%;
-  padding: 40px; /* Padding for better spacing */
+  padding: 40px;
   box-sizing: border-box;
-  background-color:white;
+  background-color: white;
   transition: transform 0.6s ease-in-out;
+  animation: fadeInUp 0.8s ease-out;
 }
 
 .login-form {
@@ -37,7 +40,6 @@ body{
 .login-form .forgot {
   text-decoration: none;
   color: #38aa95;
-
   display: flex;
   align-items: flex-end;
   justify-content: end;
@@ -54,6 +56,8 @@ body{
 
 h2 {
   text-align: center;
+  opacity: 0;
+  animation: fadeIn 0.5s ease-in-out forwards;
 }
 
 .form p {
@@ -63,19 +67,16 @@ h2 {
 
 .input-group {
   margin-bottom: 15px;
+  position: relative;
+  animation: fadeIn 1s ease-in-out;
 }
 
-.input-group .icon{
+.input-group .icon {
   position: absolute;
   top: 54%;
   right: 40px;
   transform: translateY(-50%);
-}
-
-.input-group label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
+  transition: transform 0.3s ease;
 }
 
 .input-group input,
@@ -87,72 +88,78 @@ h2 {
   border-bottom: 1px solid #000;
   outline: none;
   background: none;
-  appearance: none; /* Remove default dropdown arrow */
+  appearance: none;
+  transition: all 0.3s ease;
 }
 
 .input-group input:focus,
 .input-group select:focus {
   border-bottom: 2px solid #000;
+  transform: scale(1.02);
 }
 
 button:hover {
   background-color: #333;
+  transform: scale(1.05); /* Slight scaling on hover */
 }
 
 .toggle {
   cursor: pointer;
   color: blue;
   text-decoration: underline;
+  animation: fadeIn 1s ease-in-out;
 }
-
 
 .login-form .button1 {
   padding: 10px 20px;
-  background-color: #46d1b7; /* Light green background */
-  color: #000; /* Black text */
+  background-color: #46d1b7;
+  color: #000;
   border: none;
   width: 30%;
   margin-right: 20px;
   border-radius: 15px;
-  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2); /* Soft shadow effect */
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
   font-weight: bold;
   cursor: pointer;
-  transition: transform 0.1s ease-in-out;
+  transition: transform 0.1s ease-in-out, background-color 0.3s ease;
 }
-.login-form .button1:hover{
-background-color: #48f4d5; /* Ensure background color stays consistent on hover */
-transform: translateY(-2px); /* Slight lift effect on hover */
-box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25); /* Slightly deeper shadow */
+
+.login-form .button1:hover {
+  background-color: #48f4d5;
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25);
 }
 
 .login-form .button1:active {
-  transform: translateY(1px); /* Button pushes down slightly when clicked */
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for active state */
+  transform: translateY(1px);
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
+
 .signup-form .button2 {
   padding: 10px 20px;
-  background-color: #46d1b7; /* Light green background */
-  color: #000; /* Black text */
+  background-color: #46d1b7;
+  color: #000;
   border: none;
   width: 40%;
   border-radius: 15px;
-  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2); /* Soft shadow effect */
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
   font-weight: bold;
   cursor: pointer;
-  transition: transform 0.1s ease-in-out;
+  transition: transform 0.1s ease-in-out, background-color 0.3s ease;
 }
-.signup-form .button2:hover{
-  background-color: #48f4d5; /* Ensure background color stays consistent on hover */
-transform: translateY(-2px); /* Slight lift effect on hover */
-box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25); /* Slightly deeper shadow */
+
+.signup-form .button2:hover {
+  background-color: #48f4d5;
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25);
 }
 
 .signup-form .button2:active {
-  transform: translateY(1px); /* Button pushes down slightly when clicked */
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for active state */
+  transform: translateY(1px);
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.signup-form .button2 .otp{
+.signup-form .button2 .otp {
   text-decoration: none;
   color: white;
 }
@@ -172,21 +179,22 @@ button:hover {
   text-decoration: underline;
 }
 
-/* Image container */
 .image-container .img1 {
-  width: 100%; /* Takes the other 50% of the container */
+  width: 100%;
   height: 100%;
   background-size: cover;
   transform: translateX(-10px);
   border-radius: 20px;
+  transition: transform 0.3s ease;
 }
 
 .image-container .img2 {
-  width: 100%; /* Takes the other 50% of the container */
+  width: 100%;
   height: 100%;
   background-size: cover;
   transform: translateX(410px);
   border-radius: 20px;
+  transition: transform 0.3s ease;
 }
 
 @media (max-width: 768px) {
@@ -223,21 +231,53 @@ input[type="text"],
 input[type="email"],
 input[type="password"] {
   border: none;
-  border-bottom: 1px solid #000; /* Add a bottom border to create a line */
-  outline: none; /* Remove the default outline */
-  width: 100%; /* Make the input take the full width of the container */
-  padding: 8px 0; /* Add some padding for better spacing */
-  font-size: 16px; /* Adjust the font size as needed */
+  border-bottom: 1px solid #000;
+  outline: none;
+  width: 100%;
+  padding: 8px 0;
+  font-size: 16px;
+  transition: all 0.3s ease;
 }
 
 input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="password"]:focus {
-  border-bottom: 2px solid #000; /* Change the border thickness on focus */
+  border-bottom: 2px solid #000;
+  transform: scale(1.02);
 }
 
 .button-container {
   display: flex;
-  justify-content: center; /* Center the button horizontally */
-  margin-top: 10px; /* Add some space above the button */
+  justify-content: center;
+  margin-top: 10px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }

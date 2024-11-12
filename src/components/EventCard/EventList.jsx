@@ -16,6 +16,7 @@ const EventList = ({onEventClick}) => {
             ...event,
             title: event.Title,
             description: event.Description,
+            department: event.Department,
             venue: event.Venue,
             price: event.Price,
           }));

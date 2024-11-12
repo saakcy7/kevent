@@ -15,9 +15,9 @@ const Events = ({info,type,onEdit,onDelete}) => {
   const remainingMinutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
 
   const EventToday = remainingDays === 0;
-  const hasEventPassed = formattedDate <= currentTime;
+  const hasEventPassed = eventTime <= currentTime;
 
-  if (type === "history") {
+  if (type === "history"|| hasEventPassed) {
     return (
       <div className="event-container">
         <div className="image">
