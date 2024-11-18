@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import "./profile.css";
-import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 
 const Profile = ({ token, user }) => {
@@ -20,6 +19,8 @@ const Profile = ({ token, user }) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
+  const [image, setImage] = useState(null);
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     if (user) {
@@ -34,7 +35,6 @@ const Profile = ({ token, user }) => {
       [name]: value,
     }));
   };
-
   const handlePasswordChange = async (e) => {
     e.preventDefault();
 
@@ -64,15 +64,15 @@ const Profile = ({ token, user }) => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({
-          email: user.email,
-          currentPassword: currentPassword,
-          password: newPassword,
-        }),
+        body: JSON.stringify({ email: user.email, currentPassword: currentPassword, password: newPassword }),
       });
-
       if (!response.ok) {
-        throw new Error("Failed to change password");
+        if (response.status === 401) {
+          alert("Current password is incorrect.");
+        } else {
+          throw new Error("Error changing password");
+        }
+        return;
       }
 
       await Swal.fire({
@@ -81,27 +81,17 @@ const Profile = ({ token, user }) => {
         text: "Password changed successfully.",
       });
 
-      // Reset password fields
       setCurrentPassword("");
       setNewPassword("");
       setConfirmPassword("");
     } catch (error) {
-      if (error.message.includes("401")) {
-        await Swal.fire({
-          icon: "error",
-          title: "Error!",
-          text: "Current password is incorrect.",
-        });
-      } else {
-        await Swal.fire({
-          icon: "error",
-          title: "Error!",
-          text: "Failed to change password. Please try again.",
-        });
-      }
+      await Swal.fire({
+        icon: "error",
+        title: "Error!",
+        text: "Failed to change password. Please try again.",
+      });
     }
   };
-
   const togglePasswordVisibility = () => {
     setIsPasswordVisible(!isPasswordVisible);
   };
@@ -123,7 +113,7 @@ const Profile = ({ token, user }) => {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to update profile");
+        throw new Error("Error updating profile");
       }
 
       const updatedUser = await response.json();
@@ -142,6 +132,53 @@ const Profile = ({ token, user }) => {
     }
   };
 
+  const handleImageChange = (e) => {
+    const selectedFile = e.target.files[0];
+    setImage(selectedFile);
+  };
+
+  const handleImageUpload = async (e) => {
+    e.preventDefault();
+    if (!image) {
+      alert("Please select an image");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("avatar", image);
+
+    try {
+      const response = await fetch("http://localhost:3000/users/upload-profileImage", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        Swal.fire({
+          icon: "success",
+          title: "Success!",
+          text: "Profile photo updated successfully.",
+        });
+        setEditedUser((prev) => ({
+          ...prev,
+          avatarURL: result.avatarURL,
+        }));
+      } else {
+        throw new Error("Upload failed.");
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error!",
+        text: "Failed to upload the image. Please try again.",
+      });
+    }
+  };
+
   if (!user) {
     return <p>Loading user information...</p>;
   }
@@ -155,7 +192,15 @@ const Profile = ({ token, user }) => {
               <h4>
                 {user.firstName} {user.lastName}
               </h4>
-              <button className="change-photo-button">Upload New Photo</button>
+              <input type="file" accept="image/*" ref={fileInputRef} onChange={handleImageChange} style={{ display: "none" }} />
+              <button type="button" className="change-photo-button" onClick={() => fileInputRef.current && fileInputRef.current.click()}>
+                Choose New Photo
+              </button>
+              {image && (
+                <button onClick={handleImageUpload} className="upload-button">
+                  Upload
+                </button>
+              )}
             </div>
           </div>
 

@@ -12,7 +12,7 @@ const Sidebar = () => {
   const [eventData, setEventData] = useState([]);
   const [ticketData, setTicketData] = useState([]);
   // const token = localStorage.getItem("token");
-  let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MWQxY2Y0NWQ2NGFhOGY4ZjM0ZDI1MyIsImlhdCI6MTczMTA4NTY2MywiZXhwIjoxNzMxMDk2NDYzfQ.ewFaRCsDtFbGZRAzgFB9uJbHw6qOuessikLsH0fyKvw";
+  let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MWQxY2Y0NWQ2NGFhOGY4ZjM0ZDI1MyIsImlhdCI6MTczMTM0NDM3NSwiZXhwIjoxNzMxMzU1MTc1fQ.IrS5MFNNBkY31EpGhEPWXYoQLEdWKn5_8-azdeM3CIM";
 
   const historyData = [
     { title: "angry Conference", date: new Date("2024-11-10"), venue: "Kathmandu" },
@@ -53,15 +53,13 @@ const Sidebar = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await fetch("http://localhost:3000/events/viewevents", {
+        const response = await fetch("http://localhost:3000/users/viewevents", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log("Response Status:", response.status);
-        console.log("Response Headers:", response.headers);
         if (!response.ok) {
           throw new Error("Events fetch failed");
         }

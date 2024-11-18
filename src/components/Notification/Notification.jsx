@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./Notification.css";
 import Swal from "sweetalert2";
 
@@ -6,6 +6,7 @@ function Notification() {
   const [isOpen, setIsOpen] = useState(false);
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(false);
+  const notificationRef = useRef(null);
 
   const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MWQxY2Y0NWQ2NGFhOGY4ZjM0ZDI1MyIsImlhdCI6MTczMTA4NTY2MywiZXhwIjoxNzMxMDk2NDYzfQ.ewFaRCsDtFbGZRAzgFB9uJbHw6qOuessikLsH0fyKvw";
 
@@ -38,7 +39,7 @@ function Notification() {
           title: "Error!",
           text: "Failed to fetch notifications. Please try again.",
         });
-        setNotifications([]); // Set an empty array if fetching fails
+        setNotifications([]);
       } finally {
         setLoading(false);
       }
@@ -55,7 +56,14 @@ function Notification() {
           {loading ? (
             <p>Loading notifications...</p>
           ) : notifications && notifications.length > 0 ? (
-            notifications.map((notification, index) => <p key={index}>{notification.message}</p>)
+            notifications.map((notification, index) => (
+              <div key={index} className="notification-item">
+                <p className="notification-type">
+                  <strong>{notification.type}</strong>
+                </p>
+                <p className="notification-message">{notification.message}</p>
+              </div>
+            ))
           ) : (
             <p>No notifications available</p>
           )}
