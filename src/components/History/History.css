@@ -1,5 +1,4 @@
 .event-container {
-  all: unset;
   width: 800px;
   height: 20vh;
   background-color: white;
@@ -31,45 +30,26 @@
   font-size: 13px;
 }
 
-.event-button {
-  flex-direction: column;
-  display: flex;
-  margin-left: auto;
-  gap: 10px;
-}
-
-.event-button button {
-  padding: 10px 15px;
-  font-size: 14px;
-  border-radius: 5px;
-  cursor: pointer;
-  border: #000000;
-}
-
-.event-button .edit-button button {
-  width: 100px;
-  background-color: #61bfad;
-  margin-top: 40px;
-}
-
-.event-button .download-button button {
-  width: 150px;
-  background-color: white;
-  padding-right: 60px;
-}
-
-.event-button .download-button button:hover {
-  color: green;
-}
-
-.event-button .edit-button button:hover {
-  background-color: #4f8f82;
-}
-
 .remaining {
   margin-left: auto;
   display: flex;
   align-items: center;
   font-size: 13px;
   color: grey;
+}
+.tab-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+}
+
+/* Separator line */
+.separator {
+  all: unset; /* Reset inherited styles */
+  border: none;
+  height: 1px;
+  background-color: #ccc; /* Light gray line */
+  margin: 10px 0; /* Space above and below the line */
 }
