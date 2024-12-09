@@ -41,13 +41,12 @@
 }
 
 .change-photo-button {
+  margin-top: 0;
+  height: 30px;
+  border: none;
   border-radius: 5px;
   background-color: #61bfad;
   color: white;
-  width: 150px;
-  display: inline-block;
-  font-size: 0.9rem;
-  line-height: 30px;
 }
 
 .profile-info {
@@ -150,6 +149,10 @@
   display: flex;
   align-items: center;
   gap: 20px;
+}
+
+.batch input {
+  background: none;
 }
 
 .dept-input select {

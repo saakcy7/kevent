@@ -7,12 +7,11 @@ import Swal from "sweetalert2";
 
 const Sidebar = () => {
   const [currentComponent, setCurrentComponent] = useState(<Profile />);
-  const [currentHeading, setcurrentHeading] = useState("Profile");
+  const [currentHeading, setCurrentHeading] = useState("Profile");
   const [user, setUser] = useState(null);
-  const [eventData, setEventData] = useState([]);
   const [ticketData, setTicketData] = useState([]);
-  // const token = localStorage.getItem("token");
-  let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MWQxY2Y0NWQ2NGFhOGY4ZjM0ZDI1MyIsImlhdCI6MTczMTM0NDM3NSwiZXhwIjoxNzMxMzU1MTc1fQ.IrS5MFNNBkY31EpGhEPWXYoQLEdWKn5_8-azdeM3CIM";
+  const [eventData, setEventData] = useState([]);
+  const token = localStorage.getItem("token");
 
   const historyData = [
     { title: "angry Conference", date: new Date("2024-11-10"), venue: "Kathmandu" },
@@ -80,6 +79,7 @@ const Sidebar = () => {
 
   useEffect(() => {
     const fetchTickets = async () => {
+      if (!user) return;
       try {
         const response = await fetch("http://localhost:3000/users/viewtickets", {
           method: "GET",
@@ -101,13 +101,15 @@ const Sidebar = () => {
         await Swal.fire({
           icon: "error",
           title: "Error!",
-          text: "Failed to fetch tickets. Please try again.",
+          text: error.message || "Failed to fetch tickets. Please try again.",
         });
       }
     };
 
-    fetchTickets();
-  }, [token]);
+    if (user) {
+      fetchTickets();
+    }
+  }, [token, user]);
 
   useEffect(() => {
     if (user) {
@@ -117,61 +119,103 @@ const Sidebar = () => {
 
   const handleButtonClick = (heading, component) => {
     setCurrentComponent(component);
-    setcurrentHeading(heading);
+    setCurrentHeading(heading);
+  };
+
+  const handleDeleteEvent = async (eventId) => {
+    console.log("Deleting event:", eventId);
+    try {
+      const response = await fetch(`http://localhost:3000/events/${eventId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to delete event");
+      }
+
+      setEventData((prevEventData) => prevEventData.filter((event) => event._id !== eventId));
+      setTicketData((prevTicketData) => prevTicketData.filter((ticket) => ticket.eventId !== eventId)); // Remove associated tickets
+      Swal.fire("Success", "Event and associated tickets deleted successfully", "success");
+    } catch (error) {
+      console.error("Event deletion error:", error);
+      await Swal.fire({
+        icon: "error",
+        title: "Error!",
+        text: error.message || "Failed to delete event. Please try again.",
+      });
+    }
+  };
+
+  const handleEditEvent = (eventId) => {
+    window.location.href = `/editevent/${eventId}`;
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.href = "/home";
   };
 
   return (
-    <div className="profile-container">
-      <div className="sidebar">
-        <div className="sidebar-menu">
-          <button className="sidebar-items" onClick={() => handleButtonClick("Profile", <Profile user={user} token={token} />)}>
-            <i className="fas fa-user"></i> Profile
-          </button>
-          <button
-            className="sidebar-items"
-            onClick={() =>
-              handleButtonClick(
-                "My Events",
-                eventData.map((eventData, index) => <Events key={index} type="event" info={eventData} />)
-              )
-            }
-          >
-            <i className="fas fa-calendar-alt"></i> Events
-          </button>
-          <button
-            className="sidebar-items"
-            onClick={() =>
-              handleButtonClick(
-                "My Tickets",
-                ticketData.map((ticketData, index) => <Events key={index} type="ticket" info={ticketData.eventId} />)
-              )
-            }
-          >
-            <i className="fas fa-ticket-alt"></i> Tickets
-          </button>
-          <button
-            className="sidebar-items"
-            onClick={() =>
-              handleButtonClick(
-                "History",
-                historyData.map((event, index) => <Events key={index} type="history" info={event} />)
-              )
-            }
-          >
-            <i className="fas fa-history"></i> History
-          </button>
-
-          <hr className="sidebar-divider" />
-          <div className="sidebar-footer">
-            <button className="sidebar-items logout" onClick={() => handleButtonClick(null)}>
-              <i className="fas fa-sign-out-alt"></i> Logout
+    <div className="wrapper">
+      <div className="profile-container">
+        <div className="sidebar">
+          <div className="sidebar-menu">
+            <button className="sidebar-items" onClick={() => handleButtonClick("Profile", <Profile user={user} token={token} />)}>
+              <i className="fas fa-user"></i> Profile
             </button>
+            <button
+              className="sidebar-items"
+              onClick={() =>  
+                handleButtonClick(
+                  "My Events",
+                  eventData
+                    .filter((event) => event.userId === user.id) // Filter events by user ID
+                    .map((event) => <Events key={event._id} type="event" info={event} onEdit={() => handleEditEvent(event._id)} onDelete={() => handleDeleteEvent(event._id)} />)
+                )
+              }
+            >
+              <i className="fas fa-calendar-alt"></i> Events
+            </button>
+            <button
+              className="sidebar-items"
+              onClick={() =>
+                handleButtonClick(
+                  "My Tickets",
+                  ticketData.map((ticket) => <Events key={ticket._id} type="ticket" info={ticket.eventId} />)
+                )
+              }
+            >
+              <i className="fas fa-ticket-alt"></i> Tickets
+            </button>
+            <button
+              className="sidebar-items"
+              onClick={() =>
+                handleButtonClick(
+                  "History",
+                  historyData.map((event, index) => <Events key={index} type="history" info={event} />)
+                )
+              }
+            >
+              <i className="fas fa-history"></i> History
+            </button>
+
+            <hr className="sidebar-divider" />
+            <div className="sidebar-footer">
+              <button className="sidebar-items logout" onClick={handleLogout}>
+                <i className="fas fa-sign-out-alt"></i> Logout
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="component-container">
-        <h2>{currentHeading}</h2>
-        {currentComponent}
+        <div className="component-container">
+          <h2>{currentHeading}</h2>
+          {currentComponent}
+        </div>
       </div>
     </div>
   );

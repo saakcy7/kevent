@@ -20,6 +20,7 @@ const Profile = ({ token, user }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
   const [image, setImage] = useState(null);
+  const [isImageSelected, setIsImageSelected] = useState(false);
   const fileInputRef = useRef(null);
 
   useEffect(() => {
@@ -35,6 +36,7 @@ const Profile = ({ token, user }) => {
       [name]: value,
     }));
   };
+
   const handlePasswordChange = async (e) => {
     e.preventDefault();
 
@@ -135,6 +137,7 @@ const Profile = ({ token, user }) => {
   const handleImageChange = (e) => {
     const selectedFile = e.target.files[0];
     setImage(selectedFile);
+    setIsImageSelected(true);
   };
 
   const handleImageUpload = async (e) => {
@@ -163,10 +166,9 @@ const Profile = ({ token, user }) => {
           title: "Success!",
           text: "Profile photo updated successfully.",
         });
-        setEditedUser((prev) => ({
-          ...prev,
-          avatarURL: result.avatarURL,
-        }));
+
+        user.avatarURL = result.avatarURL;
+        setIsImageSelected(false); // Reset image selection after upload
       } else {
         throw new Error("Upload failed.");
       }
@@ -182,6 +184,12 @@ const Profile = ({ token, user }) => {
   if (!user) {
     return <p>Loading user information...</p>;
   }
+  const currentYear = new Date().getFullYear();
+  const years = [];
+  for (let year = currentYear; year >= 1990; year--) {
+    years.push(year);
+  }
+
   return (
     <div className="profile">
       <form onSubmit={handleProfileUpdate}>
@@ -193,10 +201,11 @@ const Profile = ({ token, user }) => {
                 {user.firstName} {user.lastName}
               </h4>
               <input type="file" accept="image/*" ref={fileInputRef} onChange={handleImageChange} style={{ display: "none" }} />
-              <button type="button" className="change-photo-button" onClick={() => fileInputRef.current && fileInputRef.current.click()}>
-                Choose New Photo
-              </button>
-              {image && (
+              {!isImageSelected ? (
+                <button type="button" className="change-photo-button" onClick={() => fileInputRef.current && fileInputRef.current.click()}>
+                  Choose New Photo
+                </button>
+              ) : (
                 <button onClick={handleImageUpload} className="upload-button">
                   Upload
                 </button>
@@ -228,17 +237,27 @@ const Profile = ({ token, user }) => {
             </div>
             <div className="year-batch">
               <label>Batch</label>
-              <div className="dept-input">
+              <div className="batch-input">
                 <select name="batch" value={editedUser.batch} onChange={handleChange} required>
-                  <option value={user.batch}>{user.batch}</option>
-                  <option value="Other">Other</option>
+                  <option value="">Select a year</option>
+                  {years.map((year) => (
+                    <option key={year} value={year}>
+                      {year}
+                    </option>
+                  ))}
                 </select>
               </div>
 
               <label>Year</label>
               <select name="year" value={editedUser.year} onChange={handleChange} required>
-                <option value={user.year}>{user.year}</option>
-                <option value="II">II</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
               </select>
             </div>
           </div>
@@ -282,4 +301,5 @@ const Profile = ({ token, user }) => {
     </div>
   );
 };
+
 export default Profile;
