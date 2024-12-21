@@ -32,7 +32,7 @@
   padding: 10px 20px;
   justify-content: left;
   margin: 10px;
-  box-sizing: border-box;
+  box-sizing: border-box; 
   align-items: center;
   border: none;
   background-color: #e9f4f2;
@@ -68,8 +68,7 @@
   cursor: pointer;
 }
 
-.logout :hover {
-  background-color: #d6e5e2;
+button.logout:hover {
   color: rgb(125, 4, 4);
 }
 

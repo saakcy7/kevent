@@ -37,19 +37,46 @@
   font-size: 13px;
   color: grey;
 }
-.tab-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
+
+.tab-container {
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
 }
 
-/* Separator line */
-.separator {
-  all: unset; /* Reset inherited styles */
+.tab-button {
+  all: unset;
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+  margin: 0 120px;
   border: none;
-  height: 1px;
-  background-color: #ccc; /* Light gray line */
-  margin: 10px 0; /* Space above and below the line */
+  background: none;
+  font-weight: bold;
+  border-bottom: 3px solid transparent; /* Ensures no movement */
+  font-size: 1.1rem;
+  padding: 10px 20px;
+  margin-bottom: 0;
+}
+
+.tab-button:hover {
+  border-bottom: 2px solid black;
+  box-shadow: 0 4px 6px #f1b9b91a; /* Shadow below button */
+  background: none;
+}
+
+.tab-button.active {
+  border-bottom: 2px solid black; /* Make the active tab stand out */
+  color: #000; /* Active text color */
+  font-weight: bold; /* Bold text on active */
+  box-shadow: 0 4px 6px #f1b9b91a; /* Active shadow */
+}
+
+/* Separator Line */
+.separator {
+  background-color: white;
+  box-shadow: 0 1px px #ccc;
+  margin: 0;
+  padding: 0;
 }

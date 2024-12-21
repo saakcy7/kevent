@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faEyeSlash, faL } from "@fortawesome/free-solid-svg-icons";
 import "./profile.css";
 import Swal from "sweetalert2";
 
@@ -17,6 +17,7 @@ const Profile = ({ token, user }) => {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [isnewPassword, setIsnewPassword] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
   const [image, setImage] = useState(null);
@@ -98,6 +99,10 @@ const Profile = ({ token, user }) => {
     setIsPasswordVisible(!isPasswordVisible);
   };
 
+  const toggleNewPasswordVisibility = () => {
+    setIsnewPassword(!isnewPassword);
+  };
+
   const toggleConfirmPasswordVisibility = () => {
     setIsConfirmPasswordVisible(!isConfirmPasswordVisible);
   };
@@ -119,7 +124,7 @@ const Profile = ({ token, user }) => {
       }
 
       const updatedUser = await response.json();
-      setEditedUser(updatedUser);
+      setEditedUser({ ...updatedUser, firstName: updatedUser.firstName, lastName: updatedUser.lastName });
       await Swal.fire({
         icon: "success",
         title: "Success!",
@@ -216,9 +221,7 @@ const Profile = ({ token, user }) => {
           <div className="profile-info">
             <div className="h3-update">
               <h3>General Information</h3>
-              <button type="submit" className="update">
-                Update
-              </button>
+              <button className="update">Update</button>
             </div>
 
             <label>Name</label>
@@ -275,8 +278,8 @@ const Profile = ({ token, user }) => {
 
           <label>New Password</label>
           <div className="password-field">
-            <input type={isPasswordVisible ? "text" : "password"} placeholder="New Password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required />
-            <FontAwesomeIcon icon={isPasswordVisible ? faEyeSlash : faEye} onClick={togglePasswordVisibility} className="password-icon" />
+            <input type={isnewPassword ? "text" : "password"} placeholder="New Password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required />
+            <FontAwesomeIcon icon={isnewPassword ? faEyeSlash : faEye} onClick={toggleNewPasswordVisibility} className="password-icon" />
           </div>
 
           <label>Re-Enter Password</label>
@@ -292,9 +295,7 @@ const Profile = ({ token, user }) => {
           </div>
 
           <div className="profile-info-buttons">
-            <button type="submit" className="save-button">
-              Save
-            </button>
+            <button className="save-button">Save</button>
           </div>
         </form>
       </div>

@@ -1,8 +1,8 @@
 import React from "react";
 import "./event.css";
 
-const Events = ({ info, type, onEdit, onDelete }) => {
-  const { Title, date: eventDate, Venue } = info || {};
+const Events = ({ info, type, onEdit, onDownload }) => {
+  const { Title, date: eventDate, Venue, _id: eventId } = info || {};
 
   const formattedDate = new Date(eventDate);
 
@@ -50,7 +50,9 @@ const Events = ({ info, type, onEdit, onDelete }) => {
             <button onClick={onEdit}>Edit</button>
           </div>
           <div className="download-button">
-            <button onClick={onDelete}>Delete</button>
+            <a href onClick={() => onDownload(eventId)}>
+              Download
+            </a>
           </div>
         </div>
       </div>

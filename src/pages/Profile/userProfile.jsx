@@ -118,37 +118,60 @@ const Sidebar = () => {
     setCurrentHeading(heading);
   };
 
-  const handleDeleteEvent = async (eventId) => {
-    console.log("Deleting event:", eventId);
+  // const handleDeleteEvent = async (eventId) => {
+  //   console.log("Deleting event:", eventId);
+  //   try {
+  //     const response = await fetch(`http://localhost:3000/events/${eventId}`, {
+  //       method: "DELETE",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     });
+
+  //     if (!response.ok) {
+  //       const errorData = await response.json();
+  //       throw new Error(errorData.error || "Failed to delete event");
+  //     }
+
+  //     setEventData((prevEventData) => prevEventData.filter((event) => event._id !== eventId));
+  //     setTicketData((prevTicketData) => prevTicketData.filter((ticket) => ticket.eventId !== eventId)); // Remove associated tickets
+  //     Swal.fire("Success", "Event and associated tickets deleted successfully", "success");
+  //   } catch (error) {
+  //     console.error("Event deletion error:", error);
+  //     await Swal.fire({
+  //       icon: "error",
+  //       title: "Error!",
+  //       text: error.message || "Failed to delete event. Please try again.",
+  //     });
+  //   }
+  // };
+  const handleDownload = async (eventId) => {
     try {
-      const response = await fetch(`http://localhost:3000/events/${eventId}`, {
-        method: "DELETE",
+      console.log("Downloading for event:", eventId);
+      const response = await fetch(`http://localhost:3000/events/export/${eventId}`, {
+        method: "GET",
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Failed to delete event");
+        throw new Error("Network response was not ok");
       }
 
-      setEventData((prevEventData) => prevEventData.filter((event) => event._id !== eventId));
-      setTicketData((prevTicketData) => prevTicketData.filter((ticket) => ticket.eventId !== eventId)); // Remove associated tickets
-      Swal.fire("Success", "Event and associated tickets deleted successfully", "success");
+      const blob = await response.blob(); // Convert the response to a blob
+      const downloadUrl = URL.createObjectURL(blob); // Create a URL for the blob
+      const link = document.createElement("a"); // Create a download link
+      link.href = downloadUrl;
+      link.download = `users_event_${eventId}.xlsx`; // Set the filename
+      document.body.appendChild(link); // Append the link to the body
+      link.click(); // Trigger the download
+      document.body.removeChild(link); // Remove the link from the document
     } catch (error) {
-      console.error("Event deletion error:", error);
-      await Swal.fire({
-        icon: "error",
-        title: "Error!",
-        text: error.message || "Failed to delete event. Please try again.",
-      });
+      console.error("Download error:", error);
+      alert("Failed to download the file. Please try again.");
     }
-  };
-
-  const handleEditEvent = (eventId) => {
-    window.location.href = `/editevent/${eventId}`;
   };
 
   const handleLogout = () => {
@@ -168,7 +191,7 @@ const Sidebar = () => {
             onClick={() =>
               handleButtonClick(
                 "My Events",
-                eventData.map((eventData, index) => <Events key={index} type="event" info={eventData} />)
+                eventData.map((eventData, index) => <Events key={index} type="event" info={eventData} onDownload={handleDownload} />)
               )
             }
           >

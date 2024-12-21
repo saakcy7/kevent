@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import "../Event/event.css";
+import "./History.css";
 
 const History = ({ token }) => {
   const [expiredEvents, setExpiredEvents] = useState([]);
   const [expiredTickets, setExpiredTickets] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState("events"); // Default tab
+  const [activeTab, setActiveTab] = useState("events");
 
   useEffect(() => {
     const fetchExpiredItems = async () => {
@@ -51,31 +52,30 @@ const History = ({ token }) => {
 
     fetchExpiredItems();
   }, [token]);
-
+  console.log(expiredTickets);
   return (
     <div className="events">
-      <button
-        className={`tab-button ${activeTab === "events" ? "active" : ""}`}
-        onClick={() => {
-          setActiveTab("events");
-        }}
-      >
-        Expired Events
-      </button>
-      <button
-        className={`tab-button ${activeTab === "tickets" ? "active" : ""}`}
-        onClick={() => {
-          setActiveTab("tickets");
-        }}
-      >
-        Expired Tickets
-      </button>
-
-      <hr className="separator" />
-
+      <div className="tab-container">
+        <button
+          className={`tab-button ${activeTab === "events" ? "active" : ""}`}
+          onClick={() => {
+            setActiveTab("events");
+          }}
+        >
+          Expired Events
+        </button>
+        <button
+          className={`tab-button ${activeTab === "tickets" ? "active" : ""}`}
+          onClick={() => {
+            setActiveTab("tickets");
+          }}
+        >
+          Expired Tickets
+        </button>
+        <hr className="separator" />
+      </div>
       {activeTab === "events" && (
         <>
-          <h3>Expired Events</h3>
           {expiredEvents.length > 0 ? (
             <ul>
               {expiredEvents.map((event) => (
@@ -96,21 +96,19 @@ const History = ({ token }) => {
           )}
         </>
       )}
-
       {activeTab === "tickets" && (
         <>
-          <h3>Expired Tickets</h3>
           {expiredTickets.length > 0 ? (
             <ul>
               {expiredTickets.map((ticket) => (
                 <li key={ticket._id} className="event-container">
                   <div className="event-image">
-                    <img src={ticket.image || ""} alt={ticket.eventId?.Title || "Ticket"} />
+                    <img src={ticket.image || ""} alt={ticket.Title || "Ticket"} />
                   </div>
                   <div className="info">
-                    <h3>{ticket.eventId?.Title}</h3>
+                    <h3>{ticket.Title}</h3>
                     <p>Date: {new Date(ticket.eventDate).toLocaleDateString()}</p>
-                    <p>Venue: {ticket.eventId?.Venue}</p>
+                    <p>Venue: {ticket.Venue}</p>
                   </div>
                 </li>
               ))}
