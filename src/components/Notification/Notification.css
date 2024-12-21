@@ -32,3 +32,105 @@
 .notification-dropdown p:last-child {
   border-bottom: none;
 }
+
+/* Notification Bell Icon Wrapper */
+.notification {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* Notification Bell Icon */
+.notification-icon-wrapper {
+  position: relative;
+  font-size: 24px; /* Adjust for the bell icon size */
+  color: #333; /* Default bell icon color */
+  transition: color 0.3s ease;
+}
+
+.notification-icon-wrapper:hover {
+  color: #007bff; /* Bell icon color on hover */
+}
+
+.notification-icon {
+  font-size: 28px; /* Adjust bell size */
+}
+
+/* Notification Badge */
+.notification-badge {
+  position: absolute;
+  top: -5px; /* Position at the top-right corner of the bell */
+  right: -10px;
+  background-color: #ff3d3d; /* Bright red badge */
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 50%;
+  padding: 4px 6px; /* Adjust for size */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+/* Notification Dropdown */
+.notification-dropdown {
+  position: absolute;
+  top: 40px; /* Adjust based on your layout */
+  right: 0;
+  width: 300px; /* Set width of dropdown */
+  max-height: 400px; /* Limit height, with scrollbar for overflow */
+  overflow-y: auto;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  padding: 10px;
+  font-family: Arial, sans-serif;
+}
+
+/* Loading Text */
+.notification-dropdown p {
+  margin: 0;
+  padding: 8px 0;
+  color: #666;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* Notification Item */
+.notification-item {
+  padding: 10px;
+  border-bottom: 1px solid #f1f1f1;
+  transition: background-color 0.3s ease;
+}
+
+.notification-item:last-child {
+  border-bottom: none;
+}
+
+.notification-item:hover {
+  background-color: #f9f9f9;
+}
+
+/* Notification Type */
+.notification-type {
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+/* Notification Message */
+.notification-message {
+  font-size: 14px;
+  color: #555;
+  margin: 5px 0 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .notification-dropdown {
+    width: 100%; /* Full width on smaller screens */
+    left: 0;
+    right: 0;
+  }
+}

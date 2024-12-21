@@ -1,0 +1,114 @@
+/* EventCard.css */
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f5f3;
+  margin: 0;
+  padding: 0;
+}
+
+.event-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.event-card {
+  width: 320px;
+  border-radius: 15px;
+  padding: 20px;
+  background: linear-gradient(145deg, #ffffff, #f2f7f5);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  position: relative;
+  overflow: hidden;
+}
+
+.event-card::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 250%;
+  height: 250%;
+  background: radial-gradient(circle, rgba(68, 170, 139, 0.15), transparent 70%);
+  transform: rotate(45deg);
+  z-index: -1;
+}
+
+.event-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.event-title {
+  font-size: 1.6em;
+  color: #333;
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-transform: capitalize;
+}
+
+.event-description {
+  font-size: 1em;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.event-info {
+  display: flex;
+  align-items: center;
+  font-size: 0.95em;
+  color: #444;
+  margin: 5px 0;
+  gap: 8px;
+}
+
+.event-price {
+  font-weight: bold;
+  color: #e67e22;
+}
+
+.event-price::before {
+  content: "₹";
+  margin-right: 4px;
+  font-weight: normal;
+  color: inherit;
+}
+
+.event-icon {
+  color: #44aa8b;
+  font-size: 1.1em;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background-color: #44aa8b;
+  color: #ffffff;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background-color: #398b72;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+  .event-card {
+    width: 90%;
+  }
+}

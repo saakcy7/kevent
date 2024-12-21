@@ -2,19 +2,19 @@ import React from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import EventList from "../../components/EventCard/EventList";
 import { useNavigate } from "react-router-dom";
-function Home() 
-{
+
+const Dashboard = () => {
   const navigate = useNavigate();
-
-  const handleEventClick = () => {
-    navigate('/signup');
+  const handleEventClick = (id) => {
+    navigate(`/events/${id}`);
   };
-  return (
-    <div>
-      <Navbar />
-     <EventList onEventClick={handleEventClick}/>
-    </div>
-  );
-}
 
-export default Home;
+  return (
+    <>
+      <Navbar />
+      <EventList onEventClick={handleEventClick} />
+    </>
+  );
+};
+
+export default Dashboard;

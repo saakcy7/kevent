@@ -2,73 +2,186 @@ import React, { useState } from "react";
 import "./authForm.css";
 import image1 from "../../assets/image1.png";
 import image3 from "../../assets/image3.png";
-import axios from "axios";
+//import axios from "axios";
 import { useNavigate } from "react-router-dom";
+//import {toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import Swal from "sweetalert2";
 
+//import {Link} from "react-router-dom";
 
 const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
+
   const [data, setData] = useState({
     firstName: "",
     lastName: "",
     email: "",
+    contactNumber: "",
     password: "",
     batch: "",
     year: "",
     department: "",
     semester: "",
   });
-  const [error, setError] = useState("");	
+  //const [error, setError] = useState("");
   const navigate = useNavigate();
   const toggleForm = () => {
     setIsLogin(!isLogin);
   };
-  const handleChange = ({currentTarget: input}) => {
-
+  const validateEmail = (email) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(String(email).toLowerCase());
+  };
+  const handleChange = ({ currentTarget: input }) => {
     setData({ ...data, [input.name]: input.value });
-  }
+  };
 
-  const handleLoginSubmit = async(e) => {
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
-    try{
-      const url = "http://localhost:3000/users/login";
-      const {data: res} = await axios.post(url, {email: data.email, password: data.password})
-      localStorage.setItem("token", res.data);
-      window.location="/"
+    // Validation
+    if (!data.email || !data.password) {
+      Swal.fire("Error", "Please fill in all fields.", "error");
+      return;
     }
-    catch (err) {
-      if (err.response) {
-        console.error("Response data:", err.response.data); // Log response data for debugging
-        setError(`Login failed: ${err.response.data.message || 'Unknown error'}`);
-      } else if (err.request) {
-        setError("Login failed: No response from the server.");
-      } else {
-        setError(`Login failed: ${err.message}`);
+
+    if (!validateEmail(data.email)) {
+      Swal.fire("Error", "Please enter a valid email address.", "error");
+      return;
+    }
+
+    // if (data.password.length <= 8) {
+    //   Swal.fire("Error", "Password must be at least 8 characters long.", "error");
+    //   return;
+    // }
+    try {
+      const response = await fetch("http://localhost:3000/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: data.email, password: data.password }),
+      });
+
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        throw new Error(errorMessage || "Something went wrong");
       }
+
+      const responseData = await response.json();
+      localStorage.setItem("token", responseData.token); // Set token in localStorage
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "Logged in successfully!",
+      });
+      navigate("/dashboard");
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: error.message || "An error occurred during login.",
+      });
+      console.error("Error logging in:", error);
     }
+  };
 
-};
+  const handleSignupSubmit = async (e) => {
+    e.preventDefault();
 
-const handleSignupSubmit = async(e) => {
-e.preventDefault();
-try{
-  const url = "http://localhost:3000/users/register";
-  const {data: res} = await axios.post(url, data);
-  console.log('Form Submitted', res.data);
-  navigate("/");
-}
-catch(error){
-  if(error.response && error.response.status >= 400 && error.response.status <= 500){
-    setError(error.response.data.message);
-}
-}
-}
+    try {
+      if (data.password.length <= 8) {
+        throw new Error("Password must be more than 8 characters.");
+      }
 
+      const specialCharacterRegex = /[!@#$%^&*()_+\-={};':"|,.<>?]+/;
+      if (!specialCharacterRegex.test(data.password)) {
+        throw new Error("Password must contain at least one special character.");
+      }
+
+      const numberRegex = /[0-9]+/;
+      if (!numberRegex.test(data.password)) {
+        throw new Error("Password must contain at least one number.");
+      }
+
+      const upperCaseRegex = /[A-Z]+/;
+      if (!upperCaseRegex.test(data.password)) {
+        throw new Error("Password must contain at least one uppercase letter.");
+      }
+
+      const response = await fetch("http://localhost:3000/users/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        throw new Error(errorMessage);
+      }
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "User registered successfully! Please check your email for the verification code.",
+      });
+      navigate("/verification", { state: { email: data.email } });
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: error.message,
+      });
+    }
+  };
+
+  const handleGoogleLogin = () => {
+    // Use the full URL of your frontend application
+    const frontendOrigin = "http://localhost:3000"; // or your actual frontend URL
+    const googleAuthUrl = `${frontendOrigin}/auth/google`;
+
+    const googleWindow = window.open(googleAuthUrl, "_blank", "width=600,height=800");
+
+    const messageHandler = (event) => {
+      console.log("Message received from origin:", event.origin);
+      console.log("Current window origin:", window.location.origin);
+
+      // Explicitly check the origin
+      if (event.origin !== frontendOrigin) {
+        console.error("Untrusted origin:", event.origin);
+        return;
+      }
+
+      if (event.data && event.data.token) {
+        // Remove the event listener to prevent multiple calls
+        window.removeEventListener("message", messageHandler);
+
+        // Store token
+        localStorage.setItem("token", event.data.token);
+
+        // Close the popup window
+        googleWindow?.close();
+
+        // Redirect to dashboard
+        navigate("/dashboard");
+      }
+    };
+
+    // Add event listener
+    window.addEventListener("message", messageHandler);
+  };
   return (
     <div className="container">
-      {/* Image Section */}
+      {/* Image Section  <ToastContainer /> */}
 
-      <div className="image-container">{isLogin ? <img className="img1" src={image1} alt="image1" /> : <img className="img2" src={image3} alt="image3"/>}</div>
+      <div className="image-container">{isLogin ? <img className="img1" src={image1} alt="image1" /> : <img className="img2" src={image3} alt="image3" />}</div>
       {/* Form Section */}
       <div className={`form-container ${isLogin ? "login" : "signup"}`}>
         <div className="form">
@@ -78,19 +191,16 @@ catch(error){
                 <h2>Login</h2>
                 <div className="input-group">
                   <label>Email</label>
-                  <input type="email" 
-                  placeholder="email"
-                  name="email" onChange={handleChange} value={data.email}
-                  required />
+                  <input type="email" placeholder="email" name="email" onChange={handleChange} value={data.email} required />
                 </div>
                 <div className="input-group">
                   <label>Password</label>
-                  <input type="password" 
-                  placeholder="password"
-                  name="password" onChange={handleChange} value={data.password}required />
+                  <input type={passwordVisible ? "text" : "password"} placeholder="password" name="password" onChange={handleChange} value={data.password} required />
+
+                  <FontAwesomeIcon icon={passwordVisible ? faEyeSlash : faEye} onClick={togglePasswordVisibility} className="icon" />
                 </div>
                 <div className="forgot">
-                  <a href="/" className="forgot">
+                  <a href="/forgotpassword" className="forgot">
                     Forgot Password?
                   </a>
                 </div>
@@ -107,33 +217,31 @@ catch(error){
             </>
           ) : (
             <>
-          <form onSubmit={handleSignupSubmit} className="signup-form" >
+              <form onSubmit={handleSignupSubmit} className="signup-form">
                 <h2>Sign Up</h2>
                 <div className="name">
                   <div className="input-group">
                     <label>First Name</label>
-                    <input type="text" placeholder="first-name"
-                    name="firstName" onChange={handleChange} value={data.firstName}  required />
+                    <input type="text" placeholder="first-name" name="firstName" onChange={handleChange} value={data.firstName} required />
                   </div>
                   <div className="input-group">
                     <label>Last Name</label>
-                    <input type="text" 
-                    name="lastName" 
-                    placeholder="last-name" onChange={handleChange} value={data.lastName}  required />
+                    <input type="text" name="lastName" placeholder="last-name" onChange={handleChange} value={data.lastName} required />
                   </div>
                 </div>
+
                 <div className="input-group">
                   <label>Email</label>
-                  <input type="text" 
-                  name="email" 
-                  placeholder="email" onChange={handleChange} value={data.email}  required />
+                  <input type="email" name="email" placeholder="email" onChange={handleChange} value={data.email} required />
+                </div>
+                <div className="input-group">
+                  <label>Contact Number</label>
+                  <input type="text" placeholder="contact-number" name="contactNumber" onChange={handleChange} value={data.contactNumber} required />
                 </div>
 
                 <div className="input-group">
                   <label>Department</label>
-                  <select 
-                  name="department" 
-                  placeholder="department" onChange={handleChange} value={data.department} required>
+                  <select name="department" placeholder="department" onChange={handleChange} value={data.department} required>
                     <option value="">Select Department</option>
                     <option value="hr">HR</option>
                     <option value="engineering">Engineering</option>
@@ -143,16 +251,12 @@ catch(error){
                   <div className="depart">
                     <div className="input-group">
                       <label>Batch</label>
-                      <input type="text"
-                      placeholder="batch"
-                      name="batch"  onChange={handleChange} value={data.batch}   required />
+                      <input type="text" placeholder="batch" name="batch" onChange={handleChange} value={data.batch} required />
                     </div>
 
                     <div className="input-group">
                       <label>Year</label>
-                      <input type="text" 
-                      placeholder="year"
-                      name="year"  onChange={handleChange} value={data.year}  required />
+                      <input type="text" placeholder="year" name="year" onChange={handleChange} value={data.year} required />
                     </div>
                     <div className="input-group">
                       {/*<label>Semester</label>
@@ -164,15 +268,16 @@ catch(error){
                 </div>
                 <div className="input-group">
                   <label>Password</label>
-                  <input type="password" 
-                  placeholder="password"
-                  name="password" onChange={handleChange} value={data.password}  required />
+                  <input type="password" placeholder="password" name="password" onChange={handleChange} value={data.password} required />
                 </div>
-                {error && <div className={StyleSheet.error_msg}>{error}</div>}
+
                 <div className="button-container">
                   <button type="submit" className="button2">
                     Sign Up
                   </button>
+                </div>
+                <div className="google">
+                  <button onClick={handleGoogleLogin}>Login with Google</button>
                 </div>
                 <p onClick={toggleForm} className="toggle">
                   Already have an account? Login
@@ -185,6 +290,5 @@ catch(error){
     </div>
   );
 };
-
 
 export default AuthForm;
