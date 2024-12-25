@@ -1,188 +1,292 @@
-// CreateEventForm.js
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import './CreateEvent.css';
 
-const CreateEvent=()=> {
-    const navigate= useNavigate();
-    const [eventdata, setEventData] = useState({
-        Title:"",
-        Description:"",
-        Department:"",
-        contactNumber:"",
-        Venue:"", 
-        date:"", 
-        Price:"",
-        capacity:"", 
-    
-        })
-        const handleChange = (e) => {
-            const { name, value } = e.target;
-            setEventData({ ...eventdata, [name]: value });
-          };
-        
-         
-        
-        
-    
+const CreateEvent = () => {
+  const navigate = useNavigate();
+  const [eventdata, setEventData] = useState({
+    Title: "",
+    Description: "",
+    Department: "",
+    contactNumber: "",
+    Venue: "",
+    date: "",
+    Price: "",
+    capacity: "",
+  });
+
+  const [mainImage, setMainImage] = useState(null); // State for mainImage
+  const [otherImages, setOtherImages] = useState([]); // State for otherImages
+  const [files, setFiles] = useState([]); // State for files
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setEventData({ ...eventdata, [name]: value });
+  };
+
+  const handleMainImageChange = (e) => {
+    const file = e.target.files[0];
+    const allowedFormats = ["image/jpeg", "image/png", "image/jpg", "image/svg+xml"];
+
+    if (file && !allowedFormats.includes(file.type)) {
+      Swal.fire("Error", "Only JPEG, PNG, JPG, or SVG images are allowed for the main image.", "error");
+      e.target.value = ""; // Clear the input
+      return;
+    }
+
+    setMainImage(file); // Update state with valid main image
+  };
+
+  const handleOtherImagesChange = (e) => {
+    const selectedFiles = Array.from(e.target.files);
+    const allowedFormats = ["image/jpeg", "image/png", "image/jpg", "image/svg+xml"];
+    const invalidFiles = selectedFiles.filter((file) => !allowedFormats.includes(file.type));
+
+    if (invalidFiles.length > 0) {
+      Swal.fire("Error", "Only JPEG, PNG, JPG, or SVG images are allowed for other images.", "error");
+      e.target.value = ""; // Clear the input
+      return;
+    }
+
+    setOtherImages(selectedFiles); // Update state with valid other images
+  };
+
+  const handleFilesChange = (e) => {
+    const selectedFiles = Array.from(e.target.files);
+    const invalidFiles = selectedFiles.filter((file) => file.type !== "application/pdf");
+
+    if (invalidFiles.length > 0) {
+      Swal.fire("Error", "Only PDF files are allowed for upload.", "error");
+      e.target.value = ""; // Clear the input
+      return;
+    }
+
+    setFiles(selectedFiles); // Update state with valid files
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!eventdata.Title || !eventdata.Description ||!eventdata.Department||!eventdata.contactNumber || !eventdata.Venue || !eventdata.date || !eventdata.Price|| !eventdata.capacity) {
-        Swal.fire("Error", "Please add all the fields.", "error");
-        return;
-      }
-      if (eventdata.capacity <= 0) {
-        Swal.fire("Error", "Capacity must be greater than zero.", "error");
-        return;
-      }
-      if (eventdata.Price < 0) {
-        Swal.fire("Error", "Price must be greater than or equal to zero.", "error");
-        return;
-      }
-      if (eventdata.date < new Date().toISOString()) {
-        Swal.fire("Error", "Event date must be in the future.", "error");
-        return;
-      }
-      if (eventdata.contactNumber.length <10) {
-        Swal.fire("Error", "Contact number must be 10 digits.", "error");
-        return;
-      }
-      if (eventdata.contactNumber.length >10) {
-        Swal.fire("Error", "Contact number cannot be more than 10 digits.", "error");
-        return;
-      }
-        const token = localStorage.getItem("token"); 
-        if (!token) {
-            Swal.fire("Error", "Authentication token not found. Please log in again.", "error");
-            return;
-          }
-        console.log("Auth token",token);
-        try{
-            
-            const response = await fetch("http://localhost:3000/events/createevent", {
-                method: "POST",
-                headers: {
-                   "Content-Type": "application/json",
-                   "Authorization": `Bearer ${token}`
-                },
-                body: JSON.stringify(eventdata),
-              });
-              if (!response.ok) {
-                const errorMessage = await response.text();
-                throw new Error(errorMessage);
-              }
-              const responseData = await response.json();
-              console.log('Event created successfully:', responseData);
-              Swal.fire("Success", "Event created successfully!", "success");
-              navigate('/dashboard');
-              
-              
 
-        }catch(error)
-        {
-            Swal.fire({
-                icon: "error",
-                title: "Error",
-                text: error.message || "An error occurred during login.",
-              });
-              console.error("Error logging in:", error);
-        }
+    if (
+      !eventdata.Title ||
+      !eventdata.Description ||
+      !eventdata.Department ||
+      !eventdata.contactNumber ||
+      !eventdata.Venue ||
+      !eventdata.date ||
+      !eventdata.Price ||
+      !eventdata.capacity
+    ) {
+      Swal.fire("Error", "Please add all the fields.", "error");
+      return;
     }
+
+    if (eventdata.capacity <= 0) {
+      Swal.fire("Error", "Capacity must be greater than zero.", "error");
+      return;
+    }
+
+    if (eventdata.Price < 0) {
+      Swal.fire("Error", "Price must be greater than or equal to zero.", "error");
+      return;
+    }
+
+    if (new Date(eventdata.date) < new Date()) {
+      Swal.fire("Error", "Event date must be in the future.", "error");
+      return;
+    }
+
+    if (eventdata.contactNumber.length !== 10) {
+      Swal.fire("Error", "Contact number must be exactly 10 digits.", "error");
+      return;
+    }
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+      Swal.fire("Error", "Authentication token not found. Please log in again.", "error");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("Title", eventdata.Title);
+    formData.append("Description", eventdata.Description);
+    formData.append("Department", eventdata.Department);
+    formData.append("contactNumber", eventdata.contactNumber);
+    formData.append("Venue", eventdata.Venue);
+    formData.append("date", eventdata.date);
+    formData.append("Price", eventdata.Price);
+    formData.append("capacity", eventdata.capacity);
+
+    if (mainImage) {
+      formData.append("mainImage", mainImage);
+    }
+
+    otherImages.forEach((file) => formData.append("otherImages", file));
+    files.forEach((file) => formData.append("files", file));
+
+    try {
+      const response = await fetch("http://localhost:3000/events/createevent", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        throw new Error(errorMessage);
+      }
+
+      const responseData = await response.json();
+      Swal.fire("Success", "Event created successfully!", "success");
+      navigate("/dashboard");
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: error.message || "An error occurred while creating the event.",
+      });
+      console.error("Error creating event:", error);
+    }
+  };
+
   return (
     <>
-    <div className="event-form-container">
-      {/*<div className="form-header">
-        <h2>Add Main Image</h2>
-        <input type="file"  alt="image" name='mainImage' placeholder='add' onChange={handleFileChange} accept='application/png'/>
-      </div>*/}
-
-      <form className="event-form" onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Event Title</label>
-          <input type="text" name='Title' onChange={handleChange} placeholder="Enter event title" value={eventdata.Title} />
-        </div>
-
-        <div className="form-group">
-          <label>Event Description</label>
-          <textarea placeholder="Enter event description" name='Description' onChange={handleChange} value={eventdata.Description}></textarea>
-        </div>
-        <div className="form-group">
-          <label htmlFor="department">Department</label>
-          <input
-            type="text"
-            id="department"
-            name="Department"
-            value={eventdata.Department || ""}
-            onChange={handleChange}
-            required
-            placeholder="Enter department"
-          />
-        </div>
-        <div className="form-group event-details">
-          <div className="form-field">
-            <label>Contact Number</label>
-            <input type="text" placeholder="9862410306" name='contactNumber' onChange={handleChange} value={eventdata.contactNumber}/>
-          </div>
-
-          <div className="form-field">
-            <label>Venue</label>
-            <input type="text" placeholder="Enter venue" name='Venue' onChange={handleChange} value={eventdata.Venue} />
-          </div>
+      <div className="event-form-container">
+        <form className="event-form" onSubmit={handleSubmit}>
           <div className="form-group">
-          <label>Event Capacity</label>
-          <input
-            type="text"
-            name="capacity"
-            onChange={handleChange}
-            placeholder="Enter event capacity"
-            value={eventdata.capacity}
-          />
-        </div>
-
-          <div className="form-field">
-            <label>Date</label>
-            <input type="datetime-local" name='date' onChange={handleChange} value={eventdata.date}  />
+            <label>Event Title</label>
+            <input
+              type="text"
+              name="Title"
+              onChange={handleChange}
+              placeholder="Enter event title"
+              value={eventdata.Title}
+            />
           </div>
 
-          <div className="form-field registration">
-            <label>Registration Needed?</label>
-            <div className='form-field-yes'>
-              <input type="radio" id="yes" name="registration" value="yes" />
-              <label htmlFor="yes">Yes</label>
-              <input type="radio" id="no" name="registration" value="no" />
-              <label htmlFor="no">No</label>
+          <div className="form-group">
+            <label>Event Description</label>
+            <textarea
+              placeholder="Enter event description"
+              name="Description"
+              onChange={handleChange}
+              value={eventdata.Description}
+            ></textarea>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="department">Department</label>
+            <input
+              type="text"
+              id="department"
+              name="Department"
+              value={eventdata.Department || ""}
+              onChange={handleChange}
+              placeholder="Enter department"
+            />
+          </div>
+
+          <div className="form-group event-details">
+            <div className="form-field">
+              <label>Contact Number</label>
+              <input
+                type="text"
+                placeholder="9862410306"
+                name="contactNumber"
+                onChange={handleChange}
+                value={eventdata.contactNumber}
+              />
+            </div>
+
+            <div className="form-field">
+              <label>Venue</label>
+              <input
+                type="text"
+                placeholder="Enter venue"
+                name="Venue"
+                onChange={handleChange}
+                value={eventdata.Venue}
+              />
+            </div>
+
+            <div className="form-field">
+              <label>Event Capacity</label>
+              <input
+                type="text"
+                name="capacity"
+                onChange={handleChange}
+                placeholder="Enter event capacity"
+                value={eventdata.capacity}
+              />
+            </div>
+
+            <div className="form-field">
+              <label>Date</label>
+              <input
+                type="datetime-local"
+                name="date"
+                onChange={handleChange}
+                value={eventdata.date}
+              />
+            </div>
+
+            <div className="form-field">
+              <label>Price</label>
+              <input
+                type="text"
+                placeholder="Enter price"
+                name="Price"
+                onChange={handleChange}
+                value={eventdata.Price}
+              />
             </div>
           </div>
 
-          <div className="form-field">
-        <label>Price</label>
-        <input
-          type="text"
-          placeholder="Enter price"
-          name='Price'
-          onChange={handleChange}
-          value={eventdata.Price}
-          className={eventdata.Price.toLowerCase() === 'free' ? 'free-price' : ''}
-        />
+          <div className="file-upload">
+            <label>Upload Main Image</label>
+            <input
+              type="file"
+              className="upload-btn"
+              name="mainImage"
+              onChange={handleMainImageChange}
+              accept="image/jpeg, image/png, image/jpg, image/svg+xml"
+            />
+          </div>
+
+          <div className="file-upload">
+            <label>Upload Other Images</label>
+            <input
+              type="file"
+              className="upload-btn"
+              name="otherImages"
+              onChange={handleOtherImagesChange}
+              accept="image/jpeg, image/png, image/jpg, image/svg+xml"
+              multiple
+            />
+          </div>
+
+          <div className="file-upload">
+            <label>Upload Files (PDF only)</label>
+            <input
+              type="file"
+              className="upload-btn"
+              name="files"
+              onChange={handleFilesChange}
+              accept="application/pdf"
+              multiple
+            />
+          </div>
+
+          <button type="submit" className="create-btn">
+            Create Event
+          </button>
+        </form>
       </div>
-        </div>
-
-        {/*<div className="file-upload">
-            <label>Add FIles</label>
-          <input type="file" className="upload-btn" name='Files' onChange={handleFileChange} multiple/>
-          <label>Add images</label>
-          <input type="file" className="upload-btn" name='Images' onChange={handleFileChange} multiple/>
-        </div>*/}
-
-        <button type="submit" className="create-btn">Create Event</button>
-      </form>
-    </div>
     </>
   );
 };
 
-
-
-export default CreateEvent
+export default CreateEvent;
