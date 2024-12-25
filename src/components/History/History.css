@@ -1,0 +1,42 @@
+.tab-container {
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.tab-button {
+  all: unset;
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+  margin: 0 120px;
+  border: none;
+  background: none;
+  font-weight: bold;
+  border-bottom: 3px solid transparent; /* Ensures no movement */
+  font-size: 1.1rem;
+  padding: 10px 20px;
+  margin-bottom: 0;
+}
+
+.tab-button:hover {
+  border-bottom: 2px solid black;
+  box-shadow: 0 4px 6px #f1b9b91a; /* Shadow below button */
+  background: none;
+}
+
+.tab-button.active {
+  border-bottom: 2px solid black;
+  color: #000;
+  font-weight: bold; /* Bold text on active */
+  box-shadow: 0 4px 6px #f1b9b91a;
+}
+
+/* Separator Line */
+.separator {
+  background-color: white;
+  box-shadow: 0 1px px #ccc;
+  margin: 0;
+  padding: 0;
+}

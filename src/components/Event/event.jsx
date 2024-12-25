@@ -1,8 +1,10 @@
 import React from "react";
 import "./event.css";
+import { useNavigate } from "react-router-dom";
 
-const Events = ({info,type,onEdit,onDelete}) => {
-  const { Title, date: eventDate, Venue } = info || {};
+const Events = ({ info, type, onDownload }) => {
+  const navigate = useNavigate();
+  const { Title, date: eventDate, Venue, _id: eventId, mainImage } = info || {};
 
   const formattedDate = new Date(eventDate);
 
@@ -17,15 +19,18 @@ const Events = ({info,type,onEdit,onDelete}) => {
   const EventToday = remainingDays === 0;
   const hasEventPassed = eventTime <= currentTime;
 
-  if (type === "history"|| hasEventPassed) {
+  const Edit = () => {
+    navigate(`/editevent/${eventId}`);
+  };
+
+  if (type === "history" || hasEventPassed) {
     return (
       <div className="event-container">
         <div className="image">
-          <img className="event-image" src=""></img>
+          <img className="event-image" src={mainImage}></img>
         </div>
         <div className="info">
           <h3>{Title}</h3>
-          {/* <p>Date: {date.toISOString().split("T")[0]}</p> */}
           <p>
             Date: {formattedDate.toLocaleDateString()} - {formattedDate.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
           </p>
@@ -37,22 +42,23 @@ const Events = ({info,type,onEdit,onDelete}) => {
     return (
       <div className="event-container">
         <div className="image">
-          <img className="event-image" src=""></img>
+          <img className="event-image" src={mainImage}></img>
         </div>
         <div className="info">
           <h3>{Title}</h3>
           <p>
-            {" "}
             Date: {formattedDate.toLocaleDateString()} - {formattedDate.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
           </p>
           <p>Venue: {Venue} </p>
         </div>
         <div className="event-button">
           <div className="edit-button">
-          <button onClick={onEdit}>Edit</button>
+            <button onClick={Edit}>Edit</button>
           </div>
           <div className="download-button">
-          <button onClick={onDelete}>Delete</button>
+            <a href onClick={() => onDownload(eventId)}>
+              Download
+            </a>
           </div>
         </div>
       </div>
@@ -61,7 +67,7 @@ const Events = ({info,type,onEdit,onDelete}) => {
     return (
       <div className="event-container">
         <div className="image">
-          <img className="event-image" src=""></img>
+          <img className="event-image" src={mainImage}></img>
         </div>
         <div className="info">
           <h3>{Title}</h3>
