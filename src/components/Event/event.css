@@ -1,144 +1,77 @@
-/* Main Event Container */
 .event-container {
+  all: unset;
   width: 800px;
   height: 20vh;
-  background-color: #ffffff;
+  background-color: white;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 20px;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 0.1px solid #00000034;
 }
 
-.event-container:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-}
-
-/* Event Image */
 .event-image {
-  border-radius: 12px;
+  border-radius: 8px;
   width: 180px;
-  height: 120px;
-  border: 1px solid #eaeaea;
-  margin-right: 20px;
-  object-fit: cover;
-  transition: transform 0.3s ease, border-color 0.3s ease;
+  height: 90px;
+  border: 2px solid #000000;
+  margin-right: 15px;
+  margin-left: 15px;
 }
 
-.event-image:hover {
-  transform: scale(1.05);
-  border-color: #4f8f82;
-}
-
-/* Event Info Section */
 .info {
-  display: flex;
   flex-direction: column;
-  margin-left: 30px;
-}
-
-.info h3 {
-  font-size: 20px;
-  color: #333333;
-  font-weight: 600;
-  margin-bottom: 8px;
+  margin-left: 15px;
+  padding-bottom: 5px;
 }
 
 .info p {
-  color: #757575;
-  font-size: 14px;
-  line-height: 1.6;
+  color: grey;
+  font-size: 13px;
 }
 
-/* Event Button Section */
 .event-button {
-  display: flex;
   flex-direction: column;
+  display: flex;
   margin-left: auto;
-  gap: 12px;
-  align-items: flex-start;
+  gap: 15px;
 }
 
 .event-button button {
-  padding: 10px 18px;
+  padding: 10px 15px;
   font-size: 14px;
-  border-radius: 8px;
+  border-radius: 5px;
   cursor: pointer;
-  border: 1px solid transparent;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-  width: 100%;
+  border: #000000;
 }
 
 .event-button .edit-button button {
+  width: 100px;
   background-color: #61bfad;
-  color: white;
-  width: 120px;
-  border: 1px solid #4f8f82;
 }
 
-.event-button .download-button button {
-  background-color: white;
-  color: #333333;
-  width: 160px;
-  border: 1px solid #ddd;
+.event-button a {
+  cursor: pointer;
+  padding: 15px;
+  text-decoration: underline;
+}
+.event-button a:hover {
+  color: #000000;
+}
+
+.event-button .download-button button:hover {
+  color: green;
 }
 
 .event-button .edit-button button:hover {
   background-color: #4f8f82;
-  transform: translateY(-3px);
 }
 
-.event-button .download-button button:hover {
-  background-color: #f9f9f9;
-  color: #4f8f82;
-  transform: translateY(-3px);
-}
-
-/* Remaining Count Section */
 .remaining {
   margin-left: auto;
   display: flex;
   align-items: center;
-  font-size: 14px;
-  color: #666666;
-}
-
-.remaining span {
-  font-weight: 600;
-  color: #333333;
-}
-
-/* Mobile Styles */
-@media screen and (max-width: 768px) {
-  .event-container {
-    flex-direction: column;
-    height: auto;
-    align-items: flex-start;
-    padding: 15px;
-  }
-
-  .event-image {
-    width: 100%;
-    height: auto;
-    margin-right: 0;
-    margin-bottom: 15px;
-  }
-
-  .info {
-    margin-left: 0;
-    margin-bottom: 15px;
-  }
-
-  .event-button {
-    align-items: flex-start;
-    width: 100%;
-  }
-  
-  .event-button button {
-    width: 100%;
-  }
+  font-size: 13px;
+  color: grey;
 }
