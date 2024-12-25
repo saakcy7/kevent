@@ -1,190 +1,100 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
-/* General Styling for Sidebar */
 .sidebar {
+  min-width: 250px;
   width: 250px;
-  height: 100%;
+  height: auto;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  padding: 20px;
-  font-size: 1.1rem;
-  background-color: #f8fbfc;
-  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.05);
-  border-radius: 0 12px 12px 0;
-  font-family: "Roboto", sans-serif;
-  position: absolute;
-  top: 70px;
-  left: 0;
-  z-index: 550;
-  transition: all 0.3s ease;
+  align-items: center;
+  margin-left: 20px;
+  margin-top: 20px;
+  font-size: 3rem;
 }
 
 .sidebar-menu {
   display: flex;
   width: 100%;
   flex-direction: column;
-  color: #333;
-  margin: 20px 0;
-  background-color: #eff7f5;
-  border-radius: 12px;
-  overflow: hidden;
-  padding: 5px;
+  color: #000000;
+  margin: 10px 0;
+  background-color: #e9f4f2;
+  border: 0.1px solid #00000034;
+  border-radius: 5%;
 }
 
 .sidebar-items {
+  all: unset;
   display: flex;
-  align-items: center;
-  color: #333;
+  color: black;
   text-decoration: none;
-  padding: 12px 20px;
-  font-weight: 500;
-  justify-content: flex-start;
-  margin: 5px 0;
+  padding: 10px 20px;
+  justify-content: left;
+  margin: 10px;
   box-sizing: border-box;
+  align-items: center;
   border: none;
-  background-color: transparent;
+  background-color: #e9f4f2;
   cursor: pointer;
-  transition: background-color 0.3s, box-shadow 0.2s ease;
-  width: calc(100% - 10px);
-  border-radius: 8px;
+  font-family: "Roboto";
+  border-radius: 10px;
+  width: calc(100% - 20px);
   font-size: 1rem;
 }
 
 .sidebar-items:hover {
-  background-color: #dbeceb;
-  color: #222;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: #d6e5e2;
+  color: #010101;
 }
 
 .fas {
   width: 30px;
-  margin-right: 12px;
-  color: #38aa95;
+  margin-right: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.2rem;
 }
 
-/* Sidebar Footer */
 .sidebar-footer {
+  /* margin-top: auto; */
   display: flex;
   width: 100%;
-  justify-content: center;
-  padding: 15px 0;
-  font-weight: 500;
-  color: #777;
-  border-top: 1px solid #ddd;
+  border: none;
 }
 
 .logout {
-  color: #b02a2a;
+  color: rgb(156, 13, 13);
   cursor: pointer;
-  transition: color 0.3s, background-color 0.3s;
 }
 
-.logout:hover {
-  background-color: #fbe2e3;
-  color: #8b1e1e;
-  border-radius: 8px;
-  padding: 5px 10px;
+button.logout:hover {
+  color: rgb(125, 4, 4);
 }
 
-/* Profile Container */
 .profile-container {
   display: flex;
-  align-items: center;
-  gap: 20px;
-  width: 100%;
-  padding: 15px;
-  background-color: #eff7f5;
-  border-radius: 12px;
-  box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
 }
 
-/* Main Content Container */
 .component-container {
-  margin-left: 270px;
   height: 100%;
-  width: calc(100% - 270px);
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 20px;
-  padding: 20px;
+  gap: 30px;
+  padding: 5px;
   box-sizing: border-box;
-  background-color: #f8fbfc;
 }
 
 .component-container h2 {
-  font-weight: 700;
-  color: #333;
-  margin-bottom: 15px;
+  text-align: left;
 }
 
-/* Divider for Sidebar Sections */
 .sidebar-divider {
   width: 90%;
   border: none;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #ccc;
   margin: auto;
-  margin-top: 10px;
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-  .sidebar {
-    width: 220px;
-    font-size: 1rem;
-  }
-
-  .component-container {
-    margin-left: 230px;
-    width: calc(100% - 230px);
-  }
-}
-
-@media (max-width: 480px) {
-  .sidebar {
-    width: 100%;
-    height: auto;
-    position: relative;
-    border-radius: 0;
-    box-shadow: none;
-    padding-top: 10px;
-  }
-
-  .sidebar-items {
-    font-size: 0.9rem;
-    padding: 10px 16px;
-  }
-
-  .component-container {
-    margin-top: 15px;
-    margin-left: 0;
-    width: 100%;
-  }
-}
-
-@media (max-width: 360px) {
-  .sidebar {
-    width: 100%;
-    height: auto;
-    position: relative;
-    border-radius: 0;
-    box-shadow: none;
-  }
-
-  .sidebar-items {
-    font-size: 0.8rem;
-    padding: 8px 14px;
-  }
-
-  .component-container {
-    margin-top: 15px;
-  }
 }

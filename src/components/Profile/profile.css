@@ -1,4 +1,5 @@
 .profile {
+  all: unset;
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -42,10 +43,9 @@
 
 .change-photo-button {
   margin-top: 0;
-  height: 30px;
   border: none;
   border-radius: 5px;
-  background-color: #61bfad;
+  background-color: #44aa8b;
   color: white;
 }
 
@@ -113,11 +113,13 @@
 
 .save-button {
   padding: 10px 20px;
-  background-color: #61bfad;
+  background-color: #44aa8b;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  width: 80px;
+  align-items: center;
 }
 
 .save-button:hover {
@@ -126,14 +128,13 @@
 
 .update {
   color: #fff;
-  background-color: #61bfad;
+  background-color: #44aa8b;
   border: none;
   border-radius: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   text-align: center;
-  width: 90px;
-  height: 35px;
+  width: 120px;
 }
 .update:hover {
   background-color: #3a7369;
@@ -149,6 +150,10 @@
   display: flex;
   align-items: center;
   gap: 20px;
+}
+
+.batch input {
+  background: none;
 }
 
 .dept-input select {

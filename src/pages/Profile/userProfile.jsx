@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Events from "../../components/Event/event";
 import Navbar from "../../components/Navbar/Navbar";
 import Profile from "../../components/Profile/profile";
+import History from "../../components/History/History";
 import Swal from "sweetalert2";
 
 const Sidebar = () => {
@@ -11,18 +12,13 @@ const Sidebar = () => {
   const [user, setUser] = useState(null);
   const [ticketData, setTicketData] = useState([]);
   const [eventData, setEventData] = useState([]);
-
   const token = localStorage.getItem("token");
-
-  const historyData = [
-    { title: "angry Conference", date: new Date("2024-11-10"), venue: "Kathmandu" },
-    { title: "upset Festival", date: new Date("2024-12-15"), venue: "Pokhara" },
-  ];
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/users/profile`, {
+        const response = await fetch("http://localhost:3000/users/profile", {
+          method: "GET",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
@@ -30,7 +26,7 @@ const Sidebar = () => {
         });
 
         if (!response.ok) {
-          throw new Error("Failed to fetch profile");
+          throw new Error("Profile fetch failed");
         }
 
         const data = await response.json();
@@ -52,20 +48,18 @@ const Sidebar = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        console.log("Fetching events...");
-        const response = await fetch(`http://localhost:3000/users/viewevents`, {
+        const response = await fetch("http://localhost:3000/users/viewevents", {
+          method: "GET",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
         });
-
         if (!response.ok) {
-          throw new Error("Failed to fetch events");
+          throw new Error("Events fetch failed");
         }
 
         const data = await response.json();
-        console.log("Fetched events:", data.events);
         setEventData(data.events);
       } catch (error) {
         console.error("Events fetch error:", error);
@@ -76,7 +70,6 @@ const Sidebar = () => {
         });
       }
     };
-
     fetchEvents();
   }, [token]);
 
@@ -84,32 +77,21 @@ const Sidebar = () => {
     const fetchTickets = async () => {
       if (!user) return;
       try {
-        const response = await fetch(`http://localhost:3000/users/viewtickets`, {
+        const response = await fetch("http://localhost:3000/users/viewtickets", {
+          method: "GET",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
         });
 
-        if (response.status === 404) {
-          await Swal.fire({
-            icon: "info",
-            title: "No Tickets",
-            text: "No tickets found for this user.",
-          });
-          return;
-        }
-
         if (!response.ok) {
-          const errorText = await response.text();
-          console.error("Failed to fetch tickets:", errorText);
-          throw new Error("Failed to fetch tickets");
+          throw new Error("Tickets fetch failed");
         }
 
         const data = await response.json();
-        const userTickets = data.tickets.filter(ticket => ticket.userId === user._id); // Filter tickets by user ID
-
-        setTicketData(userTickets);
+        setTicketData(data.tickets);
+        console.log(data);
       } catch (error) {
         console.error("Tickets fetch error:", error);
         await Swal.fire({
@@ -123,7 +105,7 @@ const Sidebar = () => {
     if (user) {
       fetchTickets();
     }
-  }, [token,user]);
+  }, [token, user]);
 
   useEffect(() => {
     if (user) {
@@ -152,8 +134,8 @@ const Sidebar = () => {
         throw new Error(errorData.error || "Failed to delete event");
       }
 
-      setEventData(prevEventData => prevEventData.filter(event => event._id !== eventId));
-      setTicketData(prevTicketData => prevTicketData.filter(ticket => ticket.eventId !== eventId)); // Remove associated tickets
+      setEventData((prevEventData) => prevEventData.filter((event) => event._id !== eventId));
+      setTicketData((prevTicketData) => prevTicketData.filter((ticket) => ticket.eventId !== eventId)); // Remove associated tickets
       Swal.fire("Success", "Event and associated tickets deleted successfully", "success");
     } catch (error) {
       console.error("Event deletion error:", error);
@@ -175,69 +157,49 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="wrapper">
-      <div className="profile-container">
-        <div className="sidebar">
-          <div className="sidebar-menu">
-            <button className="sidebar-items" onClick={() => handleButtonClick("Profile", <Profile user={user} token={token} />)}>
-              <i className="fas fa-user"></i> Profile
-            </button>
-            <button
-              className="sidebar-items"
-              onClick={() =>
-                handleButtonClick(
-                  "My Events",
-                  eventData
-                    .filter(event => event.userId === user.id) // Filter events by user ID
-                    .map((event) => (
-                      <Events
-                        key={event._id}
-                        type="event"
-                        info={event}
-                        onEdit={() => handleEditEvent(event._id)}
-                        onDelete={() => handleDeleteEvent(event._id)}
-                      />
-                    ))
-                )
-              }
-            >
-              <i className="fas fa-calendar-alt"></i> Events
-            </button>
-            <button
-              className="sidebar-items"
-              onClick={() =>
-                handleButtonClick(
-                  "My Tickets",
-                  ticketData.map((ticket) => <Events key={ticket._id} type="ticket" info={ticket.eventId} />)
-                )
-              }
-            >
-              <i className="fas fa-ticket-alt"></i> Tickets
-            </button>
-            <button
-              className="sidebar-items"
-              onClick={() =>
-                handleButtonClick(
-                  "History",
-                  historyData.map((event, index) => <Events key={index} type="history" info={event} />)
-                )
-              }
-            >
-              <i className="fas fa-history"></i> History
-            </button>
+    <div className="profile-container">
+      <div className="sidebar">
+        <div className="sidebar-menu">
+          <button className="sidebar-items" onClick={() => handleButtonClick("Profile", <Profile user={user} token={token} />)}>
+            <i className="fas fa-user"></i> Profile
+          </button>
+          <button
+            className="sidebar-items"
+            onClick={() =>
+              handleButtonClick(
+                "My Events",
+                eventData.map((eventData, index) => <Events key={index} type="event" info={eventData} />)
+              )
+            }
+          >
+            <i className="fas fa-calendar-alt"></i> Events
+          </button>
+          <button
+            className="sidebar-items"
+            onClick={() =>
+              handleButtonClick(
+                "My Tickets",
+                ticketData.map((ticketData, index) => <Events key={index} type="ticket" info={ticketData.eventId} />)
+              )
+            }
+          >
+            <i className="fas fa-ticket-alt"></i> Tickets
+          </button>
+          <button className="sidebar-items" onClick={() => handleButtonClick("History", <History token={token} />)}>
+            <i className="fas fa-history"></i> History
+          </button>
 
-            <hr className="sidebar-divider" />
-            <div className="sidebar-footer">
-              <button className="sidebar-items logout" onClick={handleLogout}>
-                <i className="fas fa-sign-out-alt"></i> Logout
-              </button>
-            </div>
+          <hr className="sidebar-divider" />
+          <div className="sidebar-footer">
+            <button className="sidebar-items logout" onClick={handleLogout}>
+              <i className="fas fa-sign-out-alt"></i> Logout
+            </button>
           </div>
         </div>
-        <div className="component-container">
-          <h2>{currentHeading}</h2>
-          {currentComponent}
-        </div>
+      </div>
+      <div className="component-container">
+        <h2>{currentHeading}</h2>
+        {currentComponent}
       </div>
     </div>
   );
