@@ -35,7 +35,7 @@
   flex-direction: column;
   display: flex;
   margin-left: auto;
-  gap: 10px;
+  gap: 15px;
 }
 
 .event-button button {
@@ -49,13 +49,15 @@
 .event-button .edit-button button {
   width: 100px;
   background-color: #61bfad;
-  margin-top: 40px;
 }
 
-.event-button .download-button button {
-  width: 150px;
-  background-color: white;
-  padding-right: 60px;
+.event-button a {
+  cursor: pointer;
+  padding: 15px;
+  text-decoration: underline;
+}
+.event-button a:hover {
+  color: #000000;
 }
 
 .event-button .download-button button:hover {
