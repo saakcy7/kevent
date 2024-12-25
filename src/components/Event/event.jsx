@@ -1,7 +1,9 @@
 import React from "react";
 import "./event.css";
+import { useNavigate } from "react-router-dom";
 
-const Events = ({ info, type, onEdit, onDownload }) => {
+const Events = ({ info, type, onDownload }) => {
+  const navigate = useNavigate();
   const { Title, date: eventDate, Venue, _id: eventId } = info || {};
 
   const formattedDate = new Date(eventDate);
@@ -16,6 +18,10 @@ const Events = ({ info, type, onEdit, onDownload }) => {
 
   const EventToday = remainingDays === 0;
   const hasEventPassed = eventTime <= currentTime;
+
+  const Edit = () => {
+    navigate(`/editevent/${eventId}`);
+  };
 
   if (type === "history" || hasEventPassed) {
     return (
@@ -47,7 +53,7 @@ const Events = ({ info, type, onEdit, onDownload }) => {
         </div>
         <div className="event-button">
           <div className="edit-button">
-            <button onClick={onEdit}>Edit</button>
+            <button onClick={Edit}>Edit</button>
           </div>
           <div className="download-button">
             <a href onClick={() => onDownload(eventId)}>
