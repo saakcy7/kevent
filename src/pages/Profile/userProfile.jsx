@@ -33,11 +33,7 @@ const Sidebar = () => {
         setUser(data.user);
       } catch (error) {
         console.error("Profile fetch error:", error);
-        await Swal.fire({
-          icon: "error",
-          title: "Error!",
-          text: "Failed to view profile. Please try again.",
-        });
+
         setUser(null);
       }
     };
@@ -63,11 +59,6 @@ const Sidebar = () => {
         setEventData(data.events);
       } catch (error) {
         console.error("Events fetch error:", error);
-        await Swal.fire({
-          icon: "error",
-          title: "Error!",
-          text: "Failed to fetch events. Please try again.",
-        });
       }
     };
     fetchEvents();
@@ -94,11 +85,6 @@ const Sidebar = () => {
         console.log(data);
       } catch (error) {
         console.error("Tickets fetch error:", error);
-        await Swal.fire({
-          icon: "error",
-          title: "Error!",
-          text: error.message || "Failed to fetch tickets. Please try again.",
-        });
       }
     };
 
