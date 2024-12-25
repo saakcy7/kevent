@@ -63,11 +63,6 @@ const Sidebar = () => {
         setEventData(data.events);
       } catch (error) {
         console.error("Events fetch error:", error);
-        await Swal.fire({
-          icon: "error",
-          title: "Error!",
-          text: "Failed to fetch events. Please try again.",
-        });
       }
     };
     fetchEvents();
@@ -94,11 +89,6 @@ const Sidebar = () => {
         console.log(data);
       } catch (error) {
         console.error("Tickets fetch error:", error);
-        await Swal.fire({
-          icon: "error",
-          title: "Error!",
-          text: error.message || "Failed to fetch tickets. Please try again.",
-        });
       }
     };
 
@@ -118,34 +108,6 @@ const Sidebar = () => {
     setCurrentHeading(heading);
   };
 
-  // const handleDeleteEvent = async (eventId) => {
-  //   console.log("Deleting event:", eventId);
-  //   try {
-  //     const response = await fetch(`http://localhost:3000/events/${eventId}`, {
-  //       method: "DELETE",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     });
-
-  //     if (!response.ok) {
-  //       const errorData = await response.json();
-  //       throw new Error(errorData.error || "Failed to delete event");
-  //     }
-
-  //     setEventData((prevEventData) => prevEventData.filter((event) => event._id !== eventId));
-  //     setTicketData((prevTicketData) => prevTicketData.filter((ticket) => ticket.eventId !== eventId)); // Remove associated tickets
-  //     Swal.fire("Success", "Event and associated tickets deleted successfully", "success");
-  //   } catch (error) {
-  //     console.error("Event deletion error:", error);
-  //     await Swal.fire({
-  //       icon: "error",
-  //       title: "Error!",
-  //       text: error.message || "Failed to delete event. Please try again.",
-  //     });
-  //   }
-  // };
   const handleDownload = async (eventId) => {
     try {
       console.log("Downloading for event:", eventId);
@@ -160,14 +122,14 @@ const Sidebar = () => {
         throw new Error("Network response was not ok");
       }
 
-      const blob = await response.blob(); // Convert the response to a blob
-      const downloadUrl = URL.createObjectURL(blob); // Create a URL for the blob
-      const link = document.createElement("a"); // Create a download link
+      const blob = await response.blob();
+      const downloadUrl = URL.createObjectURL(blob);
+      const link = document.createElement("a");
       link.href = downloadUrl;
-      link.download = `users_event_${eventId}.xlsx`; // Set the filename
-      document.body.appendChild(link); // Append the link to the body
-      link.click(); // Trigger the download
-      document.body.removeChild(link); // Remove the link from the document
+      link.download = `users_event_${eventId}.xlsx`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     } catch (error) {
       console.error("Download error:", error);
       alert("Failed to download the file. Please try again.");
