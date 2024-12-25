@@ -56,6 +56,7 @@ const Sidebar = () => {
         }
 
         const data = await response.json();
+
         setEventData(data.events);
       } catch (error) {
         console.error("Events fetch error:", error);
@@ -102,39 +103,6 @@ const Sidebar = () => {
   const handleButtonClick = (heading, component) => {
     setCurrentComponent(component);
     setCurrentHeading(heading);
-  };
-
-  const handleDeleteEvent = async (eventId) => {
-    console.log("Deleting event:", eventId);
-    try {
-      const response = await fetch(`http://localhost:3000/events/${eventId}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Failed to delete event");
-      }
-
-      setEventData((prevEventData) => prevEventData.filter((event) => event._id !== eventId));
-      setTicketData((prevTicketData) => prevTicketData.filter((ticket) => ticket.eventId !== eventId)); // Remove associated tickets
-      Swal.fire("Success", "Event and associated tickets deleted successfully", "success");
-    } catch (error) {
-      console.error("Event deletion error:", error);
-      await Swal.fire({
-        icon: "error",
-        title: "Error!",
-        text: error.message || "Failed to delete event. Please try again.",
-      });
-    }
-  };
-
-  const handleEditEvent = (eventId) => {
-    window.location.href = `/editevent/${eventId}`;
   };
 
   const handleLogout = () => {
