@@ -38,13 +38,14 @@ const History = ({ token }) => {
 
         setExpiredEvents(eventsData.data || []);
         setExpiredTickets(ticketsData.data || []);
+
+        if (eventsData.data && eventsData.data.length === 0 && ticketsData.data && ticketsData.data.length === 0) {
+          return;
+        }
       } catch (error) {
-        console.error("Error fetching expired items:", error);
-        await Swal.fire({
-          icon: "error",
-          title: "Error!",
-          text: "Failed to fetch expired events or tickets. Please try again.",
-        });
+        if (error.message === "Failed to fetch expired items") {
+          console.error("Error fetching expired items:", error);
+        }
       } finally {
         setLoading(false);
       }
@@ -52,7 +53,7 @@ const History = ({ token }) => {
 
     fetchExpiredItems();
   }, [token]);
-  console.log(expiredTickets);
+
   return (
     <div className="events">
       <div className="tab-container">
