@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const Events = ({ info, type, onDownload }) => {
   const navigate = useNavigate();
-  const { Title, date: eventDate, Venue, _id: eventId } = info || {};
+  const { Title, date: eventDate, Venue, _id: eventId, mainImage } = info || {};
 
   const formattedDate = new Date(eventDate);
 
@@ -27,7 +27,7 @@ const Events = ({ info, type, onDownload }) => {
     return (
       <div className="event-container">
         <div className="image">
-          <img className="event-image" src=""></img>
+          <img className="event-image" src={mainImage}></img>
         </div>
         <div className="info">
           <h3>{Title}</h3>
@@ -42,7 +42,7 @@ const Events = ({ info, type, onDownload }) => {
     return (
       <div className="event-container">
         <div className="image">
-          <img className="event-image" src=""></img>
+          <img className="event-image" src={mainImage}></img>
         </div>
         <div className="info">
           <h3>{Title}</h3>
@@ -67,7 +67,7 @@ const Events = ({ info, type, onDownload }) => {
     return (
       <div className="event-container">
         <div className="image">
-          <img className="event-image" src=""></img>
+          <img className="event-image" src={mainImage}></img>
         </div>
         <div className="info">
           <h3>{Title}</h3>

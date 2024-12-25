@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Swal from "sweetalert2";
 import "../Event/event.css";
 import "./History.css";
 
@@ -81,9 +80,7 @@ const History = ({ token }) => {
             <ul>
               {expiredEvents.map((event) => (
                 <li key={event._id} className="event-container">
-                  <div className="event-image">
-                    <img src={event.image || ""} alt={event.Title || "Event"} />
-                  </div>
+                  <img className="event-image" src={event.mainImage} alt={event.Title || "Event"} />
                   <div className="info">
                     <h3>{event.Title}</h3>
                     <p>Date: {new Date(event.date).toLocaleDateString()}</p>
@@ -103,9 +100,7 @@ const History = ({ token }) => {
             <ul>
               {expiredTickets.map((ticket) => (
                 <li key={ticket._id} className="event-container">
-                  <div className="event-image">
-                    <img src={ticket.image || ""} alt={ticket.Title || "Ticket"} />
-                  </div>
+                  <img className="event-image" src={ticket.mainImage || ""} alt={ticket.Title || "Ticket"} />
                   <div className="info">
                     <h3>{ticket.Title}</h3>
                     <p>Date: {new Date(ticket.eventDate).toLocaleDateString()}</p>
