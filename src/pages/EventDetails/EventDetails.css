@@ -1,99 +1,112 @@
-/* Cool EventDetails.css with Animations and Transitions */
-
+/* General Styles */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f9f9f9;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
 }
 
+/* Event Details Card */
 .event-details {
   padding: 20px;
   border: 1px solid #e0e0e0;
-  border-radius: 8px;
+  border-radius: 10px;
   background-color: #ffffff;
-  max-width: 600px;
+  max-width: 700px;
   margin: 20px auto;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .event-details:hover {
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
 }
 
+/* Title with Animation */
 .event-title {
-  font-size: 1.6em;
-  font-weight: 600;
+  font-size: 1.8em;
+  font-weight: 700;
   color: #333;
   text-align: center;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
   position: relative;
-  overflow: hidden;
 }
 
 .event-title::after {
   content: '';
   position: absolute;
   left: 50%;
-  bottom: 0;
+  bottom: -5px;
   height: 3px;
-  width: 80%;
+  width: 50%;
   background-color: #44aa8b;
   transform: translateX(-50%) scaleX(0);
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease-in-out;
 }
 
 .event-title:hover::after {
   transform: translateX(-50%) scaleX(1);
 }
 
+/* Description */
 .event-description {
   font-size: 1em;
   color: #555;
-  line-height: 1.6;
-  margin-bottom: 16px;
+  line-height: 1.8;
+  margin-bottom: 20px;
   text-align: justify;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .event-description:hover {
   color: #333;
+  transform: scale(1.02);
 }
 
+/* Event Info Sections */
 .event-contact,
 .event-venue,
-.event-price {
+.event-price,
+.event-date,
+.event-capacity {
   font-size: 0.95em;
   color: #666;
-  margin: 10px 0;
+  margin: 12px 0;
   display: flex;
   align-items: center;
-  padding: 8px;
-  background-color: #fafbfc;
+  padding: 10px 14px;
+  background-color: #fafafa;
   border-radius: 8px;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .event-contact:hover,
 .event-venue:hover,
-.event-price:hover {
-  background-color: #f0f5f4;
-  transform: scale(1.02);
+.event-price:hover,
+.event-date:hover,
+.event-capacity:hover {
+  background-color: #eef5f4;
+  transform: scale(1.03);
 }
 
+/* Highlight Icons */
 .event-contact i,
 .event-venue i,
-.event-price i {
-  font-size: 1em;
+.event-price i,
+.event-date i,
+.event-capacity i {
+  font-size: 1.1em;
   color: #44aa8b;
   margin-right: 8px;
 }
 
+/* Separator */
 .separator {
   height: 1px;
   background-color: #e0e0e0;
-  margin: 16px 0;
-  opacity: 0.7;
+  margin: 20px 0;
+  opacity: 0.8;
   transition: opacity 0.3s ease;
 }
 
@@ -101,22 +114,25 @@ body {
   opacity: 1;
 }
 
+/* Event Price Highlight */
 .event-price {
   font-weight: bold;
   color: #e67e22;
   text-align: center;
+  font-size: 1.1em;
 }
 
+/* Buttons */
 button.register-btn {
   display: block;
   width: 100%;
-  padding: 12px;
+  padding: 14px;
   background-color: #44aa8b;
   color: white;
   font-size: 1em;
   font-weight: 600;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -124,27 +140,54 @@ button.register-btn {
 
 button.register-btn:hover {
   background-color: #378670;
-  transform: translateY(-2px);
+  transform: translateY(-3px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 button.register-btn:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transform: translateY(1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Subtle Fade-in Animation */
+/* Images */
+.event-main-image img,
+.event-other-images img {
+  max-width: 120px; /* Smaller size for better responsiveness */
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin: 10px 5px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.event-main-image img:hover,
+.event-other-images img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.image-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+/* Fade-in Animation */
 .event-details {
   opacity: 0;
-  animation: fadeIn 0.6s ease forwards;
+  animation: fadeIn 0.7s ease-in forwards;
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -152,10 +195,11 @@ button.register-btn:active {
 @media (max-width: 768px) {
   .event-details {
     padding: 16px;
+    margin: 10px;
   }
 
   .event-title {
-    font-size: 1.4em;
+    font-size: 1.6em;
   }
 
   .event-description {
@@ -165,4 +209,65 @@ button.register-btn:active {
   button.register-btn {
     font-size: 0.9em;
   }
+
+  .event-main-image img,
+  .event-other-images img {
+    max-width: 100px; /* Smaller images on smaller screens */
+  }
 }
+
+/* Modal for Image */
+.image-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 90%;
+  max-height: 90%;
+  overflow: hidden;
+  text-align: center;
+}
+
+/* Modal Image */
+.modal-image {
+  width: 100%;
+  height: auto;
+  max-height: 80vh;
+  object-fit: contain;
+}
+
+/* Close Button */
+.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 2rem;
+  color: #fff;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+/* Image Styling (Clickable) */
+.clickable-image {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.clickable-image:hover {
+  transform: scale(1.05);
+}
+
