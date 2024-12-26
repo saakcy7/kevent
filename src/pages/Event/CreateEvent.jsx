@@ -49,7 +49,13 @@ const CreateEvent = () => {
       return;
     }
 
-    setOtherImages(selectedFiles); // Update state with valid other images
+    if (selectedFiles.length + otherImages.length > 5) {
+      Swal.fire("Error", "You can upload up to 5 images only.", "error");
+      e.target.value = ""; // Clear the input
+      return;
+    }
+
+    setOtherImages([...otherImages, ...selectedFiles]); // Append new files
   };
 
   const handleFilesChange = (e) => {
@@ -62,7 +68,13 @@ const CreateEvent = () => {
       return;
     }
 
-    setFiles(selectedFiles); // Update state with valid files
+    if (selectedFiles.length + files.length > 3) {
+      Swal.fire("Error", "You can upload up to 3 files only.", "error");
+      e.target.value = ""; // Clear the input
+      return;
+    }
+
+    setFiles([...files, ...selectedFiles]); // Append new files
   };
 
   const handleSubmit = async (event) => {
