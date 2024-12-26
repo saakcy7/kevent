@@ -45,7 +45,7 @@ const AuthForm = () => {
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
-    // Validation
+    // Validation;
     // if (!data.email || !data.password) {
     //   Swal.fire("Error", "Please fill in all fields.", "error");
     //   return;
@@ -142,6 +142,79 @@ const AuthForm = () => {
     }
   };
 
+  const handleGoogleSignup = () => {
+    const backendOrigin = "http://localhost:3000";
+    const googleWindow = window.open(`${backendOrigin}/auth/google`, "_blank", "width=600,height=800");
+    const signupWithGoogle = async (access_token) => {
+      try {
+        const response = await fetch(`${backendOrigin}/auth/signup`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ access_token }),
+        });
+        const data = await response.json();
+        if (response.ok && data.token) {
+          localStorage.setItem("token", data.token);
+          navigate("/dashboard");
+        } else {
+          alert(data.message || "Authentication failed!");
+        }
+      } catch (error) {
+        console.error("Error during signup:", error.message);
+      }
+    };
+    const messageHandler = (event) => {
+      if (event.origin !== backendOrigin) return;
+      const { access_token } = event.data;
+      if (access_token) {
+        signupWithGoogle(access_token);
+        window.removeEventListener("message", messageHandler);
+        googleWindow?.close();
+      }
+    };
+    window.addEventListener("message", messageHandler, false);
+  };
+
+  const handleGoogleLogin = () => {
+    const backendOrigin = "http://localhost:3000";
+    const googleWindow = window.open(`${backendOrigin}/auth/google`, "_blank", "width=600,height=800");
+    const loginWithGoogle = async (access_token) => {
+      try {
+        const response = await fetch(`${backendOrigin}/auth/login`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ access_token }),
+        });
+        const data = await response.json();
+        if (response.ok && data.token) {
+          localStorage.setItem("token", data.token);
+          navigate("/dashboard");
+        } else {
+          alert(data.message || "Authentication failed!");
+        }
+      } catch (error) {
+        console.error("Error during login:", error.message);
+      }
+    };
+
+    const messageHandler = (event) => {
+      if (event.origin !== backendOrigin) return;
+
+      const { access_token } = event.data;
+
+      if (access_token) {
+        loginWithGoogle(access_token);
+        window.removeEventListener("message", messageHandler);
+        googleWindow?.close();
+      }
+    };
+    window.addEventListener("message", messageHandler, false);
+  };
+
   return (
     <div className="container">
       {/* Image Section  <ToastContainer /> */}
@@ -172,6 +245,9 @@ const AuthForm = () => {
                 <div className="button-container">
                   <button type="submit" className="button1">
                     Login
+                  </button>
+                  <button type="button" className="google-button" onClick={handleGoogleLogin}>
+                    Sign in with Google
                   </button>
                 </div>
 
@@ -240,6 +316,9 @@ const AuthForm = () => {
                   <button type="submit" className="button2">
                     Sign Up
                   </button>
+                  <div className="google">
+                    <button onClick={handleGoogleSignup}>Signup with Google</button>
+                  </div>
                 </div>
                 <p onClick={toggleForm} className="toggle">
                   Already have an account? Login
