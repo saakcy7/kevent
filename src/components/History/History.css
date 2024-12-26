@@ -40,3 +40,33 @@
   margin: 0;
   padding: 0;
 }
+
+@media (max-width: 768px) {
+  .tab-container {
+    justify-content: flex-start; /* Align tabs to the start */
+    padding: 0 20px; /* Add some padding on the sides */
+  }
+
+  .tab-button {
+    margin: 10px 0; /* Adjust margins for smaller screens */
+    width: 100%; /* Make buttons take full width */
+    text-align: left; /* Align text to the left */
+    padding: 12px 20px; /* Increase padding for better touch target */
+  }
+
+  .tab-button:not(:last-child) {
+    margin-bottom: 10px; /* Add space between buttons */
+  }
+
+  .tab-button.active {
+    width: 100%; /* Make active button fill width */
+  }
+}
+
+/* For extra small screens (smaller mobile devices) */
+@media (max-width: 480px) {
+  .tab-button {
+    font-size: 0.9rem; /* Reduce font size for very small screens */
+    padding: 10px 15px; /* Adjust padding for smaller devices */
+  }
+}

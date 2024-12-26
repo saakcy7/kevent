@@ -176,3 +176,57 @@
   display: flex;
   align-items: center;
 }
+
+@media (max-width: 768px) {
+  .general-info-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile-picture-container {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .name-input {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .profile-info,
+  .change-password {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .profile-info h3 {
+    font-size: 18px;
+  }
+
+  .save-button,
+  .update {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .year-batch {
+    flex-direction: column;
+  }
+
+  .batch input {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-picture img {
+    width: 150px;
+    height: 150px;
+  }
+
+  .save-button,
+  .update {
+    padding: 8px 15px;
+  }
+}

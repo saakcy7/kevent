@@ -75,3 +75,58 @@
   font-size: 13px;
   color: grey;
 }
+
+@media (max-width: 768px) {
+  .event-container {
+    width: 100%; /* Make the container take full width */
+    height: auto; /* Adjust height for small screens */
+    flex-direction: column; /* Stack the content vertically */
+    padding: 10px; /* Reduce padding */
+  }
+
+  .event-image {
+    width: 100%; /* Make image take full width on smaller screens */
+    height: auto; /* Adjust height proportionally */
+    margin: 0 0 10px 0; /* Remove horizontal margins, add bottom margin */
+  }
+
+  .info {
+    margin-left: 0; /* Remove left margin */
+    margin-bottom: 10px; /* Add margin between info and buttons */
+  }
+
+  .event-button {
+    flex-direction: row; /* Display buttons in a row */
+    justify-content: flex-start; /* Align buttons to the left */
+  }
+
+  .event-button button {
+    padding: 8px 12px;
+    font-size: 12px; /* Decrease font size for smaller screens */
+  }
+
+  .event-button .edit-button button {
+    width: auto;
+  }
+
+  .remaining {
+    font-size: 12px; /* Reduce font size for small screens */
+  }
+}
+
+/* For extra small screens (smaller mobile devices) */
+@media (max-width: 480px) {
+  .event-button button {
+    padding: 8px 10px;
+    font-size: 11px; /* Further reduce font size */
+  }
+
+  .event-image {
+    width: 100%;
+    height: 150px; /* Adjust image height */
+  }
+
+  .remaining {
+    font-size: 11px; /* Further reduce font size */
+  }
+}
