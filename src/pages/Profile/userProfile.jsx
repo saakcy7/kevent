@@ -93,6 +93,38 @@ const Sidebar = () => {
       fetchTickets();
     }
   }, [token, user]);
+  const handleDownload = async (eventId) => {
+    try {
+      console.log("Downloading for event:", eventId);
+      const response = await fetch(`http://localhost:3000/events/export/${eventId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (!response.ok) {
+        const errorData = await response.json();
+        if (errorData.message) {
+          alert(errorData.message);
+        } else {
+          alert("An error occurred while trying to download the file. Please try again.");
+        }
+        return;
+      }
+      const blob = await response.blob();
+      const downloadUrl = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = downloadUrl;
+      link.download = `users_event_${eventId}.xlsx`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error("Download error:", error);
+      alert("Failed to download the file. Please try again.");
+    }
+  };
 
   useEffect(() => {
     if (user) {
@@ -122,7 +154,7 @@ const Sidebar = () => {
             onClick={() =>
               handleButtonClick(
                 "My Events",
-                eventData.map((eventData, index) => <Events key={index} type="event" info={eventData} />)
+                eventData.map((eventData, index) => <Events key={index} type="event" info={eventData} onDownload={handleDownload} />)
               )
             }
           >

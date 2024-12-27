@@ -16,25 +16,24 @@ const Events = ({ info, type, onDownload }) => {
   const remainingHours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   const remainingMinutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
 
-  const EventToday = remainingDays === 0;
-  const hasEventPassed = eventTime <= currentTime;
+  const hasEventPassed = formattedDate <= currentTime;
 
   const Edit = () => {
     navigate(`/editevent/${eventId}`);
   };
 
-  if (type === "history" || hasEventPassed) {
+  if (type === "history") {
     return (
       <div className="event-container">
         <div className="image">
-          <img className="event-image" src={mainImage}></img>
+          <img className="event-image" src={mainImage} alt={Title} />
         </div>
         <div className="info">
           <h3>{Title}</h3>
           <p>
             Date: {formattedDate.toLocaleDateString()} - {formattedDate.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
           </p>
-          <p>Venue: {Venue} </p>
+          <p>Venue: {Venue}</p>
         </div>
       </div>
     );
@@ -42,14 +41,14 @@ const Events = ({ info, type, onDownload }) => {
     return (
       <div className="event-container">
         <div className="image">
-          <img className="event-image" src={mainImage}></img>
+          <img className="event-image" src={mainImage} alt={Title} />
         </div>
         <div className="info">
           <h3>{Title}</h3>
           <p>
             Date: {formattedDate.toLocaleDateString()} - {formattedDate.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
           </p>
-          <p>Venue: {Venue} </p>
+          <p>Venue: {Venue}</p>
         </div>
         <div className="event-button">
           <div className="edit-button">
@@ -67,25 +66,27 @@ const Events = ({ info, type, onDownload }) => {
     return (
       <div className="event-container">
         <div className="image">
-          <img className="event-image" src={mainImage}></img>
+          <img className="event-image" src={mainImage} alt={Title} />
         </div>
         <div className="info">
           <h3>{Title}</h3>
           <p>
             Date: {formattedDate.toLocaleDateString()} - {formattedDate.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
           </p>
-          <p>Venue: {Venue} </p>
+          <p>Venue: {Venue}</p>
 
           {!hasEventPassed && (
             <label className="remaining">
               Remaining:
-              {remainingDays > 0 ? ` ${remainingDays} days  ` : remainingHours > 0 ? ` ${remainingHours} hours ` : remainingMinutes > 0 ? ` ${remainingMinutes} minutes` : ""}
+              {remainingDays > 0 ? ` ${remainingDays} days ` : remainingHours > 0 ? ` ${remainingHours} hours ` : remainingMinutes > 0 ? ` ${remainingMinutes} minutes` : ""}
             </label>
           )}
         </div>
       </div>
     );
   }
+
+  return null;
 };
 
 export default Events;
