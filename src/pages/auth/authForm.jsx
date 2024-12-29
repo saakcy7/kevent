@@ -46,20 +46,20 @@ const AuthForm = () => {
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     // Validation;
-    // if (!data.email || !data.password) {
-    //   Swal.fire("Error", "Please fill in all fields.", "error");
-    //   return;
-    // }
+     if (!data.email || !data.password) {
+       Swal.fire("Error", "Please fill in all fields.", "error");
+       return;
+     }
 
-    // if (!validateEmail(data.email)) {
-    //   Swal.fire("Error", "Please enter a valid email address.", "error");
-    //   return;
-    // }
+     if (!validateEmail(data.email)) {
+       Swal.fire("Error", "Please enter a valid email address.", "error");
+       return;
+    }
 
-    // if (data.password.length <= 8) {
-    //   Swal.fire("Error", "Password must be at least 8 characters long.", "error");
-    //   return;
-    // }
+    if (data.password.length <= 8) {
+      Swal.fire("Error", "Password must be at least 8 characters long.", "error");
+       return;
+     }
     try {
       const response = await fetch("https://kevent-server.onrender.com/users/login", {
         method: "POST",

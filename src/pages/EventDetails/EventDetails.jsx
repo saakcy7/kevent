@@ -93,20 +93,27 @@ const EventDetails = () => {
         </div>
       )}
 
-      {event?.Files?.length > 0 && (
-        <div className="event-files">
-          <h3>Files</h3>
-          <ul>
-            {event.Files.map((file, index) => (
-              <li key={index}>
-                <a href={file} target="_blank" rel="noopener noreferrer">
-                  Download File {index + 1}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+
+ {event.Files?.length > 0 && (
+  <div className="event-files">
+    <h3>Files</h3>
+    <ul>
+      {event.Files.map((file, index) => (
+        <li key={index}>
+          <a
+            href={file}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View File {index + 1}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
+
+
 
       <button onClick={handleBookTicket} className="book-ticket-button">Book Ticket</button>
 
