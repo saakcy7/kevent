@@ -138,7 +138,7 @@ const CreateEvent = () => {
     files.forEach((file) => formData.append("files", file));
 
     try {
-      const response = await fetch("http://localhost:3000/events/createevent", {
+      const response = await fetch("https://kevent-server.onrender.com/events/createevent", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

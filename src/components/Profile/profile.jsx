@@ -61,7 +61,7 @@ const Profile = ({ token, user }) => {
     }
 
     try {
-      const response = await fetch("http://localhost:3000/users/change-password", {
+      const response = await fetch("https://kevent-server.onrender.com/users/change-password", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -110,7 +110,7 @@ const Profile = ({ token, user }) => {
   const handleProfileUpdate = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:3000/users/update-profile", {
+      const response = await fetch("https://kevent-server.onrender.com/users/update-profile", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -156,7 +156,7 @@ const Profile = ({ token, user }) => {
     formData.append("avatar", image);
 
     try {
-      const response = await fetch("http://localhost:3000/users/upload-profileImage", {
+      const response = await fetch("https://kevent-server.onrender.com/users/upload-profileImage", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

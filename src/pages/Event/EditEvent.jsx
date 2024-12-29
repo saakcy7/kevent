@@ -26,7 +26,7 @@ const EditEvent = () => {
   useEffect(() => {
     const fetchEvent = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/events/viewevent/${id}`, {
+        const response = await fetch(`https://kevent-server.onrender.com/events/viewevent/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
@@ -142,7 +142,7 @@ const EditEvent = () => {
     files.forEach((file) => formData.append("files", file));
 
     try {
-      const response = await fetch(`http://localhost:3000/events/updateevent/${id}`, {
+      const response = await fetch(`https://kevent-server.onrender.com/events/updateevent/${id}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -267,10 +267,13 @@ const EditEvent = () => {
             multiple
           />
         </div>
-        <button type="submit" className="submit-button">Update Event</button>
+        <button type="submit" className="submit-button">
+          Update Event
+        </button>
       </form>
     </div>
   );
 };
 
 export default EditEvent;
+

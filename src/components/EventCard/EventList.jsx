@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import EventCard from './EventCard';
+import React, { useEffect, useState } from "react";
+import EventCard from "./EventCard";
 
-const EventList = ({onEventClick}) => {
+const EventList = ({ onEventClick }) => {
   const [events, setEvents] = useState(null);
   const [error, setError] = useState(null);
 
@@ -9,10 +9,14 @@ const EventList = ({onEventClick}) => {
     // Fetch events from the backend
     const fetchEvents = async () => {
       try {
+<<<<<<< HEAD
         const response = await fetch('https://kevent-server.onrender.com/events/viewevents');
+=======
+        const response = await fetch("https://kevent-server.onrender.com/events/viewevents");
+>>>>>>> ddaef3818d662e732bd4c5960b288d6a621a222f
         const eventdata = await response.json();
         if (Array.isArray(eventdata.events)) {
-          const normalizedEvents = eventdata.events.map(event => ({
+          const normalizedEvents = eventdata.events.map((event) => ({
             ...event,
             title: event.Title,
             description: event.Description,
@@ -22,10 +26,10 @@ const EventList = ({onEventClick}) => {
           }));
           setEvents(normalizedEvents);
         } else {
-          throw new Error('Expected an array of events');
+          throw new Error("Expected an array of events");
         }
       } catch (error) {
-        console.error('Error fetching events:', error);
+        console.error("Error fetching events:", error);
         setError(error.message);
       }
     };
@@ -36,9 +40,7 @@ const EventList = ({onEventClick}) => {
   return (
     <div className="event-list">
       {error && <p className="error-message">{error}</p>}
-      {Array.isArray(events) && events.map((event) => (
-        <EventCard key={event._id} event={event} onEventClick={() => onEventClick(event._id)}/>
-      ))}
+      {Array.isArray(events) && events.map((event) => <EventCard key={event._id} event={event} onEventClick={() => onEventClick(event._id)} />)}
     </div>
   );
 };
