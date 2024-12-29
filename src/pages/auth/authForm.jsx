@@ -145,6 +145,7 @@ const AuthForm = () => {
   const handleGoogleSignup = () => {
     const backendOrigin = "https://kevent-server.onrender.com";
     const googleWindow = window.open(`${backendOrigin}/auth/google`, "_blank", "width=600,height=800");
+  
     const signupWithGoogle = async (access_token) => {
       try {
         const response = await fetch(`${backendOrigin}/auth/signup`, {
@@ -155,16 +156,23 @@ const AuthForm = () => {
           body: JSON.stringify({ access_token }),
         });
         const data = await response.json();
+  
         if (response.ok && data.token) {
           localStorage.setItem("token", data.token);
           navigate("/dashboard");
         } else {
-          alert(data.message || "Authentication failed!");
+          // Check if the account already exists
+          if (data.message && (data.message.includes("already associated with a different account") || data.message.includes("Account already exists with this Google ID"))) {
+            alert(data.message); // Show the error message
+          } else {
+            alert("Authentication failed!");
+          }
         }
       } catch (error) {
         console.error("Error during signup:", error.message);
       }
     };
+  
     const messageHandler = (event) => {
       if (event.origin !== backendOrigin) return;
       const { access_token } = event.data;
@@ -174,6 +182,7 @@ const AuthForm = () => {
         googleWindow?.close();
       }
     };
+  
     window.addEventListener("message", messageHandler, false);
   };
 
