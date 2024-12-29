@@ -22,7 +22,7 @@ const ForgotPassword = () => {
     //console.log("Auth token",token);
 
     try {
-      const response = await fetch("http://localhost:3000/users/forgot-password", {
+      const response = await fetch("https://kevent-server.onrender.com/users/forgot-password", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

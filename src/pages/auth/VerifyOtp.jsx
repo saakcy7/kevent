@@ -70,7 +70,7 @@ const VerifyResetOTP = () => {
 
   const handleResendOtp = async () => {
     try {
-      const response = await fetch("http://localhost:3000/users/resendOTP", {
+      const response = await fetch("https://kevent-server.onrender.com/users/resendOTP", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

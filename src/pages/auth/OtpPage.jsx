@@ -34,7 +34,7 @@ const VerifyEmail = () => {
     }
     try {
       console.log("Sending OTP verification request...", { email: state.email, verificationCode });
-      const response = await fetch("http://localhost:3000/users/verifyemail", {
+      const response = await fetch("https://kevent-server.onrender.com/users/verifyemail", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
