@@ -9,7 +9,7 @@ const EventList = ({onEventClick}) => {
     // Fetch events from the backend
     const fetchEvents = async () => {
       try {
-        const response = await fetch('http://localhost:3000/events/viewevents');
+        const response = await fetch('https://kevent-server.onrender.com/events/viewevents');
         const eventdata = await response.json();
         if (Array.isArray(eventdata.events)) {
           const normalizedEvents = eventdata.events.map(event => ({

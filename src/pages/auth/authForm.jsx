@@ -61,7 +61,7 @@ const AuthForm = () => {
        return;
      }
     try {
-      const response = await fetch("https://kevent-server.onrender.com/users/login", {
+      const response = await fetch("https://localhost3000/users/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -115,7 +115,7 @@ const AuthForm = () => {
         throw new Error("Password must contain at least one uppercase letter.");
       }
 
-      const response = await fetch("https://kevent-server.onrender.com/users/register", {
+      const response = await fetch("https://localhost3000/users/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -143,7 +143,7 @@ const AuthForm = () => {
   };
 
   const handleGoogleSignup = () => {
-    const backendOrigin = "https://kevent-server.onrender.com";
+    const backendOrigin = "https://localhost3000";
     const googleWindow = window.open(`${backendOrigin}/auth/google`, "_blank", "width=600,height=800");
     const signupWithGoogle = async (access_token) => {
       try {
@@ -178,7 +178,7 @@ const AuthForm = () => {
   };
 
   const handleGoogleLogin = () => {
-    const backendOrigin = "https://kevent-server.onrender.com";
+    const backendOrigin = "https://localhost3000";
     const googleWindow = window.open(`${backendOrigin}/auth/google`, "_blank", "width=600,height=800");
     const loginWithGoogle = async (access_token) => {
       try {
