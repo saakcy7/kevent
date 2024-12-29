@@ -24,7 +24,7 @@ const Navbar = () => {
 
   const fetchNotifications = async () => {
     try {
-      const response = await fetch("http://localhost:3000/notifications/notification", {
+      const response = await fetch("https://kevent-server.onrender.com/notifications/notification", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -44,7 +44,7 @@ const Navbar = () => {
 
   const markAllAsRead = async () => {
     try {
-      const response = await fetch("http://localhost:3000/notifications/notification/markAsRead", {
+      const response = await fetch("https://kevent-server.onrender.com/notifications/notification/markAsRead", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

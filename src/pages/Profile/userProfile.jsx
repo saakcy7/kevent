@@ -17,7 +17,7 @@ const Sidebar = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch("http://localhost:3000/users/profile", {
+        const response = await fetch("https://kevent-server.onrender.com/users/profile", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -44,7 +44,7 @@ const Sidebar = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await fetch("http://localhost:3000/users/viewevents", {
+        const response = await fetch("https://kevent-server.onrender.com/users/viewevents", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -69,7 +69,7 @@ const Sidebar = () => {
     const fetchTickets = async () => {
       if (!user) return;
       try {
-        const response = await fetch("http://localhost:3000/users/viewtickets", {
+        const response = await fetch("https://kevent-server.onrender.com/users/viewtickets", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -96,7 +96,7 @@ const Sidebar = () => {
   const handleDownload = async (eventId) => {
     try {
       console.log("Downloading for event:", eventId);
-      const response = await fetch(`http://localhost:3000/events/export/${eventId}`, {
+      const response = await fetch(`https://kevent-server.onrender.com/events/export/${eventId}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

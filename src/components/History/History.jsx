@@ -12,7 +12,7 @@ const History = ({ token }) => {
     const fetchExpiredItems = async () => {
       setLoading(true);
       try {
-        const eventsResponse = await fetch("http://localhost:3000/users/expiredevents", {
+        const eventsResponse = await fetch("https://kevent-server.onrender.com/users/expiredevents", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -20,7 +20,7 @@ const History = ({ token }) => {
           },
         });
 
-        const ticketsResponse = await fetch("http://localhost:3000/users/expiredtickets", {
+        const ticketsResponse = await fetch("https://kevent-server.onrender.com/users/expiredtickets", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

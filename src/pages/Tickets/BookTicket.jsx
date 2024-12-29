@@ -13,7 +13,7 @@ const BookTicket = () => {
   useEffect(() => {
     const fetchEventDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/events/${eventId}`);
+        const response = await fetch(`https://kevent-server.onrender.com/events/${eventId}`);
         if (!response.ok) {
           throw new Error("Failed to fetch event details");
         }
@@ -55,7 +55,7 @@ const BookTicket = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:3000/tickets/booktickets/${eventId}`, {
+      const response = await fetch(`https://kevent-server.onrender.com/tickets/booktickets/${eventId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -92,15 +92,7 @@ const BookTicket = () => {
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="ticketCount">Number of Tickets:</label>
-          <input
-            type="number"
-            id="ticketCount"
-            name="ticketCount"
-            value={ticketCount}
-            onChange={handleInputChange}
-            min="1"
-            required
-          />
+          <input type="number" id="ticketCount" name="ticketCount" value={ticketCount} onChange={handleInputChange} min="1" required />
         </div>
         <button type="submit">Book Ticket</button>
       </form>
