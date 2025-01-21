@@ -5,17 +5,27 @@ import './EditEvent.css';
 import Navbar from '../../components/Navbar/Navbar';
 
 const EditEvent = () => {
+  const EventCategory = {
+    Workshop: "workshop",
+    Seminar: "seminar",
+    Conference: "conference",
+    Webinar: "webinar",
+    Meetup: "meetup",
+    Others: "others",
+  };
+  
   const { id } = useParams();
   const navigate = useNavigate();
   const [eventData, setEventData] = useState({
     Title: "",
     Description: "",
-    Department: "",
+    department: "",
     contactNumber: "",
     Venue: "",
     date: "",
     Price: "",
     capacity: "",
+    category:"",
   });
   const [mainImage, setMainImage] = useState(null); // State for mainImage
   const [otherImages, setOtherImages] = useState([]); // State for otherImages
@@ -128,12 +138,13 @@ const EditEvent = () => {
     const formData = new FormData();
     formData.append("Title", eventData.Title);
     formData.append("Description", eventData.Description);
-    formData.append("Department", eventData.Department);
+    formData.append("department", eventData.department);
     formData.append("contactNumber", eventData.contactNumber);
     formData.append("Venue", eventData.Venue);
     formData.append("date", eventData.date);
     formData.append("Price", eventData.Price);
     formData.append("capacity", eventData.capacity);
+    formData.append("category", eventData.category);  
 
     if (mainImage) {
       formData.append("mainImage", mainImage);
@@ -166,8 +177,10 @@ const EditEvent = () => {
   };
 
   return (
-    <div className="edit-event-container">
+    <div>
       <Navbar />
+    <div className="edit-event-container">
+      
       <h2>Edit Event</h2>
       <form onSubmit={handleSubmit} className="edit-event-form">
         <div className="form-group">
@@ -210,10 +223,29 @@ const EditEvent = () => {
           <input
             type="text"
             name="Department"
-            value={eventData.Department}
+            value={eventData.department}
             onChange={handleChange}
           />
         </div>
+        <div className="form-group">
+          <label>Category</label>
+          <select
+            name="category"
+            value={eventData.category}
+            onChange={handleChange}
+            required
+          >
+            <option value="" disabled>
+              -- Select a Category --
+            </option>
+            {Object.values(EventCategory).map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
+        </div>
+
         <div className="form-group">
           <label>Contact Number</label>
           <input
@@ -271,6 +303,7 @@ const EditEvent = () => {
           Update Event
         </button>
       </form>
+    </div>
     </div>
   );
 };

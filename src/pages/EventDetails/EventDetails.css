@@ -6,221 +6,115 @@ body {
   padding: 0;
 }
 
-/* Event Details Card */
+/* Event Details Container */
 .event-details1 {
-  display: flex;
-  flex-direction: column; /* Ensures content is displayed in a column */
   padding: 20px;
   border: 1px solid #e0e0e0;
   border-radius: 10px;
   background-color: #ffffff;
-  max-width: 700px;
+  max-width: 800px;
   margin: 20px auto;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
+/* Hover Effect for Event Card */
 .event-details1:hover {
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
   transform: translateY(-5px);
 }
 
-/* Title with Animation */
-.event-title {
-  font-size: 1.8em;
+/* Main Image Section */
+.event-main-image1 img {
+  width: 50%;
+  display: block;
+  margin: 0 auto;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.event-main-image1 img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Event Title */
+.event-title1 {
+  font-size: 2em;
   font-weight: 700;
   color: #333;
   text-align: center;
+  margin-top: 20px;
   margin-bottom: 16px;
-  position: relative;
 }
 
-.event-title::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  bottom: -5px;
-  height: 3px;
-  width: 50%;
-  background-color: #44aa8b;
-  transform: translateX(-50%) scaleX(0);
-  transition: transform 0.3s ease-in-out;
-}
-
-.event-title:hover::after {
-  transform: translateX(-50%) scaleX(1);
-}
-
-/* Description */
-.event-description {
-  font-size: 1em;
+/* Event Description */
+.event-description1 {
+  font-size: 1.1em;
   color: #555;
   line-height: 1.8;
   margin-bottom: 20px;
   text-align: justify;
-  transition: color 0.3s ease, transform 0.3s ease;
 }
 
-.event-description:hover {
-  color: #333;
-  transform: scale(1.02);
-}
-
-/* Event Info Sections */
-.event-contact,
-.event-venue,
-.event-price,
-.event-date,
-.event-capacity {
-  font-size: 0.95em;
+/* Event Information Section */
+.event-info1 {
+  font-size: 1em;
   color: #666;
-  margin: 12px 0;
+  margin-bottom: 20px;
+}
+
+.event-info1 p {
+  margin: 8px 0;
+}
+
+/* Event Images */
+.event-other-images1 {
+  margin-bottom: 20px;
+}
+
+.image-gallery1 {
   display: flex;
-  align-items: center;
-  padding: 10px 14px;
-  background-color: #fafafa;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.event-other-images1 img {
+  max-width: 120px;
   border-radius: 8px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.event-contact:hover,
-.event-venue:hover,
-.event-price:hover,
-.event-date:hover,
-.event-capacity:hover {
-  background-color: #eef5f4;
-  transform: scale(1.03);
+.event-other-images1 img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* Highlight Icons */
-.event-contact i,
-.event-venue i,
-.event-price i,
-.event-date i,
-.event-capacity i {
-  font-size: 1.1em;
-  color: #44aa8b;
-  margin-right: 8px;
-}
-
-/* Separator */
-.separator {
-  height: 1px;
-  background-color: #e0e0e0;
-  margin: 20px 0;
-  opacity: 0.8;
-  transition: opacity 0.3s ease;
-}
-
-.separator:hover {
-  opacity: 1;
-}
-
-/* Event Price Highlight */
-.event-price {
-  font-weight: bold;
-  color: #e67e22;
-  text-align: center;
-  font-size: 1.1em;
-}
-
-/* Buttons */
-button.register-btn {
+/* Book Ticket Button */
+.book-ticket-button1 {
   display: block;
   width: 100%;
   padding: 14px;
   background-color: #44aa8b;
   color: white;
-  font-size: 1em;
+  font-size: 1.1em;
   font-weight: 600;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
 }
 
-button.register-btn:hover {
+.book-ticket-button1:hover {
   background-color: #378670;
-  transform: translateY(-3px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-button.register-btn:active {
-  transform: translateY(1px);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Images */
-.event-main-image img,
-.event-other-images img {
-  max-width: 120px; /* Smaller size for better responsiveness */
-  height: auto;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  margin: 10px 5px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
-}
-
-.event-main-image img:hover,
-.event-other-images img:hover {
-  transform: scale(1.1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.image-gallery {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-  flex-direction: column; /* Ensures images also stack vertically */
-}
-
-/* Fade-in Animation */
-.event-details1 {
-  opacity: 0;
-  animation: fadeIn 0.7s ease-in forwards;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-  .event-details1 {
-    padding: 16px;
-    margin: 10px;
-  }
-
-  .event-title {
-    font-size: 1.6em;
-  }
-
-  .event-description {
-    font-size: 0.95em;
-  }
-
-  button.register-btn {
-    font-size: 0.9em;
-  }
-
-  .event-main-image img,
-  .event-other-images img {
-    max-width: 100px; /* Smaller images on smaller screens */
-  }
 }
 
 /* Modal for Image */
-.image-modal {
+.image-modal1 {
   position: fixed;
   top: 0;
   left: 0;
@@ -233,8 +127,7 @@ button.register-btn:active {
   z-index: 1000;
 }
 
-/* Modal Content */
-.modal-content {
+.modal-content1 {
   position: relative;
   background-color: #fff;
   padding: 20px;
@@ -244,16 +137,14 @@ button.register-btn:active {
   text-align: center;
 }
 
-/* Modal Image */
-.modal-image {
+.modal-image1 {
   width: 100%;
   height: auto;
   max-height: 80vh;
   object-fit: contain;
 }
 
-/* Close Button */
-.close-modal {
+.close-modal1 {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -264,12 +155,13 @@ button.register-btn:active {
   border: none;
 }
 
-/* Image Styling (Clickable) */
-.clickable-image {
-  cursor: pointer;
-  transition: transform 0.2s;
-}
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .event-details1 {
+    padding: 16px;
+  }
 
-.clickable-image:hover {
-  transform: scale(1.05);
+  .event-title1 {
+    font-size: 1.6em;
+  }
 }

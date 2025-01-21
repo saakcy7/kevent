@@ -17,7 +17,7 @@ const EventCard = ({ event, onEventClick }) => {
           </div>
         )}
         <h2 className="event-title">{event.Title}</h2>
-        <p className="event-venue">Venue: {event.Venue}</p>
+        <p className="event-description">{event.Description}</p>
         <p className="event-date">Date: {new Date(event.date).toLocaleDateString()}</p>
       </div>
     </div>

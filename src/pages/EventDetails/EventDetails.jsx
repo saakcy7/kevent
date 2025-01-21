@@ -33,10 +33,8 @@ const EventDetails = () => {
           throw new Error(`Error: ${response.statusText}`);
         }
         const data = await response.json();
-        console.log('Fetched event data:', data);
         setEvent(data.event);
       } catch (error) {
-        console.error('Error fetching event:', error);
         setError(error.message);
       }
     };
@@ -45,7 +43,7 @@ const EventDetails = () => {
   }, [id]);
 
   if (error) {
-    return <p className="error-message">{error}</p>;
+    return <p className="error-message1">{error}</p>;
   }
 
   if (!event) {
@@ -54,38 +52,43 @@ const EventDetails = () => {
 
   return (
     <div className="event-details1">
-      <h2 className="event-title">{event?.Title || 'No Title Available'}</h2>
-      <p className="event-description">{event?.Description || 'No Description Available'}</p>
-      <p className="event-department">Department: {event?.Department || 'Not Specified'}</p>
-      <p className="event-contact">Contact: {event?.contactNumber || 'Not Provided'}</p>
-      <p className="event-venue">Venue: {event?.Venue || 'Not Specified'}</p>
-      <p className="event-price">{event?.Price || 'Free'}</p>
-      <p className="event-date">Date: {new Date(event?.date).toLocaleDateString() || 'Not Specified'}</p>
-      <p className="event-capacity">Capacity: {event?.capacity || 'Not Specified'}</p>
-
-      {/* Display main image */}
+      {/* Main Image Section */}
       {event?.mainImage && (
-        <div className="event-main-image">
-          <h3>Main Image</h3>
+        <div className="event-main-image1">
           <img
             src={event.mainImage}
             alt="Main Event"
             onClick={() => handleImageClick(event.mainImage)}
-            className="clickable-image"
+            className="clickable-image1"
           />
         </div>
       )}
 
+      {/* Event Title and Description */}
+      <h2 className="event-title1">{event?.Title || 'No Title Available'}</h2>
+      <p className="event-description1">{event?.Description || 'No Description Available'}</p>
+
+      {/* Event Information */}
+      <div className="event-info1">
+        <p className="event-department1">Department: {event?.Department || 'Not Specified'}</p>
+        <p className="event-contact1">Contact: {event?.contactNumber || 'Not Provided'}</p>
+        <p className="event-venue1">Venue: {event?.Venue || 'Not Specified'}</p>
+        <p className="event-price1">{event?.Price || 'Free'}</p>
+        <p className="event-date1">Date: {new Date(event?.date).toLocaleDateString() || 'Not Specified'}</p>
+        <p className="event-capacity1">Capacity: {event?.capacity || 'Not Specified'}</p>
+      </div>
+
+      {/* Other Images Section */}
       {event?.Images?.length > 0 && (
-        <div className="event-other-images">
+        <div className="event-other-images1">
           <h3>Other Images</h3>
-          <div className="image-gallery">
+          <div className="image-gallery1">
             {event.Images.map((image, index) => (
               <img
                 key={index}
                 src={image}
                 alt={`Event Image ${index + 1}`}
-                className="other-image clickable-image"
+                className="other-image1 clickable-image1"
                 onClick={() => handleImageClick(image)}
               />
             ))}
@@ -93,36 +96,31 @@ const EventDetails = () => {
         </div>
       )}
 
+      {/* Files Section */}
+      {event.Files?.length > 0 && (
+        <div className="event-files1">
+          <h3>Files</h3>
+          <ul>
+            {event.Files.map((file, index) => (
+              <li key={index}>
+                <a href={file} target="_blank" rel="noopener noreferrer">
+                  View File {index + 1}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
- {event.Files?.length > 0 && (
-  <div className="event-files">
-    <h3>Files</h3>
-    <ul>
-      {event.Files.map((file, index) => (
-        <li key={index}>
-          <a
-            href={file}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            View File {index + 1}
-          </a>
-        </li>
-      ))}
-    </ul>
-  </div>
-)}
-
-
-
-      <button onClick={handleBookTicket} className="book-ticket-button">Book Ticket</button>
+      {/* Book Ticket Button */}
+      <button onClick={handleBookTicket} className="book-ticket-button1">Book Ticket</button>
 
       {/* Modal for displaying the clicked image */}
       {isImageModalOpen && (
-        <div className="image-modal" onClick={handleCloseModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <img src={selectedImage} alt="Large Event" className="modal-image" />
-            <span className="close-modal" onClick={handleCloseModal}>&times;</span>
+        <div className="image-modal1" onClick={handleCloseModal}>
+          <div className="modal-content1" onClick={(e) => e.stopPropagation()}>
+            <img src={selectedImage} alt="Large Event" className="modal-image1" />
+            <span className="close-modal1" onClick={handleCloseModal}>&times;</span>
           </div>
         </div>
       )}
