@@ -1,0 +1,39 @@
+.about {
+  text-align: center;
+  padding: 15px;
+  color: black;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideUp 1s ease-out forwards;
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  gap: 80px;
+  justify-content: center;
+  font-size: 1.1rem;
+  line-height: 1.6rem;
+  color: black;
+}
+.who-we-are-text,
+.our-mission-text {
+  text-align: justify;
+  max-width: 500px;
+  color: black;
+}
+
+.our {
+  color: black;
+}
