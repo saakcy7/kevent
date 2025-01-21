@@ -9,10 +9,19 @@
   height: 70px;
   box-sizing: border-box;
   transition: background-color 0.3s ease;
+  color: black;
 }
 
 .navigation:hover {
   background-color: #2b8a72;
+}
+
+.notification .fa-bell {
+  color: black;
+}
+
+.notification .notification-count {
+  color: black;
 }
 
 .navigation__menu {

@@ -80,16 +80,16 @@ const Navbar = () => {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    setIsLoggedIn(false);
-    Swal.fire({
-      icon: "success",
-      title: "Success",
-      text: "Logged out successfully!",
-    });
-    navigate("/");
-  };
+  // const handleLogout = () => {
+  //   localStorage.removeItem("token");
+  //   setIsLoggedIn(false);
+  //   Swal.fire({
+  //     icon: "success",
+  //     title: "Success",
+  //     text: "Logged out successfully!",
+  //   });
+  //   navigate("/");
+  // };
 
   useEffect(() => {
     fetchNotifications();
@@ -121,7 +121,7 @@ const Navbar = () => {
       <div className="navigation__menu">
         {isLoggedIn ? (
           <>
-            <Link to="/about" className="menu">
+            <Link to="/dashboard" className="menu">
               <i className="fa-solid fa-house"></i>
             </Link>
             <Link to="/createevent" className="menu1">
