@@ -1,6 +1,6 @@
 .footer {
   background-color: #39bca4;
-  color: #f8f8f8;
+  color: white;
 }
 
 .footer-container {
@@ -61,7 +61,7 @@
 
 .footer-link {
   text-decoration: none;
-  color: #555555;
+
   font-size: 0.875rem;
   color: white;
 }
@@ -103,4 +103,11 @@
 .social-svg {
   height: 16px;
   width: 16px;
+}
+
+.about-link {
+  padding-left: 60px;
+  color: White;
+  text-decoration: none;
+  font-size: 0.875rem;
 }

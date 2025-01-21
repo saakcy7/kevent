@@ -11,6 +11,13 @@ const Footer = () => {
               <img src={keventLogo} className="footer-logo-image" alt="Kevent Logo" />
               <span className="footer-logo-text">Kevent</span>
             </a>
+            <ul className="footer-list">
+              <li>
+                <a href="/about" className="about-link">
+                  About Us
+                </a>
+              </li>
+            </ul>
           </div>
 
           <div className="footer-links">

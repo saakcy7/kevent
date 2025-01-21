@@ -150,9 +150,6 @@ const Navbar = () => {
           </>
         ) : (
           <>
-            <Link to="/about" className="menu">
-              <i className="fa-solid fa-house"></i>
-            </Link>
             <Link to="/signup" className="menu2">
               <button className="sign">Sign Up/Login</button>
             </Link>
