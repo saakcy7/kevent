@@ -142,7 +142,7 @@ const EditEvent = () => {
     files.forEach((file) => formData.append("files", file));
 
     try {
-      const response = await fetch(`http://localhost:3000/events/updateevent/${id}`, {
+      const response = await fetch(`https://kevent-server.onrender.com/events/updateevent/${id}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,

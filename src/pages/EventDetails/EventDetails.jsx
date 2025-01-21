@@ -28,7 +28,7 @@ const EventDetails = () => {
     // Fetch event data from the backend
     const fetchEvent = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/events/viewevent/${id}`);
+        const response = await fetch(`https://kevent-server.onrender.com/events/viewevent/${id}`);
         if (!response.ok) {
           throw new Error(`Error: ${response.statusText}`);
         }
