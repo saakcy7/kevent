@@ -132,10 +132,10 @@ const Navbar = () => {
             </Link>
 
             {/* Notification button */}
-            <button onClick={toggleNotifications} className="notification">
+            <Link onClick={toggleNotifications} className="notification">
               <i className="fa-solid fa-bell"></i>
               {unreadCount > 0 && <span className="notification-count">{unreadCount}</span>}
-            </button>
+            </Link>
 
             {/* Notification dropdown */}
             {showNotifications && (
@@ -147,9 +147,6 @@ const Navbar = () => {
             <Link to="/searchevent" className="menu2">
               <i className="fa-solid fa-magnifying-glass"></i>
             </Link>
-            <button onClick={handleLogout} className="menu3">
-              LogOut
-            </button>
           </>
         ) : (
           <>
