@@ -2,6 +2,7 @@ import "./index.css";
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import AuthForm from "./pages/auth/authForm";
+import About from "./pages/About/About";
 import UserProfile from "./pages/Profile/userProfile";
 import VerifyEmail from "./pages/auth/OtpPage";
 import ForgotPassword from "./pages/auth/forgotPassword";
@@ -14,6 +15,7 @@ import BookTicket from "./pages/Tickets/BookTicket";
 import VerifyResetOTP from "./pages/auth/VerifyOtp";
 import EditEvent from "./pages/Event/EditEvent";
 import React from "react";
+import Category from "./pages/Category/category";
 
 function App() {
   return (
@@ -22,6 +24,7 @@ function App() {
         <Route path="/" element={<Home/>} />
         <Route path="/signup" element={<AuthForm />} />
         <Route path="/profile" element={<UserProfile />} />
+        <Route path="/about" element={<About />} />
         <Route path="/verification" element={<VerifyEmail/>} />
         <Route path="/forgotpassword" element={<ForgotPassword/>}/>
         <Route path="/change-password" element={<ChangePassword/>}/>
@@ -32,6 +35,7 @@ function App() {
         <Route path="/booktickets/:id" element={<BookTicket/>}/>
         <Route path="/verifyresetotp" element={<VerifyResetOTP/>}/>
         <Route path="/editevent/:id" element={<EditEvent/>}/>
+        <Route path="/events/category" element={<Category/>}/>
       </Routes>
     </div>
   );

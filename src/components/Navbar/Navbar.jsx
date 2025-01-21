@@ -124,6 +124,9 @@ const Navbar = () => {
             <Link to="/dashboard" className="menu">
               <i className="fa-solid fa-house"></i>
             </Link>
+            <Link to="/about" className="menu">
+            <i class="fa-regular fa-address-card"></i>
+            </Link>
             <Link to="/createevent" className="menu1">
               <i className="fa-solid fa-plus"></i>
             </Link>

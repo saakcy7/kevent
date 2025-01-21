@@ -53,7 +53,7 @@ const EventDetails = () => {
   }
 
   return (
-    <div className="event-details">
+    <div className="event-details1">
       <h2 className="event-title">{event?.Title || 'No Title Available'}</h2>
       <p className="event-description">{event?.Description || 'No Description Available'}</p>
       <p className="event-department">Department: {event?.Department || 'Not Specified'}</p>

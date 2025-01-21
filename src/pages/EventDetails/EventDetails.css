@@ -7,7 +7,9 @@ body {
 }
 
 /* Event Details Card */
-.event-details {
+.event-details1 {
+  display: flex;
+  flex-direction: column; /* Ensures content is displayed in a column */
   padding: 20px;
   border: 1px solid #e0e0e0;
   border-radius: 10px;
@@ -18,7 +20,7 @@ body {
   transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
-.event-details:hover {
+.event-details1:hover {
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
   transform: translateY(-5px);
 }
@@ -172,10 +174,11 @@ button.register-btn:active {
   flex-wrap: wrap;
   gap: 10px;
   justify-content: center;
+  flex-direction: column; /* Ensures images also stack vertically */
 }
 
 /* Fade-in Animation */
-.event-details {
+.event-details1 {
   opacity: 0;
   animation: fadeIn 0.7s ease-in forwards;
 }
@@ -193,7 +196,7 @@ button.register-btn:active {
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
-  .event-details {
+  .event-details1 {
     padding: 16px;
     margin: 10px;
   }
@@ -270,4 +273,3 @@ button.register-btn:active {
 .clickable-image:hover {
   transform: scale(1.05);
 }
-

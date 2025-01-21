@@ -2,22 +2,34 @@ import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import './CreateEvent.css';
+import Navbar from '../../components/Navbar/Navbar';
+
+const EventCategory = {
+  Workshop: "workshop",
+  Seminar: "seminar",
+  Conference: "conference",
+  Webinar: "webinar",
+  Meetup: "meetup",
+  Others: "others",
+};
+
 
 const CreateEvent = () => {
   const navigate = useNavigate();
   const [eventdata, setEventData] = useState({
     Title: "",
     Description: "",
-    Department: "",
+    department: "",
     contactNumber: "",
     Venue: "",
     date: "",
     Price: "",
     capacity: "",
+    category: "",
   });
 
-  const [mainImage, setMainImage] = useState(null); // State for mainImage
-  const [otherImages, setOtherImages] = useState([]); // State for otherImages
+  const [mainImage, setMainImage] = useState(null); // State for main image
+  const [otherImages, setOtherImages] = useState([]); // State for other images
   const [files, setFiles] = useState([]); // State for files
 
   const handleChange = (e) => {
@@ -35,7 +47,7 @@ const CreateEvent = () => {
       return;
     }
 
-    setMainImage(file); // Update state with valid main image
+    setMainImage(file);
   };
 
   const handleOtherImagesChange = (e) => {
@@ -55,7 +67,7 @@ const CreateEvent = () => {
       return;
     }
 
-    setOtherImages([...otherImages, ...selectedFiles]); // Append new files
+    setOtherImages([...otherImages, ...selectedFiles]);
   };
 
   const handleFilesChange = (e) => {
@@ -74,7 +86,7 @@ const CreateEvent = () => {
       return;
     }
 
-    setFiles([...files, ...selectedFiles]); // Append new files
+    setFiles([...files, ...selectedFiles]);
   };
 
   const handleSubmit = async (event) => {
@@ -83,14 +95,14 @@ const CreateEvent = () => {
     if (
       !eventdata.Title ||
       !eventdata.Description ||
-      !eventdata.Department ||
       !eventdata.contactNumber ||
       !eventdata.Venue ||
       !eventdata.date ||
       !eventdata.Price ||
-      !eventdata.capacity
+      !eventdata.capacity ||
+      !eventdata.category
     ) {
-      Swal.fire("Error", "Please add all the fields.", "error");
+      Swal.fire("Error", "Please fill all the fields.", "error");
       return;
     }
 
@@ -123,12 +135,13 @@ const CreateEvent = () => {
     const formData = new FormData();
     formData.append("Title", eventdata.Title);
     formData.append("Description", eventdata.Description);
-    formData.append("Department", eventdata.Department);
+    formData.append("department", eventdata.department);
     formData.append("contactNumber", eventdata.contactNumber);
     formData.append("Venue", eventdata.Venue);
     formData.append("date", eventdata.date);
     formData.append("Price", eventdata.Price);
     formData.append("capacity", eventdata.capacity);
+    formData.append("category", eventdata.category);
 
     if (mainImage) {
       formData.append("mainImage", mainImage);
@@ -165,139 +178,159 @@ const CreateEvent = () => {
   };
 
   return (
-    <>
-      <div className="event-form-container">
-        <form className="event-form" onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label>Event Title</label>
+    <div>
+    <Navbar/>
+    <div className="event-form-container">
+      
+      <form className="event-form" onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label>Event Title</label>
+          <input
+            type="text"
+            name="Title"
+            onChange={handleChange}
+            placeholder="Enter event title"
+            value={eventdata.Title}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Event Description</label>
+          <textarea
+            placeholder="Enter event description"
+            name="Description"
+            onChange={handleChange}
+            value={eventdata.Description}
+          ></textarea>
+        </div>
+
+        <div className="form-group">
+          <label>Department</label>
+          <input
+            type="text"
+            name="department"
+            value={eventdata.department}
+            onChange={handleChange}
+            placeholder="Enter department"
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Category</label>
+          <select
+            name="category"
+            value={eventdata.category}
+            onChange={handleChange}
+            required
+          >
+            <option value="" disabled>
+              -- Select a Category --
+            </option>
+            {Object.values(EventCategory).map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="form-group event-details">
+          <div className="form-field">
+            <label>Contact Number</label>
             <input
               type="text"
-              name="Title"
+              placeholder="9862410306"
+              name="contactNumber"
               onChange={handleChange}
-              placeholder="Enter event title"
-              value={eventdata.Title}
+              value={eventdata.contactNumber}
             />
           </div>
 
-          <div className="form-group">
-            <label>Event Description</label>
-            <textarea
-              placeholder="Enter event description"
-              name="Description"
-              onChange={handleChange}
-              value={eventdata.Description}
-            ></textarea>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="department">Department</label>
+          <div className="form-field">
+            <label>Venue</label>
             <input
               type="text"
-              id="department"
-              name="Department"
-              value={eventdata.Department || ""}
+              placeholder="Enter venue"
+              name="Venue"
               onChange={handleChange}
-              placeholder="Enter department"
+              value={eventdata.Venue}
             />
           </div>
 
-          <div className="form-group event-details">
-            <div className="form-field">
-              <label>Contact Number</label>
-              <input
-                type="text"
-                placeholder="9862410306"
-                name="contactNumber"
-                onChange={handleChange}
-                value={eventdata.contactNumber}
-              />
-            </div>
-
-            <div className="form-field">
-              <label>Venue</label>
-              <input
-                type="text"
-                placeholder="Enter venue"
-                name="Venue"
-                onChange={handleChange}
-                value={eventdata.Venue}
-              />
-            </div>
-
-            <div className="form-field">
-              <label>Event Capacity</label>
-              <input
-                type="text"
-                name="capacity"
-                onChange={handleChange}
-                placeholder="Enter event capacity"
-                value={eventdata.capacity}
-              />
-            </div>
-
-            <div className="form-field">
-              <label>Date</label>
-              <input
-                type="datetime-local"
-                name="date"
-                onChange={handleChange}
-                value={eventdata.date}
-              />
-            </div>
-
-            <div className="form-field">
-              <label>Price</label>
-              <input
-                type="text"
-                placeholder="Enter price"
-                name="Price"
-                onChange={handleChange}
-                value={eventdata.Price}
-              />
-            </div>
-          </div>
-
-          <div className="file-upload">
-            <label>Upload Main Image</label>
+          <div className="form-field">
+            <label>Event Capacity</label>
             <input
-              type="file"
-              className="upload-btn"
-              name="mainImage"
-              onChange={handleMainImageChange}
-              accept="image/jpeg, image/png, image/jpg, image/svg+xml"
+              type="text"
+              name="capacity"
+              onChange={handleChange}
+              placeholder="Enter event capacity"
+              value={eventdata.capacity}
             />
           </div>
 
-          <div className="file-upload">
-            <label>Upload Other Images</label>
+          <div className="form-field">
+            <label>Date</label>
             <input
-              type="file"
-              className="upload-btn"
-              name="otherImages"
-              onChange={handleOtherImagesChange}
-              accept="image/jpeg, image/png, image/jpg, image/svg+xml"
-              multiple
+              type="datetime-local"
+              name="date"
+              onChange={handleChange}
+              value={eventdata.date}
             />
           </div>
 
-          <div className="file-upload">
-            <label>Upload Files (PDF only)</label>
+          <div className="form-field">
+            <label>Price</label>
             <input
-              type="file"
-              className="upload-btn"
-              name="files"
-              onChange={handleFilesChange}
-              accept="application/pdf"
-              multiple
+              type="text"
+              placeholder="Enter price"
+              name="Price"
+              onChange={handleChange}
+              value={eventdata.Price}
             />
           </div>
+        </div>
 
-          <button type="submit" className="create-btn">
-            Create Event
-          </button>
-        </form>
-      </div>
-    </>
+        <div className="file-upload">
+          <label>Upload Main Image</label>
+          <input
+            type="file"
+            className="upload-btn"
+            name="mainImage"
+            onChange={handleMainImageChange}
+            accept="image/jpeg, image/png, image/jpg, image/svg+xml"
+          />
+        </div>
+
+        <div className="file-upload">
+          <label>Upload Other Images</label>
+          <input
+            type="file"
+            className="upload-btn"
+            name="otherImages"
+            onChange={handleOtherImagesChange}
+            accept="image/jpeg, image/png, image/jpg, image/svg+xml"
+            multiple
+          />
+        </div>
+
+        <div className="file-upload">
+          <label>Upload Files (PDF only)</label>
+          <input
+            type="file"
+            className="upload-btn"
+            name="files"
+            onChange={handleFilesChange}
+            accept="application/pdf"
+            multiple
+          />
+        </div>
+
+        <button type="submit" className="create-btn">
+          Create Event
+        </button>
+      </form>
+    </div>
+  </div>
   );
 };
 
