@@ -26,7 +26,7 @@ const ChangePassword = () => {
     console.log('Email:', email);
     console.log('New Password:', password);
     try {
-      const response = await fetch("http://localhost:3000/users/reset-password", {
+      const response = await fetch("https://kevent-server.onrender.com/users/reset-password", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

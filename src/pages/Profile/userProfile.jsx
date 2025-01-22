@@ -139,7 +139,7 @@ const Sidebar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    window.location.href = "/home";
+    window.location.href = "/signup";
   };
 
   return (

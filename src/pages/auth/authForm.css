@@ -4,8 +4,8 @@ body {
 
 .container {
   position: relative;
-  width: 850px; /* Increased width to accommodate the image */
-  height: 648px; /* Fixed height */
+  width: 950px; /* Increased width to accommodate the image */
+  height: 760px; /* Fixed height */
   margin: 100px auto;
   display: flex;
   background-color: #fff;
@@ -17,10 +17,11 @@ body {
 
 .form-container {
   position: relative;
-  width: 50%;
+  width: 55%;
   height: 100%;
   transition: transform 0.6s ease-in-out;
   animation: slideIn 0.6s ease-out;
+
 }
 
 .form {
@@ -48,6 +49,23 @@ body {
 .signup-form {
   left: auto;
   right: 0;
+  height: 700px;
+}
+
+
+.input-group .first{
+  margin-right: 50px;
+  width: 80%;
+}
+
+.input-group .last{
+  margin-right: 50px;
+ 
+}
+
+.input-group .batch{
+  margin-right: 50px;
+  width: 80%;
 }
 
 .form-container.signup .form {
@@ -69,6 +87,7 @@ h2 {
   margin-bottom: 15px;
   position: relative;
   animation: fadeIn 1s ease-in-out;
+  
 }
 
 .input-group .icon {
@@ -102,6 +121,7 @@ button:hover {
   background-color: #333;
   transform: scale(1.05); /* Slight scaling on hover */
 }
+
 
 .toggle {
   cursor: pointer;
@@ -164,6 +184,33 @@ button:hover {
   color: white;
 }
 
+.button-container .google-button{
+  padding: 10px 20px;
+  background-color: #46d1b7;
+  color: #000;
+  border: none;
+  width: 40%;
+  border-radius: 15px;
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.1s ease-in-out, background-color 0.3s ease;
+}
+
+.google .google-button1{
+  padding: 10px 20px;
+  background-color: #46d1b7;
+  color: #000;
+  border: none;
+  width: 80%;
+  margin-left: 20px;
+  border-radius: 15px;
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.1s ease-in-out, background-color 0.3s ease;
+}
+
 button:hover {
   background-color: #0056b3;
 }
@@ -189,8 +236,8 @@ button:hover {
 }
 
 .image-container .img2 {
-  width: 100%;
-  height: 100%;
+  width: 120%;
+  height: 110%;
   background-size: cover;
   transform: translateX(410px);
   border-radius: 20px;

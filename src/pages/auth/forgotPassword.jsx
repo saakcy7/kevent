@@ -14,19 +14,14 @@ const ForgotPassword = () => {
 
   const handleSendOtp = async (event) => {
     event.preventDefault();
-    //const token = localStorage.getItem("token"); 
-    /*if (!token) {
-        Swal.fire("Error", "Authentication token not found. Please log in again.", "error");
-        return;
-      }*/
-    //console.log("Auth token",token);
+    
 
     try {
-      const response = await fetch("https://kevent-server.onrender.com/users/forgot-password", {
+      const response = await fetch(`https://kevent-server.onrender.com/users/forgot-password`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          //"Authorization": `Bearer ${token}`
+          
         },
         body: JSON.stringify({ email}),
       });

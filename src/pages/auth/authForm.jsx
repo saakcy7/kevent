@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
+import Navbar from "../../components/Navbar/Navbar";
 
 //import {Link} from "react-router-dom";
 
@@ -225,6 +226,8 @@ const AuthForm = () => {
   };
 
   return (
+    <div>
+      <Navbar />
     <div className="container">
       {/* Image Section  <ToastContainer /> */}
 
@@ -272,11 +275,11 @@ const AuthForm = () => {
                 <div className="name">
                   <div className="input-group">
                     <label>First Name</label>
-                    <input type="text" placeholder="first-name" name="firstName" onChange={handleChange} value={data.firstName} required />
+                    <input type="text"placeholder="first-name" className="first" name="firstName" onChange={handleChange} value={data.firstName} required />
                   </div>
                   <div className="input-group">
                     <label>Last Name</label>
-                    <input type="text" name="lastName" placeholder="last-name" onChange={handleChange} value={data.lastName} required />
+                    <input type="text" name="lastName" className="last" placeholder="last-name" onChange={handleChange} value={data.lastName} required />
                   </div>
                 </div>
 
@@ -301,12 +304,12 @@ const AuthForm = () => {
                   <div className="depart">
                     <div className="input-group">
                       <label>Batch</label>
-                      <input type="text" placeholder="batch" name="batch" onChange={handleChange} value={data.batch} required />
+                      <input type="text" placeholder="batch" className="batch" name="batch" onChange={handleChange} value={data.batch} required />
                     </div>
 
                     <div className="input-group">
                       <label>Year</label>
-                      <input type="text" placeholder="year" name="year" onChange={handleChange} value={data.year} required />
+                      <input type="text" placeholder="year" className="year" name="year" onChange={handleChange} value={data.year} required />
                     </div>
                     <div className="input-group">
                       {/*<label>Semester</label>
@@ -326,7 +329,7 @@ const AuthForm = () => {
                     Sign Up
                   </button>
                   <div className="google">
-                    <button onClick={handleGoogleSignup}>Signup with Google</button>
+                    <button onClick={handleGoogleSignup} className="google-button1">Signup with Google</button>
                   </div>
                 </div>
                 <p onClick={toggleForm} className="toggle">
@@ -337,6 +340,7 @@ const AuthForm = () => {
           )}
         </div>
       </div>
+    </div>
     </div>
   );
 };

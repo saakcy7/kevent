@@ -110,8 +110,8 @@ const EventDetails = () => {
           <ul>
             {event.Files.map((file, index) => (
               <li key={index}>
-                <a href={file} target="_blank" rel="noopener noreferrer">
-                  View File {index + 1}
+                <a href={file} >
+                View File {index + 1}
                 </a>
               </li>
             ))}
