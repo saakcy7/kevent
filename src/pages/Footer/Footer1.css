@@ -1,0 +1,120 @@
+.footer1 {
+  background-color: #39bca4;
+  color: white;
+  position: relative;
+  bottom: 0;
+  padding: 24px 16px; /* Adjusted padding for smaller screens */
+  text-align: center; /* Centers text on smaller screens */
+  width: 100%;
+  box-sizing: border-box; /* Ensures padding is included in the width */
+  margin-top: 8%;
+}
+
+.footer-container1 {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+  color: white;
+}
+
+.footer1 h1 {
+  color: white;
+}
+.footer-top1 {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.footer-logo1{
+  margin-bottom: 16px;
+}
+
+.footer-logo-link1 {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.footer-logo-image1 {
+  height: 32px;
+  margin-right: 8px;
+}
+
+.footer-logo-text1 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+}
+
+.footer-links1 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.footer-heading1 {
+  margin-bottom: 12px;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  color: white;
+  padding-right: 40px;
+}
+
+.footer-list1 {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-link1 {
+  text-decoration: none;
+
+  font-size: 0.875rem;
+  color: white;
+}
+
+.footer-link1:hover {
+  text-decoration: underline;
+}
+
+.footer-divider1 {
+  border: 1px solid #dddddd;
+  margin: 24px 0;
+}
+
+.footer-bottom1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.footer-copyright1 {
+  font-size: 0.875rem;
+}
+
+.footer-social1 {
+  display: flex;
+}
+
+.footer-social-icon1 {
+  color: #555555;
+  margin-left: 16px;
+  color: white;
+}
+
+.footer-social-icon1:hover {
+  color: #111111;
+}
+
+.social-svg1 {
+  height: 16px;
+  width: 16px;
+}
+
+.about-link1 {
+  padding-left: 60px;
+  color: White;
+  text-decoration: none;
+  font-size: 0.875rem;
+}

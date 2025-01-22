@@ -16,7 +16,8 @@ import VerifyResetOTP from "./pages/auth/VerifyOtp";
 import EditEvent from "./pages/Event/EditEvent";
 import React from "react";
 import Category from "./pages/Category/category";
-
+import Department from "./pages/Department/department";
+import Club from "./pages/club/club";
 function App() {
   return (
     <div className="App">
@@ -36,6 +37,8 @@ function App() {
         <Route path="/verifyresetotp" element={<VerifyResetOTP/>}/>
         <Route path="/editevent/:id" element={<EditEvent/>}/>
         <Route path="/events/category" element={<Category/>}/>
+        <Route path="/events/department" element={<Department/>}/>
+        <Route path="/events/clubs" element={<Club/>}/>
       </Routes>
     </div>
   );

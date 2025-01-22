@@ -3,6 +3,7 @@ import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import './CreateEvent.css';
 import Navbar from '../../components/Navbar/Navbar';
+import Footer from '../../components/Footer/Footer';
 
 const EventCategory = {
   Workshop: "workshop",
@@ -12,6 +13,21 @@ const EventCategory = {
   Meetup: "meetup",
   Others: "others",
 };
+
+const EventDepartment = {
+  DOCSE:"docse",
+  DOEEE: "doeee",
+  Civil: "civil",
+  GE: "ge",
+}
+
+const EventClub = {
+  Kucc: "kucc",
+  Seee: "seee",
+  Aisec: "aisec",
+  Leo: "leo",
+  Rotract: "rotract",
+}
 
 
 const CreateEvent = () => {
@@ -26,6 +42,7 @@ const CreateEvent = () => {
     Price: "",
     capacity: "",
     category: "",
+    club: "",
   });
 
   const [mainImage, setMainImage] = useState(null); // State for main image
@@ -142,6 +159,7 @@ const CreateEvent = () => {
     formData.append("Price", eventdata.Price);
     formData.append("capacity", eventdata.capacity);
     formData.append("category", eventdata.category);
+    formData.append("club", eventdata.club);
 
     if (mainImage) {
       formData.append("mainImage", mainImage);
@@ -206,13 +224,21 @@ const CreateEvent = () => {
 
         <div className="form-group">
           <label>Department</label>
-          <input
-            type="text"
+          <select
             name="department"
             value={eventdata.department}
             onChange={handleChange}
-            placeholder="Enter department"
-          />
+            required
+          >
+            <option value="" disabled>
+              -- Select a Department --
+            </option>
+            {Object.values(EventDepartment).map((department) => (
+              <option key={department} value={department}>
+                {department}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div className="form-group">
@@ -229,6 +255,25 @@ const CreateEvent = () => {
             {Object.values(EventCategory).map((category) => (
               <option key={category} value={category}>
                 {category}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="form-group">
+          <label>Club</label>
+          <select
+            name="club"
+            value={eventdata.club}
+            onChange={handleChange}
+            required
+          >
+            <option value="" disabled>
+              -- Select a Club --
+            </option>
+            {Object.values(EventClub).map((club) => (
+              <option key={club} value={club}>
+                {club}
               </option>
             ))}
           </select>
@@ -330,6 +375,7 @@ const CreateEvent = () => {
         </button>
       </form>
     </div>
+    <Footer/>
   </div>
   );
 };

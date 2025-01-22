@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import EventCard from "../../components/EventCard/EventCard";
-import "./category.css";
+import "../Category/category.css";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../Footer/Footer1";
 
-const categories = [
-  "Workshop",
-  "Seminar",
-  "Conference",
-  "Webinar",
-  "Meetup",
-  "Others",
+const clubs= [
+    "Kucc",
+  "Seee",
+  "Aisec",
+  "Leo",
+  "Rotract"
 ];
 
-const Category = () => {
-  const [selectedCategory, setSelectedCategory] = useState(categories[0]); // Default category
+const Club = () => {
+  const [selectedClub, setSelectedClub] = useState(clubs[0]); // Default category
   const [events, setEvents] = useState([]);
   const navigate = useNavigate();
 
@@ -23,7 +22,7 @@ const Category = () => {
     const fetchEvents = async () => {
       try {
         const response = await fetch(
-          `https://kevent-server.onrender.com/events/eventsByCategory?category=${selectedCategory.toLowerCase()}`
+          `https://kevent-server.onrender.com/events/eventsByClub?club=${selectedClub.toLowerCase()}`
         );
         const data = await response.json();
 
@@ -39,23 +38,23 @@ const Category = () => {
     };
 
     fetchEvents();
-  }, [selectedCategory]);
+  }, [selectedClub]);
 
   return (
     <div>
         <Navbar />
     <div className="category-header">
-  <h1>Events by Category</h1>
+  <h1>Events by Club</h1>
 
   {/* Enhanced Dropdown */}
   <div className="category-dropdown">
     <select
-      value={selectedCategory}
-      onChange={(e) => setSelectedCategory(e.target.value)}
+      value={selectedClub}
+      onChange={(e) => setSelectedClub(e.target.value)}
     >
-      {categories.map((category) => (
-        <option key={category} value={category}>
-          {category}
+      {clubs.map((club) => (
+        <option key={club} value={club}>
+          {club}
         </option>
       ))}
     </select>
@@ -83,4 +82,4 @@ const Category = () => {
   );
 };
 
-export default Category;
+export default Club;

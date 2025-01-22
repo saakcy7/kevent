@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import Navbar from '../../components/Navbar/Navbar';
 import './EventDetails.css'; // Assuming you have a CSS file for styling
+import Footer from '../../components/Footer/Footer';
 
 const EventDetails = () => {
   const navigate = useNavigate();
@@ -51,6 +53,9 @@ const EventDetails = () => {
   }
 
   return (
+    <div>
+      <Navbar />
+
     <div className="event-details1">
       {/* Main Image Section */}
       {event?.mainImage && (
@@ -70,12 +75,14 @@ const EventDetails = () => {
 
       {/* Event Information */}
       <div className="event-info1">
-        <p className="event-department1">Department: {event?.Department || 'Not Specified'}</p>
+        <p className="event-department1">Department: {event?.department || 'Not Specified'}</p>
         <p className="event-contact1">Contact: {event?.contactNumber || 'Not Provided'}</p>
         <p className="event-venue1">Venue: {event?.Venue || 'Not Specified'}</p>
         <p className="event-price1">{event?.Price || 'Free'}</p>
         <p className="event-date1">Date: {new Date(event?.date).toLocaleDateString() || 'Not Specified'}</p>
         <p className="event-capacity1">Capacity: {event?.capacity || 'Not Specified'}</p>
+        <p className='event-category1'>Category: {event?.category || 'Not Specified'}</p>
+        <p className='event-club1'>Club: {event?.club ||'Not Specified'}</p>
       </div>
 
       {/* Other Images Section */}
@@ -124,6 +131,8 @@ const EventDetails = () => {
           </div>
         </div>
       )}
+    </div>
+    <Footer/>
     </div>
   );
 };
