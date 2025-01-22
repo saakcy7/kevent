@@ -25,7 +25,27 @@ const ChangePassword = () => {
    
     console.log('Email:', email);
     console.log('New Password:', password);
+
+   
     try {
+      if (password.length <= 8) {
+        throw new Error("Password must be more than 8 characters.");
+      }
+  
+      const specialCharacterRegex = /[!@#$%^&*()_+\-={};':"|,.<>?]+/;
+      if (!specialCharacterRegex.test(password)) {
+        throw new Error("Password must contain at least one special character.");
+      }
+  
+      const numberRegex = /[0-9]+/;
+      if (!numberRegex.test(password)) {
+        throw new Error("Password must contain at least one number.");
+      }
+  
+      const upperCaseRegex = /[A-Z]+/;
+      if (!upperCaseRegex.test(password)) {
+        throw new Error("Password must contain at least one uppercase letter.");
+      }
       const response = await fetch("https://kevent-server.onrender.com/users/reset-password", {
         method: "POST",
         headers: {

@@ -61,6 +61,24 @@ const AuthForm = () => {
       Swal.fire("Error", "Password must be at least 8 characters long.", "error");
        return;
      }
+     if (data.password.length <= 8) {
+      throw new Error("Password must be more than 8 characters.");
+    }
+
+    const specialCharacterRegex = /[!@#$%^&*()_+\-={};':"|,.<>?]+/;
+    if (!specialCharacterRegex.test(data.password)) {
+      throw new Error("Password must contain at least one special character.");
+    }
+
+    const numberRegex = /[0-9]+/;
+    if (!numberRegex.test(data.password)) {
+      throw new Error("Password must contain at least one number.");
+    }
+
+    const upperCaseRegex = /[A-Z]+/;
+    if (!upperCaseRegex.test(data.password)) {
+      throw new Error("Password must contain at least one uppercase letter.");
+    }
     try {
       const response = await fetch("https://kevent-server.onrender.com/users/login", {
         method: "POST",
