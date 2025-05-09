@@ -1,6 +1,4 @@
-# kevent
-
-# Kevent (Frontend)
+# Kevent
 
 Kevent is a React-based frontend for an Event Management Platform where users can:
 
