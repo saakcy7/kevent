@@ -32,8 +32,6 @@ Future enhancements include integration with payment gateways (e.g., Esewa, Fone
 
 - React.js  
 - React Router  
-- Axios  
-- TailwindCSS or CSS Modules
 
 ---
 
