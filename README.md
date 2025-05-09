@@ -49,7 +49,7 @@ Future enhancements include integration with payment gateways (e.g., Esewa, Fone
 ### Installation
 
 ```bash
-git clone https://github.com/yourusername/kevent-frontend.git
+git clone https://github.com/saakcy7/kevent.git
 cd kevent-frontend
 npm install
 npm start
